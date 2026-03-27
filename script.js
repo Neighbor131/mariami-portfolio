@@ -861,6 +861,7 @@ function setupAboutPlayer() {
   if (!root || !spotifyPreviewTracks.length) return;
 
   const audio = root.querySelector("[data-player-audio]");
+  const toggle = root.querySelector("[data-player-toggle]");
   const timeNode = root.querySelector("[data-player-time]");
   const durationNode = root.querySelector("[data-player-duration]");
   const coverNode = root.querySelector("[data-player-cover]");
@@ -871,6 +872,18 @@ function setupAboutPlayer() {
   if (!audio || !timeNode || !durationNode || !coverNode || !trackNode || !progressFill || !progressThumb) return;
 
   let index = 0;
+  let isRevealed = false;
+
+  const syncRevealState = () => {
+    root.classList.toggle("is-revealed", isRevealed);
+    if (toggle) {
+      toggle.setAttribute("aria-expanded", String(isRevealed));
+      toggle.setAttribute(
+        "aria-label",
+        isRevealed ? "Hide player details" : "Reveal player details"
+      );
+    }
+  };
 
   const applyTrack = (track) => {
     coverNode.src = track.cover;
@@ -881,11 +894,13 @@ function setupAboutPlayer() {
     progressFill.style.width = "0%";
     progressThumb.style.left = "0%";
     audio.src = track.previewUrl;
-    audio.muted = true;
+    audio.muted = !isRevealed;
     audio.load();
-    const playAttempt = audio.play();
-    if (playAttempt && typeof playAttempt.catch === "function") {
-      playAttempt.catch(() => {});
+    if (isRevealed) {
+      const playAttempt = audio.play();
+      if (playAttempt && typeof playAttempt.catch === "function") {
+        playAttempt.catch(() => {});
+      }
     }
   };
 
@@ -914,6 +929,7 @@ function setupAboutPlayer() {
         audio.pause();
         return;
       }
+      if (!isRevealed) return;
       const playAttempt = audio.play();
       if (playAttempt && typeof playAttempt.catch === "function") {
         playAttempt.catch(() => {});
@@ -922,6 +938,23 @@ function setupAboutPlayer() {
     { passive: true }
   );
 
+  toggle?.addEventListener("click", () => {
+    isRevealed = !isRevealed;
+    syncRevealState();
+    audio.muted = !isRevealed;
+
+    if (isRevealed) {
+      const playAttempt = audio.play();
+      if (playAttempt && typeof playAttempt.catch === "function") {
+        playAttempt.catch(() => {});
+      }
+      return;
+    }
+
+    audio.pause();
+  });
+
+  syncRevealState();
   applyTrack(spotifyPreviewTracks[index]);
 }
 

@@ -907,10 +907,32 @@ body[data-theme="light"] .about-section::before {
   aspect-ratio: 1;
   border-radius: 50%;
   overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
   animation: playerSpin 18s linear infinite;
   box-shadow:
     0 20px 44px rgba(0, 0, 0, 0.3),
     inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.about-player-disc:hover {
+  transform: scale(1.02);
+}
+
+.about-player-disc:focus-visible {
+  outline: 2px solid rgba(244, 241, 234, 0.9);
+  outline-offset: 6px;
+}
+
+.about-player.is-revealed .about-player-disc {
+  box-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.38),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .about-player-disc-image,
@@ -963,6 +985,20 @@ body[data-theme="light"] .about-section::before {
   display: grid;
   gap: 8px;
   justify-items: center;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(10px);
+  transition:
+    max-height 280ms ease,
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.about-player.is-revealed .about-player-info {
+  max-height: 140px;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .about-player-track,
