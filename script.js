@@ -14,7 +14,7 @@ const themeStorageKey = "chekos-space-theme";
 
 const navConfig = [
   { href: "/", label: "Home" },
-  { href: "/works/", label: "Works" },
+  { href: "/#works", label: "Works" },
   { href: "/about/", label: "About Me" },
   { href: "/contact/", label: "Contact" },
 ];
