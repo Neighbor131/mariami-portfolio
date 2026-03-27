@@ -598,11 +598,9 @@ function renderCaseStudyPage() {
           <div class="case-study-header-copy"></div>
           <div class="case-study-stage">
             <div class="case-study-gallery" data-case-gallery>
-              <button
+              <div
                 class="case-study-gallery-main"
-                type="button"
-                data-case-open-gallery
-                aria-label="Media 1 of ${study.gallery.length}; Open gallery"
+                aria-label="Media 1 of ${study.gallery.length}"
               >
                 <figure class="case-study-hero-media" data-case-hero-media>
                   <img
@@ -626,7 +624,7 @@ function renderCaseStudyPage() {
                       : ""
                   }
                 </figure>
-              </button>
+              </div>
               <div class="case-study-gallery-controls">
                 <div class="case-study-thumbs" aria-label="Project gallery">
                   ${galleryMarkup}
@@ -644,21 +642,6 @@ function renderCaseStudyPage() {
         </div>
 
         ${bodyMarkup}
-
-        <div class="case-study-lightbox" data-case-lightbox hidden>
-          <button class="case-study-lightbox-close" type="button" data-case-close aria-label="Close gallery">Close</button>
-          <button class="case-study-lightbox-nav is-prev" type="button" data-case-prev aria-label="Previous image">‹</button>
-          <figure class="case-study-lightbox-media">
-            <img src="${study.heroImage}" alt="${study.title}" data-case-lightbox-image>
-            ${
-              hasVideoMedia
-                ? `<video src="" controls loop playsinline preload="metadata" data-case-lightbox-video hidden></video>`
-                : ""
-            }
-          </figure>
-          <button class="case-study-lightbox-nav is-next" type="button" data-case-next aria-label="Next image">›</button>
-          <p class="case-study-lightbox-count" data-case-count>1 / ${study.gallery.length}</p>
-        </div>
 
         <section class="case-study-more" aria-labelledby="case-study-more-title">
           <div class="case-study-more-head">
@@ -679,17 +662,9 @@ function setupCaseStudyGallery() {
   const mainImage = document.querySelector("[data-case-main-image]");
   const mainVideo = document.querySelector("[data-case-main-video]");
   const thumbs = Array.from(document.querySelectorAll("[data-case-thumb]"));
-  const lightbox = document.querySelector("[data-case-lightbox]");
-  const lightboxImage = document.querySelector("[data-case-lightbox-image]");
-  const lightboxVideo = document.querySelector("[data-case-lightbox-video]");
-  const countNode = document.querySelector("[data-case-count]");
   const inlineCountNode = document.querySelector("[data-case-inline-count]");
-  const closeButton = document.querySelector("[data-case-close]");
-  const prevButton = document.querySelector("[data-case-prev]");
-  const nextButton = document.querySelector("[data-case-next]");
   const inlinePrevButton = document.querySelector("[data-case-inline-prev]");
   const inlineNextButton = document.querySelector("[data-case-inline-next]");
-  const openTrigger = document.querySelector("[data-case-open-gallery]");
   if (!mainImage || !thumbs.length) return;
 
   const initialIndex = Math.max(
@@ -697,7 +672,6 @@ function setupCaseStudyGallery() {
     thumbs.findIndex((thumb) => thumb.classList.contains("is-active"))
   );
   let activeIndex = initialIndex;
-  let lockedScrollY = 0;
 
   const setOrientationState = (type, width, height) => {
     const ratio = width > 0 && height > 0 ? width / height : 1;
@@ -726,24 +700,6 @@ function setupCaseStudyGallery() {
     const width = mainVideo.videoWidth || mainVideo.clientWidth || 1;
     const height = mainVideo.videoHeight || mainVideo.clientHeight || 1;
     setOrientationState("video", width, height);
-  };
-
-  const lockViewport = () => {
-    lockedScrollY = window.scrollY || window.pageYOffset || 0;
-    document.body.classList.add("lightbox-open");
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${lockedScrollY}px`;
-    document.body.style.left = "0";
-    document.body.style.width = "100%";
-  };
-
-  const unlockViewport = () => {
-    document.body.classList.remove("lightbox-open");
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.left = "";
-    document.body.style.width = "";
-    window.scrollTo(0, lockedScrollY);
   };
 
   const syncActive = (index) => {
@@ -784,63 +740,14 @@ function setupCaseStudyGallery() {
 
     thumbs.forEach((node, nodeIndex) => node.classList.toggle("is-active", nodeIndex === index));
 
-    if (lightboxImage) {
-      const isVideo = type === "video";
-      lightboxImage.hidden = isVideo;
-      if (lightboxVideo) lightboxVideo.hidden = !isVideo;
-
-      if (isVideo) {
-        if (!lightboxVideo) return;
-        lightboxVideo.src = src;
-        lightboxVideo.poster = poster;
-        lightboxVideo.setAttribute("aria-label", alt);
-      } else {
-        if (lightboxVideo) {
-          lightboxVideo.pause();
-          lightboxVideo.removeAttribute("src");
-          lightboxVideo.removeAttribute("poster");
-          lightboxVideo.load();
-        }
-        lightboxImage.src = src || lightboxImage.src;
-        lightboxImage.alt = alt || lightboxImage.alt;
-      }
-    }
-    if (countNode) {
-      countNode.textContent = `${index + 1} / ${thumbs.length}`;
-    }
     if (inlineCountNode) {
       inlineCountNode.textContent = `${index + 1} / ${thumbs.length}`;
-    }
-    if (openTrigger) {
-      openTrigger.setAttribute("aria-label", `Media ${index + 1} of ${thumbs.length}; Open gallery`);
     }
     item.scrollIntoView({
       block: "nearest",
       inline: "nearest",
       behavior: "smooth",
     });
-  };
-
-  const openLightbox = (index = activeIndex) => {
-    if (!lightbox) return;
-    syncActive(index);
-    lightbox.hidden = false;
-    lockViewport();
-    if (lightboxVideo && !lightboxVideo.hidden) {
-      const playAttempt = lightboxVideo.play();
-      if (playAttempt && typeof playAttempt.catch === "function") {
-        playAttempt.catch(() => {});
-      }
-    }
-  };
-
-  const closeLightbox = () => {
-    if (!lightbox) return;
-    if (lightboxVideo && !lightboxVideo.hidden) {
-      lightboxVideo.pause();
-    }
-    lightbox.hidden = true;
-    unlockViewport();
   };
 
   const step = (direction) => {
@@ -854,19 +761,9 @@ function setupCaseStudyGallery() {
     });
   });
 
-  openTrigger?.addEventListener("click", () => openLightbox(activeIndex));
-  closeButton?.addEventListener("click", closeLightbox);
-  prevButton?.addEventListener("click", () => step(-1));
-  nextButton?.addEventListener("click", () => step(1));
   inlinePrevButton?.addEventListener("click", () => step(-1));
   inlineNextButton?.addEventListener("click", () => step(1));
-  lightbox?.addEventListener("click", (event) => {
-    if (event.target === lightbox) closeLightbox();
-  });
-
   document.addEventListener("keydown", (event) => {
-    if (!lightbox || lightbox.hidden) return;
-    if (event.key === "Escape") closeLightbox();
     if (event.key === "ArrowLeft") step(-1);
     if (event.key === "ArrowRight") step(1);
   });
