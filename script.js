@@ -48,7 +48,7 @@ const homeGalleryItems = [
     src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png",
     title: "Digital Works",
     description: "A collection of digital works exploring typography, composition, and graphic expression.",
-    path: "/works/",
+    path: "/works/digital-works/",
   },
   ...projects.slice(0, 2).map((project) => ({
     src: project.cover,
