@@ -439,6 +439,10 @@ function renderCaseStudyPage() {
   const study = findCaseStudy(slug);
   if (!study) return;
   const hasVideoMedia = study.gallery.some((item) => isVideoSource(item.src));
+  const initialIndex = Math.max(
+    0,
+    study.gallery.findIndex((item) => item.src === study.heroImage)
+  );
 
   document.title = `Cheko's Space - ${study.title}`;
 
@@ -446,18 +450,19 @@ function renderCaseStudyPage() {
     .map(
       (item, index) => `
         <button
-          class="case-study-thumb${index === 0 ? " is-active" : ""}"
+          class="case-study-thumb${index === initialIndex ? " is-active" : ""}"
           type="button"
           data-case-thumb
           data-index="${index}"
           data-src="${item.src}"
           data-alt="${item.alt}"
           data-type="${isVideoSource(item.src) ? "video" : "image"}"
+          data-poster="${item.poster || ""}"
           aria-label="Show ${item.alt}"
         >
           ${
             isVideoSource(item.src)
-              ? `<video src="${item.src}" muted playsinline preload="metadata"></video>`
+              ? `<img src="${item.poster || study.heroImage}" alt="" loading="lazy">`
               : `<img src="${item.src}" alt="" loading="lazy">`
           }
         </button>
@@ -646,6 +651,7 @@ function setupCaseStudyGallery() {
     const src = item.dataset.src || "";
     const alt = item.dataset.alt || "";
     const type = item.dataset.type || "image";
+    const poster = item.dataset.poster || "";
 
     if (mainImage) {
       const isVideo = type === "video";
@@ -655,6 +661,7 @@ function setupCaseStudyGallery() {
       if (isVideo) {
         if (!mainVideo) return;
         mainVideo.src = src;
+        mainVideo.poster = poster;
         mainVideo.setAttribute("aria-label", alt);
         const playAttempt = mainVideo.play();
         if (playAttempt && typeof playAttempt.catch === "function") {
@@ -683,11 +690,13 @@ function setupCaseStudyGallery() {
       if (isVideo) {
         if (!lightboxVideo) return;
         lightboxVideo.src = src;
+        lightboxVideo.poster = poster;
         lightboxVideo.setAttribute("aria-label", alt);
       } else {
         if (lightboxVideo) {
           lightboxVideo.pause();
           lightboxVideo.removeAttribute("src");
+          lightboxVideo.removeAttribute("poster");
           lightboxVideo.load();
         }
         lightboxImage.src = src || lightboxImage.src;
@@ -763,7 +772,7 @@ function setupCaseStudyGallery() {
   mainImage?.addEventListener("load", updateImageOrientation);
   mainVideo?.addEventListener("loadedmetadata", updateVideoOrientation);
 
-  syncActive(0);
+  syncActive(initialIndex);
 }
 
 function hydrateContactInfo() {

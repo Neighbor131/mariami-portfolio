@@ -598,7 +598,11 @@ export const caseStudies = [
     heroImagePosition: "50% 50%",
     gallery: [
       { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/cat/hf_20260327_084358_74f397ae-6c1b-4b63-a3e1-0dce5186ffe9.png", alt: "Kitty render" },
-      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/cat/Kitty.mp4", alt: "Kitty turntable animation" },
+      {
+        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/cat/Kitty.mp4",
+        alt: "Kitty turntable animation",
+        poster: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/cat/hf_20260327_084358_74f397ae-6c1b-4b63-a3e1-0dce5186ffe9.png",
+      },
     ],
   },
 ];
