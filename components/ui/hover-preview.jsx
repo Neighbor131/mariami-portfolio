@@ -104,7 +104,7 @@ const styles = `
   .cheko-hover-preview__section {
     display: grid;
     gap: clamp(28px, 5vw, 96px);
-    align-items: start;
+    align-items: center;
   }
 
   .cheko-hover-preview__section--static {
@@ -135,10 +135,12 @@ const styles = `
 
   .cheko-hover-preview__section--static .cheko-hover-preview__text {
     margin-left: auto;
+    align-self: center;
   }
 
   .cheko-hover-preview__section--collage .cheko-hover-preview__text {
     margin-right: auto;
+    align-self: center;
   }
 
   .cheko-hover-preview__text p {
