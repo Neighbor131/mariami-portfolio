@@ -587,13 +587,13 @@ export const caseStudies = [
     ],
   },
   {
-    slug: "roboti-06",
+    slug: "the-story-of-kitty",
     categorySlug: "3d-works",
     title: "The story of Kitty",
     intro: "My first Blender model, rigged and ready for animation, built as an early character study.",
     description:
       "Here you see my very first model and my first attempt at modeling using Blender. The \"kitty\" character is rigged and ready for animation. I added the textures directly in Blender.",
-    path: "/works/3d-works/roboti-06/",
+    path: "/works/3d-works/the-story-of-kitty/",
     heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/cat/hf_20260327_084358_74f397ae-6c1b-4b63-a3e1-0dce5186ffe9.png",
     heroImagePosition: "50% 50%",
     gallery: [
@@ -660,7 +660,7 @@ export const workCategories = [
         title: "The story of Kitty",
         image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/cat/hf_20260327_084358_74f397ae-6c1b-4b63-a3e1-0dce5186ffe9.png",
         imagePosition: "50% 50%",
-        href: "/works/3d-works/roboti-06/",
+        href: "/works/3d-works/the-story-of-kitty/",
         meta: "Blender / Character / Rigged",
         tags: ["Blender", "Character", "Rigged"],
       },

@@ -43,6 +43,10 @@ function createMedia(source, altText) {
     : `<img src="${source}" alt="${altText}" loading="lazy">`;
 }
 
+function isVideoSource(source = "") {
+  return /\.(mp4|webm|ogg)(\?.*)?$/i.test(source);
+}
+
 function ensureFonts() {
   const fontPreconnects = [
     "https://fonts.googleapis.com",
@@ -448,11 +452,16 @@ function renderCaseStudyPage() {
           type="button"
           data-case-thumb
           data-index="${index}"
-          data-image="${item.src}"
+          data-src="${item.src}"
           data-alt="${item.alt}"
+          data-type="${isVideoSource(item.src) ? "video" : "image"}"
           aria-label="Show ${item.alt}"
         >
-          <img src="${item.src}" alt="" loading="lazy">
+          ${
+            isVideoSource(item.src)
+              ? `<video src="${item.src}" muted playsinline preload="metadata"></video>`
+              : `<img src="${item.src}" alt="" loading="lazy">`
+          }
         </button>
       `
     )
@@ -487,7 +496,7 @@ function renderCaseStudyPage() {
                 class="case-study-gallery-main"
                 type="button"
                 data-case-open-gallery
-                aria-label="Image 1 of ${study.gallery.length}; Open gallery"
+                aria-label="Media 1 of ${study.gallery.length}; Open gallery"
               >
                 <figure class="case-study-hero-media">
                   <img
@@ -497,6 +506,15 @@ function renderCaseStudyPage() {
                     data-case-main-image
                     style="object-position: ${study.heroImagePosition};"
                   >
+                  <video
+                    src=""
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    data-case-main-video
+                    hidden
+                  ></video>
                 </figure>
               </button>
               <div class="case-study-gallery-controls">
@@ -527,6 +545,7 @@ function renderCaseStudyPage() {
           <button class="case-study-lightbox-nav is-prev" type="button" data-case-prev aria-label="Previous image">Prev</button>
           <figure class="case-study-lightbox-media">
             <img src="${study.heroImage}" alt="${study.title}" data-case-lightbox-image>
+            <video src="" controls loop playsinline preload="metadata" data-case-lightbox-video hidden></video>
           </figure>
           <button class="case-study-lightbox-nav is-next" type="button" data-case-next aria-label="Next image">Next</button>
           <p class="case-study-lightbox-count" data-case-count>1 / ${study.gallery.length}</p>
@@ -547,9 +566,11 @@ function renderCaseStudyPage() {
 
 function setupCaseStudyGallery() {
   const mainImage = document.querySelector("[data-case-main-image]");
+  const mainVideo = document.querySelector("[data-case-main-video]");
   const thumbs = Array.from(document.querySelectorAll("[data-case-thumb]"));
   const lightbox = document.querySelector("[data-case-lightbox]");
   const lightboxImage = document.querySelector("[data-case-lightbox-image]");
+  const lightboxVideo = document.querySelector("[data-case-lightbox-video]");
   const countNode = document.querySelector("[data-case-count]");
   const inlineCountNode = document.querySelector("[data-case-inline-count]");
   const closeButton = document.querySelector("[data-case-close]");
@@ -566,12 +587,48 @@ function setupCaseStudyGallery() {
     const item = thumbs[index];
     if (!item) return;
     activeIndex = index;
-    mainImage.src = item.dataset.image || mainImage.src;
-    mainImage.alt = item.dataset.alt || mainImage.alt;
+    const src = item.dataset.src || "";
+    const alt = item.dataset.alt || "";
+    const type = item.dataset.type || "image";
+
+    if (mainImage && mainVideo) {
+      const isVideo = type === "video";
+      mainImage.hidden = isVideo;
+      mainVideo.hidden = !isVideo;
+
+      if (isVideo) {
+        mainVideo.src = src;
+        mainVideo.setAttribute("aria-label", alt);
+        const playAttempt = mainVideo.play();
+        if (playAttempt && typeof playAttempt.catch === "function") {
+          playAttempt.catch(() => {});
+        }
+      } else {
+        mainVideo.pause();
+        mainVideo.removeAttribute("src");
+        mainVideo.load();
+        mainImage.src = src || mainImage.src;
+        mainImage.alt = alt || mainImage.alt;
+      }
+    }
+
     thumbs.forEach((node, nodeIndex) => node.classList.toggle("is-active", nodeIndex === index));
-    if (lightboxImage) {
-      lightboxImage.src = item.dataset.image || lightboxImage.src;
-      lightboxImage.alt = item.dataset.alt || lightboxImage.alt;
+
+    if (lightboxImage && lightboxVideo) {
+      const isVideo = type === "video";
+      lightboxImage.hidden = isVideo;
+      lightboxVideo.hidden = !isVideo;
+
+      if (isVideo) {
+        lightboxVideo.src = src;
+        lightboxVideo.setAttribute("aria-label", alt);
+      } else {
+        lightboxVideo.pause();
+        lightboxVideo.removeAttribute("src");
+        lightboxVideo.load();
+        lightboxImage.src = src || lightboxImage.src;
+        lightboxImage.alt = alt || lightboxImage.alt;
+      }
     }
     if (countNode) {
       countNode.textContent = `${index + 1} / ${thumbs.length}`;
@@ -580,7 +637,7 @@ function setupCaseStudyGallery() {
       inlineCountNode.textContent = `${index + 1} / ${thumbs.length}`;
     }
     if (openTrigger) {
-      openTrigger.setAttribute("aria-label", `Image ${index + 1} of ${thumbs.length}; Open gallery`);
+      openTrigger.setAttribute("aria-label", `Media ${index + 1} of ${thumbs.length}; Open gallery`);
     }
     item.scrollIntoView({
       block: "nearest",
@@ -594,10 +651,19 @@ function setupCaseStudyGallery() {
     syncActive(index);
     lightbox.hidden = false;
     document.body.classList.add("lightbox-open");
+    if (lightboxVideo && !lightboxVideo.hidden) {
+      const playAttempt = lightboxVideo.play();
+      if (playAttempt && typeof playAttempt.catch === "function") {
+        playAttempt.catch(() => {});
+      }
+    }
   };
 
   const closeLightbox = () => {
     if (!lightbox) return;
+    if (lightboxVideo && !lightboxVideo.hidden) {
+      lightboxVideo.pause();
+    }
     lightbox.hidden = true;
     document.body.classList.remove("lightbox-open");
   };
