@@ -145,6 +145,15 @@ const styles = `
 
   .cheko-hover-preview__text p {
     margin: 0;
+    transition:
+      opacity 420ms ease,
+      transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 420ms ease;
+    will-change: transform, opacity, filter;
+  }
+
+  .cheko-hover-preview__text p + p {
+    margin-top: 1.15em;
   }
 
   .cheko-hover-preview__media-stack {
@@ -451,6 +460,7 @@ export function HoverPreview() {
   const [isVisible, setIsVisible] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const [imageOffset, setImageOffset] = useState(0);
+  const [textProgress, setTextProgress] = useState({ first: 0, second: 0 });
   const [staticCanvasSize, setStaticCanvasSize] = useState({ width: 420, height: 720 });
   const [staticItems, setStaticItems] = useState([]);
   const [staticDraggingId, setStaticDraggingId] = useState(null);
@@ -458,6 +468,8 @@ export function HoverPreview() {
   const [items, setItems] = useState([]);
   const [draggingId, setDraggingId] = useState(null);
   const sectionRef = useRef(null);
+  const staticSectionRef = useRef(null);
+  const collageSectionRef = useRef(null);
   const staticCanvasRef = useRef(null);
   const canvasRef = useRef(null);
   const staticDragStateRef = useRef(null);
@@ -567,6 +579,16 @@ export function HoverPreview() {
   }, [derivedItems]);
 
   useEffect(() => {
+    const getSectionProgress = (node) => {
+      if (!node) return 0;
+      const rect = node.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || 1;
+      const start = viewportHeight * 0.92;
+      const end = -rect.height * 0.18;
+      const raw = (start - rect.top) / (start - end);
+      return Math.max(0, Math.min(1, raw));
+    };
+
     const updateParallax = () => {
       const node = sectionRef.current;
       if (!node) return;
@@ -576,6 +598,10 @@ export function HoverPreview() {
       const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
       const eased = Math.max(-1, Math.min(1, progress - 0.5));
       setImageOffset(eased * 28);
+      setTextProgress({
+        first: getSectionProgress(staticSectionRef.current),
+        second: getSectionProgress(collageSectionRef.current),
+      });
     };
 
     updateParallax();
@@ -586,6 +612,21 @@ export function HoverPreview() {
       window.removeEventListener("resize", updateParallax);
     };
   }, []);
+
+  const getTextStyle = (progress) => ({
+    opacity: 0.4 + progress * 0.6,
+    transform: `translate3d(0, ${(1 - progress) * 40 - 10}px, 0)`,
+    filter: `blur(${(1 - progress) * 5}px)`,
+  });
+
+  const getParagraphStyle = (progress, index) => {
+    const delayed = Math.max(0, Math.min(1, progress - index * 0.12));
+    return {
+      opacity: 0.28 + delayed * 0.72,
+      transform: `translate3d(0, ${(1 - delayed) * (index === 0 ? 26 : 34)}px, 0)`,
+      filter: `blur(${(1 - delayed) * 4}px)`,
+    };
+  };
 
   useEffect(() => {
     const handlePointerMove = (event) => {
@@ -759,7 +800,10 @@ export function HoverPreview() {
         className={`cheko-hover-preview${isInView ? " is-visible" : ""}`}
         aria-label="About me details"
       >
-        <div className="cheko-hover-preview__section cheko-hover-preview__section--static">
+        <div
+          ref={staticSectionRef}
+          className="cheko-hover-preview__section cheko-hover-preview__section--static"
+        >
           <div ref={staticCanvasRef} className="cheko-hover-preview__media-stack" aria-hidden="true">
             {staticItems.map((item) => (
               <button
@@ -784,24 +828,57 @@ export function HoverPreview() {
             ))}
           </div>
 
-          <div className="cheko-hover-preview__text">
-            <SharedText
-              split="first"
-              onHoverStart={handleHoverStart}
-              onHoverMove={handleHoverMove}
-              onHoverEnd={handleHoverEnd}
-            />
+          <div className="cheko-hover-preview__text" style={getTextStyle(textProgress.first)}>
+            <p style={getParagraphStyle(textProgress.first, 0)}>
+              I’m Mariam, known as Cheko, a third-year Visual Communications student at{" "}
+              <HoverLink
+                previewKey="gipa"
+                onHoverStart={handleHoverStart}
+                onHoverMove={handleHoverMove}
+                onHoverEnd={handleHoverEnd}
+              >
+                GIPA (Georgian University of Public Affairs)
+              </HoverLink>
+              . My focus is to apply my skills thoughtfully to communicate clear, meaningful ideas
+              through visual storytelling, with the intention of offering something genuine to the
+              audience. My creative practice includes digital and traditional painting, graphic
+              design, 3D modeling, and branding. I am committed to engaging with a fast-paced
+              contemporary world while actively contributing to and supporting my surroundings.
+            </p>
+            <p style={getParagraphStyle(textProgress.first, 1)}>
+              I’ve had an exchange semester at{" "}
+              <HoverLink
+                previewKey="metu"
+                onHoverStart={handleHoverStart}
+                onHoverMove={handleHoverMove}
+                onHoverEnd={handleHoverEnd}
+              >
+                METU University
+              </HoverLink>
+              , where I learned more about visual storytelling, animation, and modeling. One of
+              the most valuable experiences was meeting new people and experiencing a new culture.
+            </p>
           </div>
         </div>
 
-        <div className="cheko-hover-preview__section cheko-hover-preview__section--collage">
-          <div className="cheko-hover-preview__text">
-            <SharedText
-              split="second"
-              onHoverStart={handleHoverStart}
-              onHoverMove={handleHoverMove}
-              onHoverEnd={handleHoverEnd}
-            />
+        <div
+          ref={collageSectionRef}
+          className="cheko-hover-preview__section cheko-hover-preview__section--collage"
+        >
+          <div className="cheko-hover-preview__text" style={getTextStyle(textProgress.second)}>
+            <p style={getParagraphStyle(textProgress.second, 0)}>
+              As for my work experience, my first job was in sales at a bookstore, and the second
+              was as an administrator at a coworking space. However, my most favorable working
+              experiences were those closest to my field. I have done some freelancing, creating
+              simple 3D assets for games and posts for social media.
+            </p>
+            <p style={getParagraphStyle(textProgress.second, 1)}>
+              Outside of my academic work, I find relaxation through music and literature. My
+              personal interests include working out, playing chess, creating music, reading, and
+              loving my cat. I enjoy spending time with my friends and family, learning from their
+              views. As an artist, it is important to collect meaningful stories and moments to
+              bring emotions into your work.
+            </p>
           </div>
 
           <div className="cheko-hover-preview__collage" aria-label="Draggable photo collage">
