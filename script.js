@@ -80,7 +80,13 @@ const homeGalleryItems = [
     description: "A collection of digital works exploring typography, composition, and graphic expression.",
     path: "/works/digital-works/",
   },
-  ...projects.slice(0, 2).map((project) => ({
+  {
+    src: "/project-media/glance.mp4.png",
+    title: "Motion Media",
+    description: "some of my selected motion studies",
+    path: "/works/motion-media/",
+  },
+  ...projects.slice(0, 1).map((project) => ({
     src: project.cover,
     title: project.title,
     description: project.intro,
@@ -749,6 +755,8 @@ function setupCaseStudyGallery() {
         <video
           src="${src}"
           poster="${poster || ""}"
+          controls
+          autoplay
           muted
           loop
           playsinline

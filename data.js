@@ -974,6 +974,50 @@ export const caseStudies = [
       { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png", alt: "Digital Study 04 preview" },
     ],
   },
+  {
+    slug: "glance",
+    categorySlug: "motion-media",
+    title: "Glance",
+    intro: "",
+    description: "",
+    path: "/works/motion-media/glance/",
+    heroImage: "/project-media/glance.mp4.png",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      {
+        src: "/project-media/glance.mp4",
+        alt: "Glance motion study",
+        poster: "/project-media/glance.mp4.png",
+        type: "video",
+      },
+    ],
+  },
+  {
+    slug: "motion-media-02",
+    categorySlug: "motion-media",
+    title: "Motion Study 02",
+    intro: "",
+    description: "",
+    path: "/works/motion-media/motion-media-02/",
+    heroImage: "/project-media/glance.mp4.png",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      { src: "/project-media/glance.mp4.png", alt: "Motion Study 02 preview" },
+    ],
+  },
+  {
+    slug: "motion-media-03",
+    categorySlug: "motion-media",
+    title: "Motion Study 03",
+    intro: "",
+    description: "",
+    path: "/works/motion-media/motion-media-03/",
+    heroImage: "/project-media/glance.mp4.png",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      { src: "/project-media/glance.mp4.png", alt: "Motion Study 03 preview" },
+    ],
+  },
 ];
 
 export function findCaseStudy(slug) {
@@ -1176,6 +1220,40 @@ export const workCategories = [
         image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/Audo/media%20app%20cover.png",
         imagePosition: "50% 50%",
         href: "/works/ux-ui/ux-ui-05/",
+        meta: "",
+        tags: [],
+      },
+    ],
+  },
+  {
+    slug: "motion-media",
+    title: "Motion Media",
+    label: "Welcome",
+    intro:
+      "some of my selected motion studies",
+    marquee: ["Motion Media", "+", "Motion Media", "+", "Motion Media", "+"],
+    cards: [
+      {
+        title: "Glance",
+        image: "/project-media/glance.mp4.png",
+        imagePosition: "50% 50%",
+        href: "/works/motion-media/glance/",
+        meta: "",
+        tags: [],
+      },
+      {
+        title: "Motion Study 02",
+        image: "/project-media/glance.mp4.png",
+        imagePosition: "50% 50%",
+        href: "/works/motion-media/motion-media-02/",
+        meta: "",
+        tags: [],
+      },
+      {
+        title: "Motion Study 03",
+        image: "/project-media/glance.mp4.png",
+        imagePosition: "50% 50%",
+        href: "/works/motion-media/motion-media-03/",
         meta: "",
         tags: [],
       },
