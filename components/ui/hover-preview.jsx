@@ -38,6 +38,8 @@ const styles = `
 
   .cheko-hover-preview__media {
     position: relative;
+    display: grid;
+    gap: clamp(18px, 2vw, 28px);
     padding-top: clamp(12px, 2vw, 28px);
     opacity: 0;
     transform: translate3d(-28px, 42px, 0) rotate(-4deg);
@@ -52,12 +54,17 @@ const styles = `
   .cheko-hover-preview__media-frame {
     width: min(100%, 392px);
     margin-right: auto;
-    border-radius: 24px;
     overflow: hidden;
     box-shadow:
       0 28px 60px rgba(0, 0, 0, 0.24),
       0 0 0 1px rgba(255, 255, 255, 0.08);
     background: rgba(255, 255, 255, 0.04);
+  }
+
+  .cheko-hover-preview__media-frame.is-secondary {
+    width: min(88%, 332px);
+    margin-left: clamp(28px, 5vw, 82px);
+    transform: rotate(2.6deg);
   }
 
   .cheko-hover-preview__media-frame img {
@@ -88,6 +95,11 @@ const styles = `
   .cheko-hover-preview__text p + p {
     margin-top: 1.15em;
     transition-delay: 0.14s;
+  }
+
+  .cheko-hover-preview__text p:nth-child(2) {
+    position: relative;
+    z-index: 1;
   }
 
   .cheko-hover-preview.is-visible .cheko-hover-preview__text p {
@@ -352,6 +364,13 @@ export function HoverPreview() {
                 src="https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/1.jpg"
                 alt=""
                 style={{ transform: `translate3d(0, ${imageOffset}px, 0) scale(1.02)` }}
+              />
+            </div>
+            <div className="cheko-hover-preview__media-frame is-secondary">
+              <img
+                src="https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Budapest.jpg"
+                alt=""
+                style={{ transform: `translate3d(0, ${imageOffset * 0.72}px, 0) scale(1.02)` }}
               />
             </div>
           </div>
