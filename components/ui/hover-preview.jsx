@@ -241,7 +241,7 @@ const styles = `
   }
 
   .cheko-hover-preview__link {
-    color: var(--text, #f8f7f3);
+    color: var(--about-accent, #8f7ac7);
     font-weight: 500;
     cursor: pointer;
     position: relative;
