@@ -471,7 +471,7 @@ export const caseStudies = [
     intro: "My first finished Blender project, built as an animation-ready robot with a sci-fi visual direction.",
     description:
       "This is my first step in learning Blender. I've watched dozens of tutorials and completed a robot, modeling it in a way that it's already ready for animation. For the render, I used the Eevee render engine and experimented with different textures. I'm a huge fan of sci-fi-themed projects, so this one is still one of my favorites.",
-    path: "/works/3d-works/roboti-01/",
+    path: "/works/3d-works/sci-fi-themed-robot/",
     heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/roboti/1.png",
     heroImagePosition: "50% 50%",
     gallery: [
@@ -492,7 +492,7 @@ export const caseStudies = [
       "A beginner hard-surface game asset built for breakability, function, and era-specific detail.",
     description:
       "Ironically, this was one of the most time-consuming and learning-intensive projects for me as a beginner. I modeled it using Houdini and baked it in Marmoset Toolbag. For the model, I researched the types of trash cans that were popular in the 1950s. This asset was prepared to be used in a game. Every part, down to each small detail, is separate so it can break apart when shot in-game. The head is also rotatable, making it functional as well.\n\nFor the textures, I hand-made the rust and dirt in Substance Painter and also used various textures. I realized that details really do matter, so I thought about how it would look in real life. I added soot on the top and more dirt on the bottom, since it would be very dirty, and the inside also has stains from moldy food and drinks.",
-    path: "/works/3d-works/roboti-02/",
+    path: "/works/3d-works/hard-surface-modeling-practice-game-asset-trash-can/",
     heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/trash%20can/1.jpg",
     heroImagePosition: "50% 50%",
     gallery: [
@@ -511,7 +511,7 @@ export const caseStudies = [
       "A laboratory desk asset focused on clean hard-surface modeling, retopology, and grounded material detail.",
     description:
       "Similar to my previous asset, the trash can, this one tends to be much simpler. I spent one day on modeling, the wireframe layout is structured, and I've spent a lot of time on retopology for every project I've worked on. The desk itself is for the Laboratory. The whole desk is made of Metal, so it's quite shiny. I've baked everything in the Marmoset toolbag.\n\nFor the textures, I included dark rust, some dirt, especially on the top, and leak stains. As you may know, we often place coffee or water mugs on surfaces, which leaves stains.",
-    path: "/works/3d-works/roboti-03/",
+    path: "/works/3d-works/hard-surface-modeling-practice-game-asset-the-desk/",
     heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/table/6.png",
     heroImagePosition: "50% 50%",
     gallery: [
@@ -530,7 +530,7 @@ export const caseStudies = [
       "A small collection of game-ready metal props, modeled as fast hard-surface studies in Houdini.",
     description:
       "Here you see me modeling a broad axe, a pickaxe, and a vintage light switch, all of which have one thing in common: they are assets and share a metal material. I modeled all three of them using Houdini. These models were quite easy and took only a few hours.\nSince they didn't have much importance for the game project I was working on, I didn't focus as much on the textures and just made sure they were visible.",
-    path: "/works/3d-works/roboti-04/",
+    path: "/works/3d-works/hard-surface-modeling-practice-game-asset-weapons-and-object/",
     heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/weapons/01_Cover%20image.jpg",
     heroImagePosition: "50% 50%",
     gallery: [
@@ -572,7 +572,7 @@ export const caseStudies = [
       "A set of beginner object studies used to learn low-poly, high-poly, and baking workflows in Houdini.",
     description:
       "Trying different types of modeling on various objects, during this time I was learning low- and high-poly modeling and the baking process. The ashtray and bishop were modeled symmetrically to save time. The rock isn't really modeled, as it was created using Houdini's effects on a square, which resulted in this form. The beginner models were where I learned most about topology, which helped me later on. All of this was done in Houdini.",
-    path: "/works/3d-works/roboti-05/",
+    path: "/works/3d-works/practicing-modeling-on-different-objects/",
     heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/objects/8.png",
     heroImagePosition: "50% 50%",
     gallery: [
@@ -624,7 +624,7 @@ export const workCategories = [
         title: "Sci-fi themed Robot",
         image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/roboti/1.png",
         imagePosition: "50% 50%",
-        href: "/works/3d-works/roboti-01/",
+        href: "/works/3d-works/sci-fi-themed-robot/",
         meta: "Blender / Eevee / Sci-fi",
         tags: ["Blender", "Eevee", "Sci-fi"],
       },
@@ -632,7 +632,7 @@ export const workCategories = [
         title: "Game Asset Trash Can",
         image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/trash%20can/1.jpg",
         imagePosition: "50% 50%",
-        href: "/works/3d-works/roboti-02/",
+        href: "/works/3d-works/hard-surface-modeling-practice-game-asset-trash-can/",
         meta: "Houdini / Marmoset / Substance Painter",
         tags: ["Houdini", "Marmoset", "Substance Painter"],
       },
@@ -640,7 +640,7 @@ export const workCategories = [
         title: "Game Asset Desk",
         image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/table/6.png",
         imagePosition: "50% 50%",
-        href: "/works/3d-works/roboti-03/",
+        href: "/works/3d-works/hard-surface-modeling-practice-game-asset-the-desk/",
         meta: "Hard Surface / Retopology / Marmoset",
         tags: ["Hard Surface", "Retopology", "Marmoset"],
       },
@@ -648,7 +648,7 @@ export const workCategories = [
         title: "Game Asset Weapons and object",
         image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/weapons/01_Cover%20image.jpg",
         imagePosition: "50% 50%",
-        href: "/works/3d-works/roboti-04/",
+        href: "/works/3d-works/hard-surface-modeling-practice-game-asset-weapons-and-object/",
         meta: "Houdini / Metal Props / Game Asset",
         tags: ["Houdini", "Metal Props", "Game Asset"],
       },
@@ -656,7 +656,7 @@ export const workCategories = [
         title: "Practicing modeling on different objects",
         image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/objects/8.png",
         imagePosition: "50% 50%",
-        href: "/works/3d-works/roboti-05/",
+        href: "/works/3d-works/practicing-modeling-on-different-objects/",
         meta: "Houdini / Low-Poly / Baking",
         tags: ["Houdini", "Low-Poly", "Baking"],
       },
