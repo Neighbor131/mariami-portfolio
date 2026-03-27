@@ -583,8 +583,8 @@ export function HoverPreview() {
       if (!node) return 0;
       const rect = node.getBoundingClientRect();
       const viewportHeight = window.innerHeight || 1;
-      const start = viewportHeight * 0.92;
-      const end = -rect.height * 0.18;
+      const start = viewportHeight * 0.9;
+      const end = viewportHeight * 0.18;
       const raw = (start - rect.top) / (start - end);
       return Math.max(0, Math.min(1, raw));
     };
@@ -614,17 +614,17 @@ export function HoverPreview() {
   }, []);
 
   const getTextStyle = (progress) => ({
-    opacity: 0.4 + progress * 0.6,
-    transform: `translate3d(0, ${(1 - progress) * 40 - 10}px, 0)`,
-    filter: `blur(${(1 - progress) * 5}px)`,
+    opacity: 0.72 + progress * 0.28,
+    transform: `translate3d(0, ${(1 - progress) * 18}px, 0)`,
+    filter: `blur(${(1 - progress) * 1.5}px)`,
   });
 
   const getParagraphStyle = (progress, index) => {
-    const delayed = Math.max(0, Math.min(1, progress - index * 0.12));
+    const delayed = Math.max(0, Math.min(1, progress - index * 0.08));
     return {
-      opacity: 0.28 + delayed * 0.72,
-      transform: `translate3d(0, ${(1 - delayed) * (index === 0 ? 26 : 34)}px, 0)`,
-      filter: `blur(${(1 - delayed) * 4}px)`,
+      opacity: 0.62 + delayed * 0.38,
+      transform: `translate3d(0, ${(1 - delayed) * (index === 0 ? 14 : 18)}px, 0)`,
+      filter: `blur(${(1 - delayed) * 1.2}px)`,
     };
   };
 
