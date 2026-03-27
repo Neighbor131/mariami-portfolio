@@ -76,7 +76,7 @@ const tools = [
     name: "Moho Animation Software",
     href: "https://moho.lostmarble.com/",
     width: 196,
-    darkInvert: true,
+    softInvert: true,
   },
   {
     src: "/tool-logos/clip-studio-paint.svg",
@@ -89,7 +89,7 @@ const tools = [
 
 const repeatedTools = [...tools, ...tools];
 
-function ToolBadge({ src, name, href, width, darkInvert = false, hidden = false }) {
+function ToolBadge({ src, name, href, width, darkInvert = false, softInvert = false, hidden = false }) {
   return (
     <a
       className="tool-loop__item"
@@ -102,7 +102,7 @@ function ToolBadge({ src, name, href, width, darkInvert = false, hidden = false 
       style={{ "--tool-logo-width": `${width}px` }}
     >
       <img
-        className={`tool-loop__logo${darkInvert ? " tool-loop__logo--dark-invert" : ""}`}
+        className={`tool-loop__logo${darkInvert ? " tool-loop__logo--dark-invert" : ""}${softInvert ? " tool-loop__logo--soft-invert" : ""}`}
         src={src}
         alt=""
         loading="lazy"

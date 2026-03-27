@@ -60,8 +60,18 @@ body[data-theme="dark"] .tool-loop__logo--dark-invert {
   filter: brightness(0) invert(1);
 }
 
+body[data-theme="dark"] .tool-loop__logo--soft-invert {
+  filter: invert(0.88) hue-rotate(176deg) saturate(0.32) brightness(1.14) contrast(0.9);
+  opacity: 0.9;
+}
+
 body[data-theme="light"] .tool-loop__logo--dark-invert {
   filter: none;
+}
+
+body[data-theme="light"] .tool-loop__logo--soft-invert {
+  filter: none;
+  opacity: 1;
 }
 
 .tool-loop--fade::before,
