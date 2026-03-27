@@ -881,16 +881,20 @@ export const caseStudies = [
   {
     slug: "ux-ui-05",
     categorySlug: "ux-ui",
-    title: "UX/UI Project 05",
+    title: "Audio Player App",
     intro: "",
     description: "",
     path: "/works/ux-ui/ux-ui-05/",
-    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/Audo/media%20app%20cover.png",
     heroImagePosition: "50% 50%",
     gallery: [
       {
-        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
-        alt: "UX/UI project 05 preview",
+        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/Audo/media%20app%20cover.png",
+        alt: "Audio Player App cover",
+      },
+      {
+        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/Audo/cover%20app.png",
+        alt: "Audio Player App interface",
       },
     ],
   },
@@ -1092,8 +1096,8 @@ export const workCategories = [
         tags: [],
       },
       {
-        title: "UX/UI Project 05",
-        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        title: "Audio Player App",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/Audo/media%20app%20cover.png",
         imagePosition: "50% 50%",
         href: "/works/ux-ui/ux-ui-05/",
         meta: "",
