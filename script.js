@@ -57,13 +57,13 @@ const homeGalleryItems = [
   {
     src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/roboti/1.png",
     title: "3D Works",
-    description: "A selection of my 3D work—exploring form, depth, and visual storytelling",
+    description: "Collection of my 3D works",
     path: "/works/3d-works/",
   },
   {
     src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
     title: "2D Paintings",
-    description: "Explore my collection of 2d paintings.",
+    description: "Explore my collection of 2D paintings",
     path: "/works/2d-paintings/",
   },
   {
@@ -75,7 +75,7 @@ const homeGalleryItems = [
   {
     src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/Audo/Refnverse.png",
     title: "UX/UI",
-    description: "A selection of UX/UI studies focused on interface flow, clarity, and digital experience design.",
+    description: "selection of UX/UI projects",
     path: "/works/ux-ui/",
   },
   {
