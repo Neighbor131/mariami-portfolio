@@ -798,6 +798,12 @@ export const caseStudies = [
         poster: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Branding/Halo%202/Halo-6.png",
         type: "video",
       },
+      {
+        src: "/project-media/halo-final-render.mp4",
+        alt: "Halo final render",
+        poster: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Branding/Halo%202/Halo-6.png",
+        type: "video",
+      },
     ],
   },
   {
