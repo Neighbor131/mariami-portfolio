@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" role="img" aria-labelledby="title">
+  <title>Moho Animation Software</title>
+  <circle cx="80" cy="80" r="72" fill="#ff3028"/>
+  <path d="M24 103c0-30 11-54 28-54 16 0 29 18 36 48 8-19 22-32 36-32 17 0 32 18 38 44" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="149" cy="106" r="9" fill="#fff"/>
+  <text x="202" y="94" font-family="DM Sans, Arial, sans-serif" font-size="74" font-weight="700" fill="#555">MOHO</text>
+  <text x="206" y="128" font-family="DM Sans, Arial, sans-serif" font-size="26" font-weight="600" letter-spacing="4" fill="#555">ANIMATION SOFTWARE</text>
+</svg>

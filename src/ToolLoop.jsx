@@ -2,9 +2,39 @@ import "./ToolLoop.css";
 
 const tools = [
   {
+    src: "/tool-logos/premiere-pro.svg",
+    name: "Adobe Premiere Pro",
+    href: "https://www.adobe.com/products/premiere.html",
+    width: 50,
+  },
+  {
+    src: "/tool-logos/photoshop.svg",
+    name: "Adobe Photoshop",
+    href: "https://www.adobe.com/products/photoshop.html",
+    width: 50,
+  },
+  {
     src: "/tool-logos/substance-painter.svg",
     name: "Adobe Substance Painter",
     href: "https://www.adobe.com/products/substance3d/apps/painter.html",
+    width: 50,
+  },
+  {
+    src: "/tool-logos/illustrator.svg",
+    name: "Adobe Illustrator",
+    href: "https://www.adobe.com/products/illustrator.html",
+    width: 50,
+  },
+  {
+    src: "/tool-logos/lightroom.svg",
+    name: "Adobe Lightroom",
+    href: "https://www.adobe.com/products/photoshop-lightroom.html",
+    width: 50,
+  },
+  {
+    src: "/tool-logos/after-effects.svg",
+    name: "Adobe After Effects",
+    href: "https://www.adobe.com/products/aftereffects.html",
     width: 50,
   },
   {
@@ -33,6 +63,26 @@ const tools = [
     name: "Unreal Engine",
     href: "https://www.unrealengine.com/",
     width: 136,
+    darkInvert: true,
+  },
+  {
+    src: "/tool-logos/figma.svg",
+    name: "Figma",
+    href: "https://www.figma.com/",
+    width: 36,
+  },
+  {
+    src: "/tool-logos/moho.svg",
+    name: "Moho Animation Software",
+    href: "https://moho.lostmarble.com/",
+    width: 196,
+    darkInvert: true,
+  },
+  {
+    src: "/tool-logos/clip-studio-paint.svg",
+    name: "Clip Studio Paint",
+    href: "https://www.clipstudio.net/en/",
+    width: 178,
     darkInvert: true,
   },
 ];
