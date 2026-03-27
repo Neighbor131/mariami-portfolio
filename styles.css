@@ -1348,7 +1348,7 @@ body[data-theme="light"] .about-section::before {
 
 .case-study-page {
   position: relative;
-  padding: clamp(132px, 14vw, 172px) 0 clamp(88px, 10vw, 132px);
+  padding: 48px 0 clamp(88px, 10vw, 132px);
 }
 
 .case-study-shell {
@@ -2546,7 +2546,7 @@ body[data-theme="light"] .contact-form-panel .field textarea:focus {
   }
 
   .case-study-page {
-    padding-top: 108px;
+    padding-top: 48px;
   }
 
   .case-study-shell {
