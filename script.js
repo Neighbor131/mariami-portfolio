@@ -589,17 +589,29 @@ function renderCaseStudyPage() {
         </section>
       `
     : "";
+  const figmaEmbedUrls =
+    Array.isArray(study.figmaEmbedUrls) && study.figmaEmbedUrls.length
+      ? study.figmaEmbedUrls
+      : study.figmaEmbedUrl
+        ? [study.figmaEmbedUrl]
+        : [];
   const mediaMarkup =
-    study.presentation === "figma-frame" && study.figmaEmbedUrl
+    study.presentation === "figma-frame" && figmaEmbedUrls.length
       ? `
           <div class="case-study-figma-wrap">
-            <iframe
-              class="case-study-figma-frame"
-              src="${study.figmaEmbedUrl}"
-              title="${study.title}"
-              loading="lazy"
-              allowfullscreen
-            ></iframe>
+            ${figmaEmbedUrls
+              .map(
+                (url, index) => `
+                  <iframe
+                    class="case-study-figma-frame"
+                    src="${url}"
+                    title="${study.title}${figmaEmbedUrls.length > 1 ? ` ${index + 1}` : ""}"
+                    loading="lazy"
+                    allowfullscreen
+                  ></iframe>
+                `
+              )
+              .join("")}
           </div>
         `
       : `

@@ -841,16 +841,21 @@ export const caseStudies = [
   {
     slug: "ux-ui-03",
     categorySlug: "ux-ui",
-    title: "UX/UI Project 03",
+    title: "Peapod",
     intro: "",
     description: "",
     path: "/works/ux-ui/ux-ui-03/",
-    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+    presentation: "figma-frame",
+    figmaEmbedUrls: [
+      "https://embed.figma.com/proto/Gu9mLXDGa8kw4fIUVWtOXs/Untitled?node-id=2007-10465&p=f&scaling=scale-down-width&content-scaling=fixed&page-id=2007%3A491&embed-host=share",
+      "https://embed.figma.com/proto/oyrlpNkbhrYkx6mXiaIFQz/Project?node-id=2-21138&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A9667&embed-host=share",
+    ],
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/peapod/1.png",
     heroImagePosition: "50% 50%",
     gallery: [
       {
-        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
-        alt: "UX/UI project 03 preview",
+        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/peapod/1.png",
+        alt: "Peapod UX/UI project preview",
       },
     ],
   },
@@ -1068,8 +1073,8 @@ export const workCategories = [
         tags: [],
       },
       {
-        title: "UX/UI Project 03",
-        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        title: "Peapod",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/peapod/1.png",
         imagePosition: "50% 50%",
         href: "/works/ux-ui/ux-ui-03/",
         meta: "",
