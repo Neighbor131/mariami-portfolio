@@ -977,14 +977,18 @@ export const caseStudies = [
   {
     slug: "digital-works-04",
     categorySlug: "digital-works",
-    title: "Digital Study 04",
+    title: "BadDevi",
     intro: "",
-    description: "",
+    description:
+      "Baddevi is an interactive website where you can explore the world of Georgian fairy tales, learn more about their characters, and see them through a unique, individual perspective.\n\nOur main goal is to increase the value and recognition of Georgian fairy tales. We strongly believe that they hold an incredibly rich creative potential and deserve far more attention. We hope this project opens another door for other creatives to explore and build upon.\n\nThe brand name Baddevi was created as a wordplay between Georgian and English. In Georgian, it means “bad spirit,” reflecting our approach: we take traditional folk tales and reinterpret them by adding individual, creative elements.",
     path: "/works/digital-works/digital-works-04/",
+    presentation: "embed-frame",
+    embedUrl:
+      "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fmake%2FlTHlg3d9X7kPmAcsQYqJBU%2FInteractive-Fantasy-World-Map%3Fp%3Df%26t%3DuMBZELCNcOEMJA1A-0%26fullscreen%3D1",
     heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png",
     heroImagePosition: "50% 50%",
     gallery: [
-      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png", alt: "Digital Study 04 preview" },
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png", alt: "BadDevi preview" },
     ],
   },
   {
@@ -1317,7 +1321,7 @@ export const workCategories = [
         tags: [],
       },
       {
-        title: "Digital Study 04",
+        title: "BadDevi",
         image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png",
         imagePosition: "50% 50%",
         href: "/works/digital-works/digital-works-04/",
