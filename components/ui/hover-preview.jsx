@@ -94,7 +94,8 @@ const styles = `
 
   .cheko-hover-preview__text {
     width: min(100%, 544px);
-    font-size: clamp(1.1rem, 2vw, 1.65rem);
+    font-size: 20px;
+    font-weight: 400;
     line-height: 1.62;
     letter-spacing: -0.03em;
     color: var(--muted-strong, rgba(248, 247, 243, 0.82));
