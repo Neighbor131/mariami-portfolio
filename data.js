@@ -995,14 +995,19 @@ export const caseStudies = [
   {
     slug: "motion-media-02",
     categorySlug: "motion-media",
-    title: "Motion Study 02",
+    title: "Mistakes",
     intro: "",
     description: "",
     path: "/works/motion-media/motion-media-02/",
-    heroImage: "/project-media/glance.mp4.png",
+    heroImage: "/project-media/mistakes.mp4.png",
     heroImagePosition: "50% 50%",
     gallery: [
-      { src: "/project-media/glance.mp4.png", alt: "Motion Study 02 preview" },
+      {
+        src: "/project-media/mistakes.mp4",
+        alt: "Mistakes motion study",
+        poster: "/project-media/mistakes.mp4.png",
+        type: "video",
+      },
     ],
   },
   {
@@ -1242,8 +1247,8 @@ export const workCategories = [
         tags: [],
       },
       {
-        title: "Motion Study 02",
-        image: "/project-media/glance.mp4.png",
+        title: "Mistakes",
+        image: "/project-media/mistakes.mp4.png",
         imagePosition: "50% 50%",
         href: "/works/motion-media/motion-media-02/",
         meta: "",
