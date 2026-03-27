@@ -90,12 +90,6 @@ const homeGalleryItems = [
     description: "some of my selected motion studies",
     path: "/works/motion-media/",
   },
-  ...projects.slice(0, 1).map((project) => ({
-    src: project.cover,
-    title: project.title,
-    description: project.intro,
-    path: project.path,
-  })),
 ];
 
 const aboutMoodPhotos = [
