@@ -65,6 +65,29 @@ const collageBlueprint = [
   },
 ];
 
+const staticMediaBlueprint = [
+  {
+    id: "hero-a",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/3.jpg",
+    width: 392,
+    x: 0,
+    y: 0,
+    rotation: -2,
+    speed: 1.02,
+    secondary: false,
+  },
+  {
+    id: "hero-b",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Budapest.jpg",
+    width: 360,
+    x: 56,
+    y: 320,
+    rotation: 2.6,
+    speed: 0.72,
+    secondary: true,
+  },
+];
+
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
@@ -124,9 +147,7 @@ const styles = `
 
   .cheko-hover-preview__media-stack {
     position: relative;
-    display: grid;
-    gap: clamp(18px, 2vw, 28px);
-    padding-top: clamp(12px, 2vw, 28px);
+    min-height: 720px;
     opacity: 0;
     transform: translate3d(-28px, 42px, 0) rotate(-4deg);
     transition: opacity 0.85s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
@@ -138,19 +159,27 @@ const styles = `
   }
 
   .cheko-hover-preview__media-frame {
-    width: min(100%, 392px);
+    position: absolute;
     margin-right: auto;
     overflow: hidden;
     box-shadow:
       0 28px 60px rgba(0, 0, 0, 0.24),
       0 0 0 1px rgba(255, 255, 255, 0.08);
     background: rgba(255, 255, 255, 0.04);
+    border: 0;
+    padding: 0;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   .cheko-hover-preview__media-frame.is-secondary {
-    width: min(94%, 360px);
-    margin-left: clamp(18px, 4vw, 64px);
     transform: rotate(2.6deg);
+  }
+
+  .cheko-hover-preview__media-frame.is-dragging {
+    cursor: grabbing;
   }
 
   .cheko-hover-preview__media-frame img {
@@ -159,6 +188,8 @@ const styles = `
     height: auto;
     object-fit: cover;
     will-change: transform;
+    pointer-events: none;
+    -webkit-user-drag: none;
   }
 
   .cheko-hover-preview__collage {
@@ -318,6 +349,10 @@ const styles = `
     .cheko-hover-preview__collage {
       min-height: 620px;
     }
+
+    .cheko-hover-preview__media-stack {
+      min-height: 680px;
+    }
   }
 
   @media (max-width: 720px) {
@@ -328,6 +363,10 @@ const styles = `
 
     .cheko-hover-preview__collage {
       min-height: 520px;
+    }
+
+    .cheko-hover-preview__media-stack {
+      min-height: 620px;
     }
 
     .cheko-hover-preview__card {
@@ -410,12 +449,26 @@ export function HoverPreview() {
   const [isVisible, setIsVisible] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const [imageOffset, setImageOffset] = useState(0);
+  const [staticCanvasSize, setStaticCanvasSize] = useState({ width: 420, height: 720 });
+  const [staticItems, setStaticItems] = useState([]);
+  const [staticDraggingId, setStaticDraggingId] = useState(null);
   const [canvasSize, setCanvasSize] = useState({ width: 720, height: 760 });
   const [items, setItems] = useState([]);
   const [draggingId, setDraggingId] = useState(null);
   const sectionRef = useRef(null);
+  const staticCanvasRef = useRef(null);
   const canvasRef = useRef(null);
+  const staticDragStateRef = useRef(null);
   const dragStateRef = useRef(null);
+
+  const derivedStaticItems = useMemo(
+    () =>
+      staticMediaBlueprint.map((item, index) => ({
+        ...item,
+        zIndex: index + 1,
+      })),
+    []
+  );
 
   const derivedItems = useMemo(
     () =>
@@ -454,6 +507,34 @@ export function HoverPreview() {
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const canvasNode = staticCanvasRef.current;
+    if (!canvasNode) return;
+
+    const updateCanvasSize = () => {
+      setStaticCanvasSize({
+        width: canvasNode.clientWidth || 420,
+        height: canvasNode.clientHeight || 720,
+      });
+    };
+
+    updateCanvasSize();
+    const observer = new ResizeObserver(updateCanvasSize);
+    observer.observe(canvasNode);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    setStaticItems((current) => {
+      if (!current.length) return derivedStaticItems;
+      return derivedStaticItems.map((nextItem) => {
+        const existing = current.find((item) => item.id === nextItem.id);
+        if (!existing || !existing.hasMoved) return nextItem;
+        return existing;
+      });
+    });
+  }, [derivedStaticItems]);
 
   useEffect(() => {
     const canvasNode = canvasRef.current;
@@ -503,6 +584,47 @@ export function HoverPreview() {
       window.removeEventListener("resize", updateParallax);
     };
   }, []);
+
+  useEffect(() => {
+    const handlePointerMove = (event) => {
+      const dragState = staticDragStateRef.current;
+      const canvasNode = staticCanvasRef.current;
+      if (!dragState || !canvasNode) return;
+
+      const rect = canvasNode.getBoundingClientRect();
+      const activeBlueprint = staticMediaBlueprint.find((item) => item.id === dragState.id);
+      const cardWidth = activeBlueprint?.width || 320;
+      const maxX = Math.max(0, rect.width - cardWidth);
+      const maxY = Math.max(0, rect.height - 160);
+      const nextX = Math.max(0, Math.min(maxX, event.clientX - rect.left - dragState.offsetX));
+      const nextY = Math.max(0, Math.min(maxY, event.clientY - rect.top - dragState.offsetY));
+
+      setStaticItems((current) =>
+        current.map((item) =>
+          item.id === dragState.id
+            ? { ...item, x: nextX, y: nextY, zIndex: dragState.zIndex, hasMoved: true }
+            : item
+        )
+      );
+    };
+
+    const handlePointerUp = () => {
+      staticDragStateRef.current = null;
+      setStaticDraggingId(null);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+
+    if (staticDraggingId) {
+      window.addEventListener("pointermove", handlePointerMove);
+      window.addEventListener("pointerup", handlePointerUp);
+    }
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+  }, [staticDraggingId]);
 
   useEffect(() => {
     const handlePointerMove = (event) => {
@@ -604,6 +726,29 @@ export function HoverPreview() {
     [items]
   );
 
+  const handleStaticDragStart = useCallback(
+    (id, event) => {
+      event.preventDefault();
+      const item = staticItems.find((entry) => entry.id === id);
+      const canvasNode = staticCanvasRef.current;
+      if (!item || !canvasNode) return;
+
+      const rect = canvasNode.getBoundingClientRect();
+      const nextZIndex = Math.max(...staticItems.map((entry) => entry.zIndex), 0) + 1;
+      staticDragStateRef.current = {
+        id,
+        offsetX: event.clientX - rect.left - item.x,
+        offsetY: event.clientY - rect.top - item.y,
+        zIndex: nextZIndex,
+      };
+      setStaticDraggingId(id);
+      setStaticItems((current) =>
+        current.map((entry) => (entry.id === id ? { ...entry, zIndex: nextZIndex } : entry))
+      );
+    },
+    [staticItems]
+  );
+
   return (
     <>
       <style>{styles}</style>
@@ -613,21 +758,28 @@ export function HoverPreview() {
         aria-label="About me details"
       >
         <div className="cheko-hover-preview__section cheko-hover-preview__section--static">
-          <div className="cheko-hover-preview__media-stack" aria-hidden="true">
-            <div className="cheko-hover-preview__media-frame">
-              <img
-                src="https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/3.jpg"
-                alt=""
-                style={{ transform: `translate3d(0, ${imageOffset}px, 0) scale(1.02)` }}
-              />
-            </div>
-            <div className="cheko-hover-preview__media-frame is-secondary">
-              <img
-                src="https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Budapest.jpg"
-                alt=""
-                style={{ transform: `translate3d(0, ${imageOffset * 0.72}px, 0) scale(1.02)` }}
-              />
-            </div>
+          <div ref={staticCanvasRef} className="cheko-hover-preview__media-stack" aria-hidden="true">
+            {staticItems.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className={`cheko-hover-preview__media-frame${item.secondary ? " is-secondary" : ""}${staticDraggingId === item.id ? " is-dragging" : ""}`}
+                style={{
+                  width: `${item.width}px`,
+                  left: `${Math.min(item.x, Math.max(0, staticCanvasSize.width - item.width))}px`,
+                  top: `${item.y}px`,
+                  zIndex: item.zIndex,
+                }}
+                onPointerDown={(event) => handleStaticDragStart(item.id, event)}
+              >
+                <img
+                  src={item.src}
+                  alt=""
+                  draggable="false"
+                  style={{ transform: `translate3d(0, ${imageOffset * item.speed}px, 0) scale(1.02)` }}
+                />
+              </button>
+            ))}
           </div>
 
           <div className="cheko-hover-preview__text">
