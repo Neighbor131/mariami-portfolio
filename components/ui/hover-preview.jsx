@@ -20,7 +20,7 @@ const previewData = {
 const collageBlueprint = [
   {
     id: "a",
-    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/3.jpg",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Friends.jpg",
     width: 232,
     x: 0.05,
     y: 0.04,
@@ -29,7 +29,7 @@ const collageBlueprint = [
   },
   {
     id: "b",
-    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Budapest.jpg",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Haruka.jpg",
     width: 220,
     x: 0.52,
     y: 0.08,
@@ -38,7 +38,7 @@ const collageBlueprint = [
   },
   {
     id: "c",
-    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/1.jpg",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Family.jpg",
     width: 210,
     x: 0.14,
     y: 0.38,
@@ -47,7 +47,7 @@ const collageBlueprint = [
   },
   {
     id: "d",
-    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/gipa%20crop.jpeg",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Haruka%20(1).jpg",
     width: 180,
     x: 0.6,
     y: 0.5,
@@ -56,7 +56,7 @@ const collageBlueprint = [
   },
   {
     id: "e",
-    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/metu-crop.png",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/1000013932.jpeg",
     width: 196,
     x: 0.04,
     y: 0.68,
