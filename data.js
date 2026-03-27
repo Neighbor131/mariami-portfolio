@@ -862,16 +862,19 @@ export const caseStudies = [
   {
     slug: "ux-ui-04",
     categorySlug: "ux-ui",
-    title: "UX/UI Project 04",
+    title: "EFNVERSE",
     intro: "",
     description: "",
     path: "/works/ux-ui/ux-ui-04/",
-    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+    presentation: "figma-frame",
+    figmaEmbedUrl:
+      "https://embed.figma.com/proto/Gu9mLXDGa8kw4fIUVWtOXs/Untitled?node-id=2009-7932&scaling=scale-down-width&content-scaling=fixed&page-id=2009%3A66&embed-host=share",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/Audo/Refnverse.png",
     heroImagePosition: "50% 50%",
     gallery: [
       {
-        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
-        alt: "UX/UI project 04 preview",
+        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/Audo/Refnverse.png",
+        alt: "EFNVERSE UX/UI project preview",
       },
     ],
   },
@@ -1081,8 +1084,8 @@ export const workCategories = [
         tags: [],
       },
       {
-        title: "UX/UI Project 04",
-        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        title: "EFNVERSE",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/Audo/Refnverse.png",
         imagePosition: "50% 50%",
         href: "/works/ux-ui/ux-ui-04/",
         meta: "",
