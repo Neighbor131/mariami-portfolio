@@ -273,33 +273,6 @@ function setupMenu() {
   closeLayer?.addEventListener("click", closeMenu);
 }
 
-function setupHeaderGlass() {
-  const applyGlass = () => {
-    const shell = document.querySelector(".site-header-inner");
-    const bar = document.querySelector(".menu-bar");
-    const background = document.querySelector(".menu-background");
-
-    if (shell) {
-      shell.style.backdropFilter = "blur(16px)";
-    }
-
-    if (bar) {
-      bar.style.backdropFilter = "blur(10px)";
-    }
-
-    if (background) {
-      background.style.backdropFilter = "blur(14px)";
-    }
-  };
-
-  applyGlass();
-
-  const themeToggle = document.querySelector("[data-theme-toggle]");
-  themeToggle?.addEventListener("click", () => {
-    window.requestAnimationFrame(applyGlass);
-  });
-}
-
 function setupReveal() {
   const nodes = document.querySelectorAll(".reveal");
   if (!nodes.length) return;
@@ -1024,7 +997,6 @@ setupThemeToggle();
 syncSiteChrome();
 setActiveNav();
 setupMenu();
-setupHeaderGlass();
 renderHome();
 setupGalleryInteractions();
 renderWorksPage();
