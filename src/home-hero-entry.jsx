@@ -124,6 +124,8 @@ function AboutScrollText() {
       enableBlur
       baseRotation={3}
       blurStrength={4}
+      revealStart={0.9}
+      revealEnd={0.52}
       containerClassName="about-scroll-reveal"
       textClassName="about-scroll-reveal-text"
     >

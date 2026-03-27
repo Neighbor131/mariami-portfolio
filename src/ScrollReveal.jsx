@@ -12,6 +12,8 @@ export default function ScrollReveal({
   baseOpacity = 0.1,
   baseRotation = 3,
   blurStrength = 4,
+  revealStart = 0.92,
+  revealEnd = 0.3,
   containerClassName = "",
   textClassName = "",
 }) {
@@ -35,8 +37,9 @@ export default function ScrollReveal({
 
       const rect = element.getBoundingClientRect();
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      const totalDistance = rect.height + viewportHeight;
-      const revealProgress = clamp((viewportHeight - rect.top) / totalDistance, 0, 1);
+      const start = viewportHeight * revealStart;
+      const end = viewportHeight * revealEnd;
+      const revealProgress = clamp((start - rect.top) / Math.max(1, start - end), 0, 1);
       const rotationProgress = clamp((viewportHeight - rect.top) / viewportHeight, 0, 1);
 
       element.style.setProperty(
@@ -78,7 +81,7 @@ export default function ScrollReveal({
         window.cancelAnimationFrame(frameId);
       }
     };
-  }, [baseOpacity, baseRotation, blurStrength, enableBlur]);
+  }, [baseOpacity, baseRotation, blurStrength, enableBlur, revealStart, revealEnd]);
 
   return (
     <div ref={containerRef} className={`scroll-reveal ${containerClassName}`}>
