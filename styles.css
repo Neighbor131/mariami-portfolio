@@ -537,6 +537,12 @@ main {
   padding-top: calc(var(--header-height) + 28px);
 }
 
+body[data-page="case-study"] main,
+body[data-page="category"] main,
+body[data-page="about"] main {
+  padding-top: 0;
+}
+
 .hero-poster,
 .page-hero {
   position: relative;
@@ -1225,9 +1231,6 @@ body[data-theme="light"] .about-me-page::before {
 }
 
 .about-me-board-top {
-  position: sticky;
-  top: calc(var(--header-top-offset, 14px) + var(--header-height, 50px) + 10px);
-  z-index: 4;
   display: grid;
   grid-template-columns: minmax(0, 0.7fr) auto;
   gap: 24px;
