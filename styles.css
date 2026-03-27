@@ -2411,13 +2411,6 @@ body[data-theme="light"] .contact-form-panel .field textarea:focus {
   text-underline-offset: 0.14em;
 }
 
-.footer-meta {
-  text-align: right;
-  font-size: 0.92rem;
-  line-height: 1.5;
-  color: var(--muted-strong);
-}
-
 .footer-social {
   display: flex;
   justify-content: flex-end;
@@ -2938,10 +2931,6 @@ body[data-theme="light"] .footer-social-link:hover {
     justify-content: flex-start;
     justify-items: start;
     align-items: flex-start;
-  }
-
-  .footer-meta {
-    text-align: left;
   }
 
   .footer-links {
