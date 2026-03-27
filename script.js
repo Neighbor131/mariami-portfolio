@@ -488,14 +488,14 @@ function renderCaseStudyPage() {
         <div class="case-study-header">
           <div class="case-study-header-copy"></div>
           <div class="case-study-stage">
-            <div class="case-study-gallery">
+            <div class="case-study-gallery" data-case-gallery>
               <button
                 class="case-study-gallery-main"
                 type="button"
                 data-case-open-gallery
                 aria-label="Media 1 of ${study.gallery.length}; Open gallery"
               >
-                <figure class="case-study-hero-media">
+                <figure class="case-study-hero-media" data-case-hero-media>
                   <img
                     src="${study.heroImage}"
                     alt="${study.title}"
@@ -521,8 +521,8 @@ function renderCaseStudyPage() {
                 <div class="case-study-gallery-nav">
                   <p class="case-study-gallery-count" data-case-inline-count>1 / ${study.gallery.length}</p>
                   <div class="case-study-gallery-nav-buttons">
-                    <button class="case-study-gallery-arrow" type="button" data-case-inline-prev aria-label="Previous image">Prev</button>
-                    <button class="case-study-gallery-arrow" type="button" data-case-inline-next aria-label="Next image">Next</button>
+                    <button class="case-study-gallery-arrow" type="button" data-case-inline-prev aria-label="Previous image">‹</button>
+                    <button class="case-study-gallery-arrow" type="button" data-case-inline-next aria-label="Next image">›</button>
                   </div>
                 </div>
               </div>
@@ -539,12 +539,12 @@ function renderCaseStudyPage() {
 
         <div class="case-study-lightbox" data-case-lightbox hidden>
           <button class="case-study-lightbox-close" type="button" data-case-close aria-label="Close gallery">Close</button>
-          <button class="case-study-lightbox-nav is-prev" type="button" data-case-prev aria-label="Previous image">Prev</button>
+          <button class="case-study-lightbox-nav is-prev" type="button" data-case-prev aria-label="Previous image">‹</button>
           <figure class="case-study-lightbox-media">
             <img src="${study.heroImage}" alt="${study.title}" data-case-lightbox-image>
             <video src="" controls loop playsinline preload="metadata" data-case-lightbox-video hidden></video>
           </figure>
-          <button class="case-study-lightbox-nav is-next" type="button" data-case-next aria-label="Next image">Next</button>
+          <button class="case-study-lightbox-nav is-next" type="button" data-case-next aria-label="Next image">›</button>
           <p class="case-study-lightbox-count" data-case-count>1 / ${study.gallery.length}</p>
         </div>
 
@@ -562,6 +562,8 @@ function renderCaseStudyPage() {
 }
 
 function setupCaseStudyGallery() {
+  const galleryRoot = document.querySelector("[data-case-gallery]");
+  const heroMedia = document.querySelector("[data-case-hero-media]");
   const mainImage = document.querySelector("[data-case-main-image]");
   const mainVideo = document.querySelector("[data-case-main-video]");
   const thumbs = Array.from(document.querySelectorAll("[data-case-thumb]"));
@@ -580,6 +582,35 @@ function setupCaseStudyGallery() {
 
   let activeIndex = 0;
   let lockedScrollY = 0;
+
+  const setOrientationState = (type, width, height) => {
+    const ratio = width > 0 && height > 0 ? width / height : 1;
+    const bucket =
+      ratio >= 1.16 ? "is-landscape" : ratio <= 0.9 ? "is-portrait" : "is-square";
+    if (!galleryRoot || !heroMedia) return;
+    galleryRoot.classList.remove("is-landscape", "is-portrait", "is-square", "is-video");
+    heroMedia.classList.remove("is-landscape", "is-portrait", "is-square", "is-video");
+    galleryRoot.classList.add(bucket);
+    heroMedia.classList.add(bucket);
+    if (type === "video") {
+      galleryRoot.classList.add("is-video");
+      heroMedia.classList.add("is-video");
+    }
+  };
+
+  const updateImageOrientation = () => {
+    if (!mainImage || mainImage.hidden) return;
+    const width = mainImage.naturalWidth || mainImage.width || 1;
+    const height = mainImage.naturalHeight || mainImage.height || 1;
+    setOrientationState("image", width, height);
+  };
+
+  const updateVideoOrientation = () => {
+    if (!mainVideo || mainVideo.hidden) return;
+    const width = mainVideo.videoWidth || mainVideo.clientWidth || 1;
+    const height = mainVideo.videoHeight || mainVideo.clientHeight || 1;
+    setOrientationState("video", width, height);
+  };
 
   const lockViewport = () => {
     lockedScrollY = window.scrollY || window.pageYOffset || 0;
@@ -619,12 +650,14 @@ function setupCaseStudyGallery() {
         if (playAttempt && typeof playAttempt.catch === "function") {
           playAttempt.catch(() => {});
         }
+        updateVideoOrientation();
       } else {
         mainVideo.pause();
         mainVideo.removeAttribute("src");
         mainVideo.load();
         mainImage.src = src || mainImage.src;
         mainImage.alt = alt || mainImage.alt;
+        if (mainImage.complete) updateImageOrientation();
       }
     }
 
@@ -692,7 +725,6 @@ function setupCaseStudyGallery() {
   thumbs.forEach((thumb, index) => {
     thumb.addEventListener("click", () => {
       syncActive(index);
-      openLightbox(index);
     });
   });
 
@@ -712,6 +744,9 @@ function setupCaseStudyGallery() {
     if (event.key === "ArrowLeft") step(-1);
     if (event.key === "ArrowRight") step(1);
   });
+
+  mainImage?.addEventListener("load", updateImageOrientation);
+  mainVideo?.addEventListener("loadedmetadata", updateVideoOrientation);
 
   syncActive(0);
 }
