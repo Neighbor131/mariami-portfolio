@@ -361,7 +361,7 @@ export function HoverPreview() {
           <div className="cheko-hover-preview__media" aria-hidden="true">
             <div className="cheko-hover-preview__media-frame">
               <img
-                src="https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/1.jpg"
+                src="https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/3.jpg"
                 alt=""
                 style={{ transform: `translate3d(0, ${imageOffset}px, 0) scale(1.02)` }}
               />
