@@ -1,0 +1,117 @@
+.tool-loop-block {
+  width: 100%;
+}
+
+.tool-loop__title {
+  margin: 0 0 14px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.tool-loop {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.tool-loop__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 3vw, 44px);
+  width: max-content;
+  animation: toolLoopScroll 22s linear infinite;
+  will-change: transform;
+}
+
+.tool-loop:hover .tool-loop__track {
+  animation-play-state: paused;
+}
+
+.tool-loop__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: var(--tool-logo-width, 120px);
+  height: clamp(34px, 3.2vw, 42px);
+  text-decoration: none;
+  opacity: 0.86;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.tool-loop__item:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.tool-loop__logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+body[data-theme="dark"] .tool-loop__logo--dark-invert {
+  filter: brightness(0) invert(1);
+}
+
+body[data-theme="light"] .tool-loop__logo--dark-invert {
+  filter: none;
+}
+
+.tool-loop--fade::before,
+.tool-loop--fade::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(32px, 7vw, 96px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.tool-loop--fade::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(5, 5, 5, 0.98), rgba(5, 5, 5, 0));
+}
+
+.tool-loop--fade::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(5, 5, 5, 0.98), rgba(5, 5, 5, 0));
+}
+
+body[data-theme="light"] .tool-loop--fade::before,
+body[data-theme="light"] .tool-loop--fade::after {
+  display: none;
+}
+
+@keyframes toolLoopScroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-50% - 22px), 0, 0);
+  }
+}
+
+@media (max-width: 720px) {
+  .tool-loop__track {
+    gap: 28px;
+  }
+
+  .tool-loop__item {
+    height: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-loop__track {
+    animation: none;
+  }
+}

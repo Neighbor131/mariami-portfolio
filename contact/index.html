@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cheko's Space - Contact</title>
+    <meta
+      name="description"
+      content="Get in touch with Cheko's Space for commissions, collaborations, and immersive portfolio inquiries."
+    >
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body data-page="contact">
+    <div id="contact-shader-background" class="contact-shader-background" aria-hidden="true"></div>
+    <div class="page-shell">
+      <header class="site-header">
+        <nav class="site-header-inner" data-menu-shell aria-label="Primary">
+          <div class="menu-top">
+            <div class="menu-bar">
+              <a class="brand" href="/" aria-label="Cheko's Space home">
+                <span class="brand-dot" aria-hidden="true"></span>
+                <span>Cheko's Space</span>
+              </a>
+              <div class="site-actions">
+                <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch light mode">
+                  <span class="theme-toggle-track" aria-hidden="true">
+                    <span class="theme-toggle-thumb"></span>
+                  </span>
+                  <span class="theme-toggle-label">Light</span>
+                </button>
+                <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open menu">
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-items-wrap">
+            <div class="nav-links" data-nav>
+              <a href="/" data-nav-link>Home</a>
+              <a href="/contact/" data-nav-link>Contact</a>
+            </div>
+          </div>
+          <div class="menu-background" aria-hidden="true"></div>
+          <div class="menu-close-layer" data-menu-close aria-hidden="true"></div>
+        </nav>
+      </header>
+
+      <main>
+        <section class="contact-page reveal">
+          <div class="section-inner contact-page-shell">
+            <div class="contact-page-copy">
+              <p class="eyebrow">Contact</p>
+              <h1 class="page-title">Enter my world</h1>
+              <p class="lead-copy">
+                For commissions, collaborations, or 3D production inquiries, send a note and I’ll get back to you as soon as I can.
+              </p>
+              <div class="contact-list">
+                <a class="text-link" data-contact-email href="mailto:hello@chekos.space">hello@chekos.space</a>
+                <span class="contact-location" data-contact-location>Based in Tbilisi, available worldwide</span>
+              </div>
+            </div>
+
+            <div class="contact-form-panel reveal">
+              <form data-contact-form>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" placeholder="name@example.com" required>
+                </div>
+                <div class="field">
+                  <label for="subject">Subject</label>
+                  <input id="subject" name="subject" type="text" placeholder="What is this about?" required>
+                </div>
+                <div class="field">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" placeholder="Tell me about the project, timing, and what you need." required></textarea>
+                </div>
+                <button class="button" type="submit">Send message</button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-inner">
+          <div class="footer-stage">
+            <div class="footer-grid">
+              <div class="footer-brand-block">
+                <p class="footer-name">
+                  <span>Mariam</span>
+                  <span>Chekurishvili</span>
+                </p>
+              </div>
+              <div class="footer-side">
+                <div class="footer-nav-block">
+                  <p class="footer-kicker">Links</p>
+                  <div class="footer-links">
+                    <a href="/about/">About</a>
+                  </div>
+                </div>
+                <div class="footer-meta">
+                  <span>© <span data-year></span> Mariam Chekurishvili</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="/script.js"></script>
+    <script type="module" src="/src/contact-entry.jsx"></script>
+  </body>
+</html>
