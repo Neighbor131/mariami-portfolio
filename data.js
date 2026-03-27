@@ -1039,7 +1039,7 @@ export const workCategories = [
       },
       {
         title: "Milo",
-        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Branding/Milo/1.png",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Branding/Milo/5.png",
         imagePosition: "50% 50%",
         href: "/works/branding/milo/",
         meta: "",
