@@ -5,13 +5,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const previewData = {
   gipa: {
     image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=560&h=320&fit=crop",
+      "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/gipa%20crop.jpeg",
     title: "GIPA",
     subtitle: "Georgian University of Public Affairs",
   },
   metu: {
     image:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=560&h=320&fit=crop",
+      "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/metu-crop.png",
     title: "METU University",
     subtitle: "Exchange semester in visual storytelling, animation, and modeling",
   },
@@ -62,8 +62,8 @@ const styles = `
   }
 
   .cheko-hover-preview__media-frame.is-secondary {
-    width: min(88%, 332px);
-    margin-left: clamp(28px, 5vw, 82px);
+    width: min(94%, 360px);
+    margin-left: clamp(18px, 4vw, 64px);
     transform: rotate(2.6deg);
   }
 
