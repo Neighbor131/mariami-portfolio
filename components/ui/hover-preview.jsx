@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const previewData = {
   gipa: {
@@ -28,35 +28,71 @@ const styles = `
     font-family: 'DM Sans', sans-serif;
   }
 
+  .cheko-hover-preview__layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.86fr) minmax(320px, 544px);
+    justify-content: space-between;
+    align-items: start;
+    gap: clamp(28px, 5vw, 96px);
+  }
+
+  .cheko-hover-preview__media {
+    position: relative;
+    padding-top: clamp(12px, 2vw, 28px);
+    opacity: 0;
+    transform: translate3d(-28px, 42px, 0) rotate(-4deg);
+    transition: opacity 0.85s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .cheko-hover-preview.is-visible .cheko-hover-preview__media {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(-2deg);
+  }
+
+  .cheko-hover-preview__media-frame {
+    width: min(100%, 392px);
+    margin-right: auto;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow:
+      0 28px 60px rgba(0, 0, 0, 0.24),
+      0 0 0 1px rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .cheko-hover-preview__media-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    will-change: transform;
+  }
+
   .cheko-hover-preview__text {
-    max-width: 76rem;
+    width: min(100%, 544px);
+    margin-left: auto;
     font-size: clamp(1.1rem, 2vw, 1.65rem);
     line-height: 1.62;
     letter-spacing: -0.03em;
     color: var(--muted-strong, rgba(248, 247, 243, 0.82));
+    text-wrap: pretty;
   }
 
   .cheko-hover-preview__text p {
     margin: 0;
     opacity: 0;
-    transform: translateY(22px);
-    animation: chekoHoverPreviewFade 0.8s ease forwards;
+    transform: translate3d(0, 28px, 0);
+    transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .cheko-hover-preview__text p + p {
     margin-top: 1.15em;
-    animation-delay: 0.18s;
+    transition-delay: 0.14s;
   }
 
-  @keyframes chekoHoverPreviewFade {
-    from {
-      opacity: 0;
-      transform: translateY(22px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .cheko-hover-preview.is-visible .cheko-hover-preview__text p {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 
   .cheko-hover-preview__link {
@@ -159,6 +195,29 @@ const styles = `
       padding-bottom: 40px;
     }
 
+    .cheko-hover-preview__layout {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .cheko-hover-preview__media {
+      padding-top: 0;
+      transform: translate3d(0, 24px, 0);
+    }
+
+    .cheko-hover-preview.is-visible .cheko-hover-preview__media {
+      transform: translate3d(0, 0, 0);
+    }
+
+    .cheko-hover-preview__media-frame {
+      width: min(100%, 360px);
+    }
+
+    .cheko-hover-preview__text {
+      width: 100%;
+      margin-left: 0;
+    }
+
     .cheko-hover-preview__card {
       display: none;
     }
@@ -182,12 +241,56 @@ export function HoverPreview() {
   const [activePreview, setActivePreview] = useState(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const [imageOffset, setImageOffset] = useState(0);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     Object.values(previewData).forEach((item) => {
       const image = new Image();
       image.src = item.image;
     });
+  }, []);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.22 }
+    );
+
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const updateParallax = () => {
+      const node = sectionRef.current;
+      if (!node) return;
+
+      const rect = node.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || 1;
+      const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+      const eased = Math.max(-1, Math.min(1, progress - 0.5));
+      setImageOffset(eased * 36);
+    };
+
+    updateParallax();
+    window.addEventListener("scroll", updateParallax, { passive: true });
+    window.addEventListener("resize", updateParallax);
+
+    return () => {
+      window.removeEventListener("scroll", updateParallax);
+      window.removeEventListener("resize", updateParallax);
+    };
   }, []);
 
   const updatePosition = useCallback((event) => {
@@ -237,38 +340,54 @@ export function HoverPreview() {
   return (
     <>
       <style>{styles}</style>
-      <section className="cheko-hover-preview" aria-label="About me details">
-        <div className="cheko-hover-preview__text">
-          <p>
-            I’m Mariam, known as Cheko, a third-year Visual Communications student at{" "}
-            <HoverLink
-              previewKey="gipa"
-              onHoverStart={handleHoverStart}
-              onHoverMove={handleHoverMove}
-              onHoverEnd={handleHoverEnd}
-            >
-              GIPA (Georgian University of Public Affairs)
-            </HoverLink>
-            . My focus is to apply my skills thoughtfully to communicate clear, meaningful ideas
-            through visual storytelling, with the intention of offering something genuine to the
-            audience. My creative practice includes digital and traditional painting, graphic
-            design, 3D modeling, and branding. I am committed to engaging with a fast-paced
-            contemporary world while actively contributing to and supporting my surroundings.
-          </p>
+      <section
+        ref={sectionRef}
+        className={`cheko-hover-preview${isInView ? " is-visible" : ""}`}
+        aria-label="About me details"
+      >
+        <div className="cheko-hover-preview__layout">
+          <div className="cheko-hover-preview__media" aria-hidden="true">
+            <div className="cheko-hover-preview__media-frame">
+              <img
+                src="https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/1.jpg"
+                alt=""
+                style={{ transform: `translate3d(0, ${imageOffset}px, 0) scale(1.02)` }}
+              />
+            </div>
+          </div>
 
-          <p>
-            I’ve had an exchange semester at{" "}
-            <HoverLink
-              previewKey="metu"
-              onHoverStart={handleHoverStart}
-              onHoverMove={handleHoverMove}
-              onHoverEnd={handleHoverEnd}
-            >
-              METU University
-            </HoverLink>
-            , where I learned more about visual storytelling, animation, and modeling. One of the
-            most valuable experiences was meeting new people and experiencing a new culture.
-          </p>
+          <div className="cheko-hover-preview__text">
+            <p>
+              I’m Mariam, known as Cheko, a third-year Visual Communications student at{" "}
+              <HoverLink
+                previewKey="gipa"
+                onHoverStart={handleHoverStart}
+                onHoverMove={handleHoverMove}
+                onHoverEnd={handleHoverEnd}
+              >
+                GIPA (Georgian University of Public Affairs)
+              </HoverLink>
+              . My focus is to apply my skills thoughtfully to communicate clear, meaningful ideas
+              through visual storytelling, with the intention of offering something genuine to the
+              audience. My creative practice includes digital and traditional painting, graphic
+              design, 3D modeling, and branding. I am committed to engaging with a fast-paced
+              contemporary world while actively contributing to and supporting my surroundings.
+            </p>
+
+            <p>
+              I’ve had an exchange semester at{" "}
+              <HoverLink
+                previewKey="metu"
+                onHoverStart={handleHoverStart}
+                onHoverMove={handleHoverMove}
+                onHoverEnd={handleHoverEnd}
+              >
+                METU University
+              </HoverLink>
+              , where I learned more about visual storytelling, animation, and modeling. One of the
+              most valuable experiences was meeting new people and experiencing a new culture.
+            </p>
+          </div>
         </div>
 
         {activePreview ? (
