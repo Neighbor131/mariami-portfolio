@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const previewData = {
   gipa: {
@@ -17,6 +17,54 @@ const previewData = {
   },
 };
 
+const collageBlueprint = [
+  {
+    id: "a",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/3.jpg",
+    width: 240,
+    x: 0.08,
+    y: 0.02,
+    rotation: -7,
+    speed: 1,
+  },
+  {
+    id: "b",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Budapest.jpg",
+    width: 220,
+    x: 0.5,
+    y: 0.08,
+    rotation: 5,
+    speed: 0.85,
+  },
+  {
+    id: "c",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/1.jpg",
+    width: 210,
+    x: 0.18,
+    y: 0.4,
+    rotation: 3,
+    speed: 0.7,
+  },
+  {
+    id: "d",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/gipa%20crop.jpeg",
+    width: 185,
+    x: 0.58,
+    y: 0.5,
+    rotation: -5,
+    speed: 1.12,
+  },
+  {
+    id: "e",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/metu-crop.png",
+    width: 200,
+    x: 0.02,
+    y: 0.68,
+    rotation: 6,
+    speed: 0.92,
+  },
+];
+
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
@@ -24,87 +72,87 @@ const styles = `
     position: relative;
     width: min(calc(100% - 40px), 1280px);
     margin: 0 auto;
-    padding: clamp(8px, 1vw, 18px) 0 clamp(48px, 5vw, 72px);
+    padding: clamp(8px, 1vw, 18px) 0 clamp(64px, 6vw, 88px);
     font-family: 'DM Sans', sans-serif;
   }
 
   .cheko-hover-preview__layout {
     display: grid;
-    grid-template-columns: minmax(220px, 0.86fr) minmax(320px, 544px);
+    grid-template-columns: minmax(320px, 544px) minmax(320px, 1fr);
     justify-content: space-between;
     align-items: start;
-    gap: clamp(28px, 5vw, 96px);
-  }
-
-  .cheko-hover-preview__media {
-    position: relative;
-    display: grid;
-    gap: clamp(18px, 2vw, 28px);
-    padding-top: clamp(12px, 2vw, 28px);
-    opacity: 0;
-    transform: translate3d(-28px, 42px, 0) rotate(-4deg);
-    transition: opacity 0.85s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .cheko-hover-preview.is-visible .cheko-hover-preview__media {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) rotate(-2deg);
-  }
-
-  .cheko-hover-preview__media-frame {
-    width: min(100%, 392px);
-    margin-right: auto;
-    overflow: hidden;
-    box-shadow:
-      0 28px 60px rgba(0, 0, 0, 0.24),
-      0 0 0 1px rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.04);
-  }
-
-  .cheko-hover-preview__media-frame.is-secondary {
-    width: min(94%, 360px);
-    margin-left: clamp(18px, 4vw, 64px);
-    transform: rotate(2.6deg);
-  }
-
-  .cheko-hover-preview__media-frame img {
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    will-change: transform;
+    gap: clamp(28px, 5vw, 110px);
   }
 
   .cheko-hover-preview__text {
     width: min(100%, 544px);
-    margin-left: auto;
     font-size: clamp(1.1rem, 2vw, 1.65rem);
     line-height: 1.62;
     letter-spacing: -0.03em;
     color: var(--muted-strong, rgba(248, 247, 243, 0.82));
     text-wrap: pretty;
-  }
-
-  .cheko-hover-preview__text p {
-    margin: 0;
     opacity: 0;
     transform: translate3d(0, 28px, 0);
     transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .cheko-hover-preview__text p + p {
-    margin-top: 1.15em;
-    transition-delay: 0.14s;
-  }
-
-  .cheko-hover-preview__text p:nth-child(2) {
-    position: relative;
-    z-index: 1;
-  }
-
-  .cheko-hover-preview.is-visible .cheko-hover-preview__text p {
+  .cheko-hover-preview.is-visible .cheko-hover-preview__text {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+  }
+
+  .cheko-hover-preview__text p {
+    margin: 0;
+  }
+
+  .cheko-hover-preview__text p + p {
+    margin-top: 1.15em;
+  }
+
+  .cheko-hover-preview__media {
+    position: relative;
+    min-height: clamp(640px, 72vw, 860px);
+    opacity: 0;
+    transform: translate3d(28px, 42px, 0);
+    transition: opacity 0.85s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .cheko-hover-preview.is-visible .cheko-hover-preview__media {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .cheko-hover-preview__canvas {
+    position: relative;
+    width: 100%;
+    min-height: inherit;
+  }
+
+  .cheko-hover-preview__photo {
+    position: absolute;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    box-shadow:
+      0 28px 60px rgba(0, 0, 0, 0.22),
+      0 0 0 1px rgba(255, 255, 255, 0.08);
+    will-change: transform;
+  }
+
+  .cheko-hover-preview__photo.is-dragging {
+    cursor: grabbing;
+  }
+
+  .cheko-hover-preview__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    -webkit-user-drag: none;
   }
 
   .cheko-hover-preview__link {
@@ -201,33 +249,30 @@ const styles = `
     color: rgba(17, 17, 17, 0.58);
   }
 
+  @media (max-width: 900px) {
+    .cheko-hover-preview__layout {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    .cheko-hover-preview__media {
+      min-height: 620px;
+      order: 2;
+    }
+
+    .cheko-hover-preview__text {
+      width: 100%;
+    }
+  }
+
   @media (max-width: 720px) {
     .cheko-hover-preview {
       width: min(calc(100% - 32px), 1280px);
       padding-bottom: 40px;
     }
 
-    .cheko-hover-preview__layout {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-
     .cheko-hover-preview__media {
-      padding-top: 0;
-      transform: translate3d(0, 24px, 0);
-    }
-
-    .cheko-hover-preview.is-visible .cheko-hover-preview__media {
-      transform: translate3d(0, 0, 0);
-    }
-
-    .cheko-hover-preview__media-frame {
-      width: min(100%, 360px);
-    }
-
-    .cheko-hover-preview__text {
-      width: 100%;
-      margin-left: 0;
+      min-height: 520px;
     }
 
     .cheko-hover-preview__card {
@@ -255,13 +300,30 @@ export function HoverPreview() {
   const [isVisible, setIsVisible] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const [imageOffset, setImageOffset] = useState(0);
+  const [canvasSize, setCanvasSize] = useState({ width: 720, height: 760 });
+  const [items, setItems] = useState([]);
+  const [draggingId, setDraggingId] = useState(null);
   const sectionRef = useRef(null);
+  const canvasRef = useRef(null);
+  const dragStateRef = useRef(null);
+  const didMoveRef = useRef(false);
+
+  const derivedItems = useMemo(() => {
+    return collageBlueprint.map((item, index) => ({
+      ...item,
+      zIndex: index + 1,
+      x: Math.max(0, canvasSize.width * item.x),
+      y: Math.max(0, canvasSize.height * item.y),
+    }));
+  }, [canvasSize.height, canvasSize.width]);
 
   useEffect(() => {
-    Object.values(previewData).forEach((item) => {
-      const image = new Image();
-      image.src = item.image;
-    });
+    [...Object.values(previewData).map((item) => item.image), ...collageBlueprint.map((item) => item.src)].forEach(
+      (src) => {
+        const image = new Image();
+        image.src = src;
+      }
+    );
   }, []);
 
   useEffect(() => {
@@ -275,13 +337,42 @@ export function HoverPreview() {
           observer.disconnect();
         }
       },
-      { threshold: 0.22 }
+      { threshold: 0.2 }
     );
 
     observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const canvasNode = canvasRef.current;
+    if (!canvasNode) return;
+
+    const updateCanvasSize = () => {
+      setCanvasSize({
+        width: canvasNode.clientWidth || 720,
+        height: canvasNode.clientHeight || 760,
+      });
+    };
+
+    updateCanvasSize();
+    const observer = new ResizeObserver(updateCanvasSize);
+    observer.observe(canvasNode);
 
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    setItems((current) => {
+      if (!current.length) return derivedItems;
+
+      return derivedItems.map((nextItem) => {
+        const existing = current.find((item) => item.id === nextItem.id);
+        if (!existing || !existing.hasMoved) return nextItem;
+        return existing;
+      });
+    });
+  }, [derivedItems]);
 
   useEffect(() => {
     const updateParallax = () => {
@@ -292,7 +383,7 @@ export function HoverPreview() {
       const viewportHeight = window.innerHeight || 1;
       const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
       const eased = Math.max(-1, Math.min(1, progress - 0.5));
-      setImageOffset(eased * 36);
+      setImageOffset(eased * 28);
     };
 
     updateParallax();
@@ -305,6 +396,54 @@ export function HoverPreview() {
     };
   }, []);
 
+  useEffect(() => {
+    const handlePointerMove = (event) => {
+      const dragState = dragStateRef.current;
+      const canvasNode = canvasRef.current;
+      if (!dragState || !canvasNode) return;
+
+      didMoveRef.current = true;
+      const rect = canvasNode.getBoundingClientRect();
+      const activeBlueprint = collageBlueprint.find((item) => item.id === dragState.id);
+      const cardWidth = activeBlueprint?.width || 220;
+      const maxX = Math.max(0, rect.width - cardWidth);
+      const maxY = Math.max(0, rect.height - 160);
+      const nextX = Math.max(0, Math.min(maxX, event.clientX - rect.left - dragState.offsetX));
+      const nextY = Math.max(0, Math.min(maxY, event.clientY - rect.top - dragState.offsetY));
+
+      setItems((current) =>
+        current.map((item) =>
+          item.id === dragState.id
+            ? {
+                ...item,
+                x: nextX,
+                y: nextY,
+                zIndex: dragState.zIndex,
+                hasMoved: true,
+              }
+            : item
+        )
+      );
+    };
+
+    const handlePointerUp = () => {
+      dragStateRef.current = null;
+      setDraggingId(null);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+
+    if (draggingId) {
+      window.addEventListener("pointermove", handlePointerMove);
+      window.addEventListener("pointerup", handlePointerUp);
+    }
+
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+  }, [draggingId]);
+
   const updatePosition = useCallback((event) => {
     const cardWidth = 320;
     const cardHeight = 270;
@@ -313,17 +452,9 @@ export function HoverPreview() {
     let x = event.clientX - cardWidth / 2;
     let y = event.clientY - cardHeight - gap;
 
-    if (x + cardWidth > window.innerWidth - 16) {
-      x = window.innerWidth - cardWidth - 16;
-    }
-
-    if (x < 16) {
-      x = 16;
-    }
-
-    if (y < 16) {
-      y = event.clientY + gap;
-    }
+    if (x + cardWidth > window.innerWidth - 16) x = window.innerWidth - cardWidth - 16;
+    if (x < 16) x = 16;
+    if (y < 16) y = event.clientY + gap;
 
     setPosition({ x, y });
   }, []);
@@ -349,6 +480,30 @@ export function HoverPreview() {
     setIsVisible(false);
   }, []);
 
+  const handleDragStart = useCallback(
+    (id, event) => {
+      event.preventDefault();
+      const item = items.find((entry) => entry.id === id);
+      const canvasNode = canvasRef.current;
+      if (!item || !canvasNode) return;
+
+      const rect = canvasNode.getBoundingClientRect();
+      didMoveRef.current = false;
+      const nextZIndex = Math.max(...items.map((entry) => entry.zIndex), 0) + 1;
+      dragStateRef.current = {
+        id,
+        offsetX: event.clientX - rect.left - item.x,
+        offsetY: event.clientY - rect.top - item.y,
+        zIndex: nextZIndex,
+      };
+      setDraggingId(id);
+      setItems((current) =>
+        current.map((entry) => (entry.id === id ? { ...entry, zIndex: nextZIndex } : entry))
+      );
+    },
+    [items]
+  );
+
   return (
     <>
       <style>{styles}</style>
@@ -358,23 +513,6 @@ export function HoverPreview() {
         aria-label="About me details"
       >
         <div className="cheko-hover-preview__layout">
-          <div className="cheko-hover-preview__media" aria-hidden="true">
-            <div className="cheko-hover-preview__media-frame">
-              <img
-                src="https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/3.jpg"
-                alt=""
-                style={{ transform: `translate3d(0, ${imageOffset}px, 0) scale(1.02)` }}
-              />
-            </div>
-            <div className="cheko-hover-preview__media-frame is-secondary">
-              <img
-                src="https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Budapest.jpg"
-                alt=""
-                style={{ transform: `translate3d(0, ${imageOffset * 0.72}px, 0) scale(1.02)` }}
-              />
-            </div>
-          </div>
-
           <div className="cheko-hover-preview__text">
             <p>
               I’m Mariam, known as Cheko, a third-year Visual Communications student at{" "}
@@ -406,6 +544,28 @@ export function HoverPreview() {
               , where I learned more about visual storytelling, animation, and modeling. One of the
               most valuable experiences was meeting new people and experiencing a new culture.
             </p>
+          </div>
+
+          <div className="cheko-hover-preview__media" aria-label="Draggable photo collage">
+            <div ref={canvasRef} className="cheko-hover-preview__canvas">
+              {items.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`cheko-hover-preview__photo${draggingId === item.id ? " is-dragging" : ""}`}
+                  style={{
+                    width: `${item.width}px`,
+                    left: `${item.x}px`,
+                    top: `${item.y}px`,
+                    zIndex: item.zIndex,
+                    transform: `translate3d(0, ${imageOffset * item.speed}px, 0) rotate(${item.rotation}deg)`,
+                  }}
+                  onPointerDown={(event) => handleDragStart(item.id, event)}
+                >
+                  <img src={item.src} alt="" draggable="false" />
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
