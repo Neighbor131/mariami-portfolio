@@ -39,7 +39,7 @@ const homeGalleryItems = [
     path: "/works/branding/",
   },
   {
-    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/Audo/Refnverse.png",
     title: "UX/UI",
     description: "A selection of UX/UI studies focused on interface flow, clarity, and digital experience design.",
     path: "/works/ux-ui/",
