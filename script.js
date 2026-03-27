@@ -582,6 +582,25 @@ function setupCaseStudyGallery() {
   if (!mainImage || !thumbs.length) return;
 
   let activeIndex = 0;
+  let lockedScrollY = 0;
+
+  const lockViewport = () => {
+    lockedScrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.classList.add("lightbox-open");
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${lockedScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.width = "100%";
+  };
+
+  const unlockViewport = () => {
+    document.body.classList.remove("lightbox-open");
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.width = "";
+    window.scrollTo(0, lockedScrollY);
+  };
 
   const syncActive = (index) => {
     const item = thumbs[index];
@@ -650,7 +669,7 @@ function setupCaseStudyGallery() {
     if (!lightbox) return;
     syncActive(index);
     lightbox.hidden = false;
-    document.body.classList.add("lightbox-open");
+    lockViewport();
     if (lightboxVideo && !lightboxVideo.hidden) {
       const playAttempt = lightboxVideo.play();
       if (playAttempt && typeof playAttempt.catch === "function") {
@@ -665,7 +684,7 @@ function setupCaseStudyGallery() {
       lightboxVideo.pause();
     }
     lightbox.hidden = true;
-    document.body.classList.remove("lightbox-open");
+    unlockViewport();
   };
 
   const step = (direction) => {

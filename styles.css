@@ -1617,6 +1617,8 @@ body[data-theme="light"] .case-study-gallery-arrow:hover {
   display: block;
   padding: 0;
   background: rgba(4, 4, 6, 0.98);
+  overflow: hidden;
+  overscroll-behavior: contain;
 }
 
 .case-study-lightbox[hidden] {
@@ -1630,6 +1632,7 @@ body[data-theme="light"] .case-study-gallery-arrow:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .case-study-lightbox-media img,
@@ -1757,6 +1760,8 @@ body[data-theme="light"] .case-study-page {
 
 body.lightbox-open {
   overflow: hidden;
+  height: 100svh;
+  overscroll-behavior: none;
 }
 
 body[data-theme="light"] .case-study-lightbox {
