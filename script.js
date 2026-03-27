@@ -38,7 +38,13 @@ const homeGalleryItems = [
     description: "Explore my designs for branding and packaging.",
     path: "/works/branding/",
   },
-  ...projects.slice(0, 4).map((project) => ({
+  {
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+    title: "UX/UI",
+    description: "A selection of UX/UI studies focused on interface flow, clarity, and digital experience design.",
+    path: "/works/ux-ui/",
+  },
+  ...projects.slice(0, 3).map((project) => ({
     src: project.cover,
     title: project.title,
     description: project.intro,

@@ -800,6 +800,86 @@ export const caseStudies = [
       },
     ],
   },
+  {
+    slug: "omnia",
+    categorySlug: "ux-ui",
+    title: "Omnia",
+    intro: "",
+    description: "",
+    path: "/works/ux-ui/omnia/",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      {
+        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        alt: "Omnia UX/UI project preview",
+      },
+    ],
+  },
+  {
+    slug: "ux-ui-02",
+    categorySlug: "ux-ui",
+    title: "UX/UI Project 02",
+    intro: "",
+    description: "",
+    path: "/works/ux-ui/ux-ui-02/",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      {
+        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        alt: "UX/UI project 02 preview",
+      },
+    ],
+  },
+  {
+    slug: "ux-ui-03",
+    categorySlug: "ux-ui",
+    title: "UX/UI Project 03",
+    intro: "",
+    description: "",
+    path: "/works/ux-ui/ux-ui-03/",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      {
+        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        alt: "UX/UI project 03 preview",
+      },
+    ],
+  },
+  {
+    slug: "ux-ui-04",
+    categorySlug: "ux-ui",
+    title: "UX/UI Project 04",
+    intro: "",
+    description: "",
+    path: "/works/ux-ui/ux-ui-04/",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      {
+        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        alt: "UX/UI project 04 preview",
+      },
+    ],
+  },
+  {
+    slug: "ux-ui-05",
+    categorySlug: "ux-ui",
+    title: "UX/UI Project 05",
+    intro: "",
+    description: "",
+    path: "/works/ux-ui/ux-ui-05/",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      {
+        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        alt: "UX/UI project 05 preview",
+      },
+    ],
+  },
 ];
 
 export function findCaseStudy(slug) {
@@ -952,6 +1032,56 @@ export const workCategories = [
         image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Branding/Halo%202/Halo-6.png",
         imagePosition: "50% 50%",
         href: "/works/branding/halo/",
+        meta: "",
+        tags: [],
+      },
+    ],
+  },
+  {
+    slug: "ux-ui",
+    title: "UX/UI",
+    label: "Welcome",
+    intro:
+      "A selection of UX/UI works exploring interface clarity, digital flow, and product thinking.",
+    marquee: ["UX/UI", "+", "UX/UI", "+", "UX/UI", "+"],
+    cards: [
+      {
+        title: "Omnia",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        imagePosition: "50% 50%",
+        href: "/works/ux-ui/omnia/",
+        meta: "",
+        tags: [],
+      },
+      {
+        title: "UX/UI Project 02",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        imagePosition: "50% 50%",
+        href: "/works/ux-ui/ux-ui-02/",
+        meta: "",
+        tags: [],
+      },
+      {
+        title: "UX/UI Project 03",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        imagePosition: "50% 50%",
+        href: "/works/ux-ui/ux-ui-03/",
+        meta: "",
+        tags: [],
+      },
+      {
+        title: "UX/UI Project 04",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        imagePosition: "50% 50%",
+        href: "/works/ux-ui/ux-ui-04/",
+        meta: "",
+        tags: [],
+      },
+      {
+        title: "UX/UI Project 05",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        imagePosition: "50% 50%",
+        href: "/works/ux-ui/ux-ui-05/",
         meta: "",
         tags: [],
       },
