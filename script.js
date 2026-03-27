@@ -438,6 +438,7 @@ function renderCaseStudyPage() {
 
   const study = findCaseStudy(slug);
   if (!study) return;
+  const hasVideoMedia = study.gallery.some((item) => isVideoSource(item.src));
 
   document.title = `Cheko's Space - ${study.title}`;
 
@@ -503,15 +504,19 @@ function renderCaseStudyPage() {
                     data-case-main-image
                     style="object-position: ${study.heroImagePosition};"
                   >
-                  <video
-                    src=""
-                    muted
-                    loop
-                    playsinline
-                    preload="metadata"
-                    data-case-main-video
-                    hidden
-                  ></video>
+                  ${
+                    hasVideoMedia
+                      ? `<video
+                          src=""
+                          muted
+                          loop
+                          playsinline
+                          preload="metadata"
+                          data-case-main-video
+                          hidden
+                        ></video>`
+                      : ""
+                  }
                 </figure>
               </button>
               <div class="case-study-gallery-controls">
@@ -542,7 +547,11 @@ function renderCaseStudyPage() {
           <button class="case-study-lightbox-nav is-prev" type="button" data-case-prev aria-label="Previous image">‹</button>
           <figure class="case-study-lightbox-media">
             <img src="${study.heroImage}" alt="${study.title}" data-case-lightbox-image>
-            <video src="" controls loop playsinline preload="metadata" data-case-lightbox-video hidden></video>
+            ${
+              hasVideoMedia
+                ? `<video src="" controls loop playsinline preload="metadata" data-case-lightbox-video hidden></video>`
+                : ""
+            }
           </figure>
           <button class="case-study-lightbox-nav is-next" type="button" data-case-next aria-label="Next image">›</button>
           <p class="case-study-lightbox-count" data-case-count>1 / ${study.gallery.length}</p>
@@ -638,12 +647,13 @@ function setupCaseStudyGallery() {
     const alt = item.dataset.alt || "";
     const type = item.dataset.type || "image";
 
-    if (mainImage && mainVideo) {
+    if (mainImage) {
       const isVideo = type === "video";
       mainImage.hidden = isVideo;
-      mainVideo.hidden = !isVideo;
+      if (mainVideo) mainVideo.hidden = !isVideo;
 
       if (isVideo) {
+        if (!mainVideo) return;
         mainVideo.src = src;
         mainVideo.setAttribute("aria-label", alt);
         const playAttempt = mainVideo.play();
@@ -652,9 +662,11 @@ function setupCaseStudyGallery() {
         }
         updateVideoOrientation();
       } else {
-        mainVideo.pause();
-        mainVideo.removeAttribute("src");
-        mainVideo.load();
+        if (mainVideo) {
+          mainVideo.pause();
+          mainVideo.removeAttribute("src");
+          mainVideo.load();
+        }
         mainImage.src = src || mainImage.src;
         mainImage.alt = alt || mainImage.alt;
         if (mainImage.complete) updateImageOrientation();
@@ -663,18 +675,21 @@ function setupCaseStudyGallery() {
 
     thumbs.forEach((node, nodeIndex) => node.classList.toggle("is-active", nodeIndex === index));
 
-    if (lightboxImage && lightboxVideo) {
+    if (lightboxImage) {
       const isVideo = type === "video";
       lightboxImage.hidden = isVideo;
-      lightboxVideo.hidden = !isVideo;
+      if (lightboxVideo) lightboxVideo.hidden = !isVideo;
 
       if (isVideo) {
+        if (!lightboxVideo) return;
         lightboxVideo.src = src;
         lightboxVideo.setAttribute("aria-label", alt);
       } else {
-        lightboxVideo.pause();
-        lightboxVideo.removeAttribute("src");
-        lightboxVideo.load();
+        if (lightboxVideo) {
+          lightboxVideo.pause();
+          lightboxVideo.removeAttribute("src");
+          lightboxVideo.load();
+        }
         lightboxImage.src = src || lightboxImage.src;
         lightboxImage.alt = alt || lightboxImage.alt;
       }
