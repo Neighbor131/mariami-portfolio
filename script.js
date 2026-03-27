@@ -32,7 +32,13 @@ const homeGalleryItems = [
     description: "Explore my collection of 2d paintings.",
     path: "/works/2d-paintings/",
   },
-  ...projects.slice(0, 5).map((project) => ({
+  {
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Branding/Damsvi/5.png",
+    title: "Branding",
+    description: "Explore my designs for branding and packaging.",
+    path: "/works/branding/",
+  },
+  ...projects.slice(0, 4).map((project) => ({
     src: project.cover,
     title: project.title,
     description: project.intro,
@@ -105,6 +111,11 @@ function createMedia(source, altText) {
 
 function isVideoSource(source = "") {
   return /\.(mp4|webm|ogg)(\?.*)?$/i.test(source);
+}
+
+function getMediaType(item = {}) {
+  if (item.type) return item.type;
+  return isVideoSource(item.src || "") ? "video" : "image";
 }
 
 function ensureFonts() {
@@ -514,7 +525,7 @@ function renderCaseStudyPage() {
   const study = findCaseStudy(slug);
   if (!study) return;
   const category = findWorkCategory(study.categorySlug);
-  const hasVideoMedia = study.gallery.some((item) => isVideoSource(item.src));
+  const hasVideoMedia = study.gallery.some((item) => getMediaType(item) === "video");
   const initialIndex = Math.max(
     0,
     study.gallery.findIndex((item) => item.src === study.heroImage)
@@ -532,12 +543,12 @@ function renderCaseStudyPage() {
           data-index="${index}"
           data-src="${item.src}"
           data-alt="${item.alt}"
-          data-type="${isVideoSource(item.src) ? "video" : "image"}"
+          data-type="${getMediaType(item)}"
           data-poster="${item.poster || ""}"
           aria-label="Show ${item.alt}"
         >
           ${
-            isVideoSource(item.src)
+            getMediaType(item) === "video"
               ? `<img src="${item.poster || study.heroImage}" alt="" loading="lazy">`
               : `<img src="${item.src}" alt="" loading="lazy">`
           }
