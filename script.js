@@ -1057,7 +1057,7 @@ function setupAboutMePage() {
             data-index="${index}"
             style="--delay:${index * 80}ms"
           >
-            <img src="${photo.src}" alt="${photo.alt}" loading="lazy">
+            <img src="${photo.src}" alt="${photo.alt}" loading="lazy" draggable="false">
           </figure>
         `
       )
@@ -1142,6 +1142,8 @@ function setupAboutMePage() {
   const endDrag = () => {
     if (!dragState) return;
     dragState.photo.classList.remove("is-dragging");
+    dragState.photo.style.transition = "";
+    dragState.photo.style.zIndex = "";
     dragState = null;
   };
 
@@ -1165,9 +1167,11 @@ function setupAboutMePage() {
   board.querySelectorAll("[data-about-photo]").forEach((photo) => {
     photo.addEventListener("pointerdown", (event) => {
       if (isClean) return;
+      event.preventDefault();
       const boardRect = board.getBoundingClientRect();
       const photoRect = photo.getBoundingClientRect();
       photo.classList.add("is-dragging");
+      photo.style.transition = "none";
       photo.style.zIndex = "8";
       dragState = {
         photo,
@@ -1180,15 +1184,8 @@ function setupAboutMePage() {
       photo.setPointerCapture(event.pointerId);
     });
 
-    photo.addEventListener("pointerup", () => {
-      photo.style.zIndex = "";
-      endDrag();
-    });
-
-    photo.addEventListener("pointercancel", () => {
-      photo.style.zIndex = "";
-      endDrag();
-    });
+    photo.addEventListener("pointerup", endDrag);
+    photo.addEventListener("pointercancel", endDrag);
   });
 
   window.addEventListener("pointermove", pointerMove, { passive: true });

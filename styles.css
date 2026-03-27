@@ -1332,6 +1332,8 @@ body[data-theme="light"] .about-me-mode-button.is-active {
   height: 100%;
   display: block;
   object-fit: cover;
+  pointer-events: none;
+  -webkit-user-drag: none;
 }
 
 .about-me-photo--portrait {
