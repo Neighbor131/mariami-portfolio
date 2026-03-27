@@ -2418,6 +2418,49 @@ body[data-theme="light"] .contact-form-panel .field textarea:focus {
   color: var(--muted-strong);
 }
 
+.footer-social {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-social-link {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted-strong);
+  background: rgba(255, 255, 255, 0.04);
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.footer-social-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--muted-strong);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+}
+
+.footer-social-link svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+  fill: currentColor;
+}
+
+body[data-theme="light"] .footer-social-link {
+  background: rgba(15, 15, 15, 0.04);
+}
+
+body[data-theme="light"] .footer-social-link:hover {
+  background: rgba(15, 15, 15, 0.08);
+}
+
 .project-detail-hero {
   grid-template-columns: minmax(300px, 0.78fr) minmax(0, 1fr);
   align-items: start;

@@ -19,6 +19,36 @@ const navConfig = [
   { href: "/contact/", label: "Contact" },
 ];
 
+const footerSocialLinks = [
+  {
+    href: "https://www.linkedin.com/in/mchekurishvili04/",
+    label: "LinkedIn",
+    icon: `
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A2.02 2.02 0 0 0 3.2 5.02c0 1.11.9 2.01 2 2.01h.03c1.13 0 2.03-.9 2.03-2A2.01 2.01 0 0 0 5.25 3ZM20.8 13.02c0-3.5-1.87-5.13-4.37-5.13-2.01 0-2.9 1.1-3.4 1.88V8.5H9.65c.04.84 0 11.5 0 11.5h3.38v-6.42c0-.34.03-.67.13-.91.27-.67.87-1.36 1.88-1.36 1.33 0 1.86 1.01 1.86 2.5V20H20.8v-6.98Z"></path>
+      </svg>
+    `,
+  },
+  {
+    href: "https://www.behance.net/mariamchekuri2",
+    label: "Behance",
+    icon: `
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M9.44 11.05c1.3-.62 1.94-1.7 1.94-3.21C11.38 5.1 9.63 4 7.12 4H2v16h5.31c2.8 0 4.76-1.3 4.76-4.09 0-1.94-.95-3.34-2.63-3.86ZM5.1 6.47h1.8c.95 0 1.5.38 1.5 1.24 0 .95-.71 1.26-1.71 1.26H5.1V6.47Zm1.96 11.05H5.1v-3.1h2.04c1.15 0 2.05.38 2.05 1.52 0 1.1-.83 1.58-2.13 1.58ZM18.35 7.87c-3.44 0-5.11 2.56-5.11 5.83 0 3.4 1.61 5.8 5.27 5.8 2.64 0 4.37-1.24 4.96-3.55h-2.76c-.2.69-.72 1.32-2.1 1.32-1.43 0-2.23-.9-2.3-2.56H24c.1-3.88-1.83-6.84-5.65-6.84Zm-1.98 4.77c.15-1.36.96-2.45 2.18-2.45 1.37 0 2.04 1.02 2.12 2.45h-4.3ZM15.46 4.75h5.55V6.1h-5.55V4.75Z"></path>
+      </svg>
+    `,
+  },
+  {
+    href: "https://www.instagram.com/mchekko/",
+    label: "Instagram",
+    icon: `
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.9A3.85 3.85 0 0 0 3.9 7.75v8.5A3.85 3.85 0 0 0 7.75 20.1h8.5a3.85 3.85 0 0 0 3.85-3.85v-8.5A3.85 3.85 0 0 0 16.25 3.9h-8.5Zm8.97 1.42a1.14 1.14 0 1 1 0 2.28 1.14 1.14 0 0 1 0-2.28ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.9A3.1 3.1 0 1 0 12 15.1 3.1 3.1 0 0 0 12 8.9Z"></path>
+      </svg>
+    `,
+  },
+];
+
 const homeGalleryItems = [
   {
     src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/roboti/1.png",
@@ -226,9 +256,29 @@ function syncSiteChrome() {
     const aboutLink = node.querySelector('a[href="/about/"]');
     if (aboutLink) {
       aboutLink.textContent = "About Me";
-      return;
+    } else {
+      node.insertAdjacentHTML("afterbegin", '<a href="/about/">About Me</a>');
     }
-    node.insertAdjacentHTML("afterbegin", '<a href="/about/">About Me</a>');
+  });
+
+  document.querySelectorAll(".footer-side").forEach((node) => {
+    if (node.querySelector(".footer-social")) return;
+    node.insertAdjacentHTML(
+      "beforeend",
+      `
+        <div class="footer-social" aria-label="Social links">
+          ${footerSocialLinks
+            .map(
+              ({ href, label, icon }) => `
+                <a href="${href}" class="footer-social-link" target="_blank" rel="noreferrer" aria-label="${label}">
+                  ${icon}
+                </a>
+              `
+            )
+            .join("")}
+        </div>
+      `
+    );
   });
 }
 
