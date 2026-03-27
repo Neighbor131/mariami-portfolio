@@ -85,7 +85,7 @@ const homeGalleryItems = [
     path: "/works/digital-works/",
   },
   {
-    src: "/project-media/glance.mp4.png",
+    src: "/motion-media-cover.png",
     title: "Motion Media",
     description: "some of my selected motion studies",
     path: "/works/motion-media/",
