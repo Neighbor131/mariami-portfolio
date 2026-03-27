@@ -127,9 +127,10 @@ function AboutScrollText() {
       containerClassName="about-scroll-reveal"
       textClassName="about-scroll-reveal-text"
     >
-      I shape identities and guide art direction for ambitious clients seeking timeless
-      sophistication with a modern edge. Through editorial sensibility and narrative depth,
-      my work turns vision into immersive experiences that resonate and endure.
+      Hey there! Welcome to my world. When it comes to work, I believe we should always
+      do what we enjoy and share it with others. For me, that joy is turning ideas and
+      emotions into reality. I love experimenting with different fields and constantly
+      growing my skills and capabilities. Have fun exploring!
     </ScrollReveal>
   );
 }
