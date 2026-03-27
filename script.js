@@ -659,7 +659,11 @@ function setupCaseStudyGallery() {
   const openTrigger = document.querySelector("[data-case-open-gallery]");
   if (!mainImage || !thumbs.length) return;
 
-  let activeIndex = 0;
+  const initialIndex = Math.max(
+    0,
+    thumbs.findIndex((thumb) => thumb.classList.contains("is-active"))
+  );
+  let activeIndex = initialIndex;
   let lockedScrollY = 0;
 
   const setOrientationState = (type, width, height) => {
