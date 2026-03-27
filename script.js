@@ -473,7 +473,11 @@ function renderCategoryPage() {
               >
             </figure>
             <h2 class="category-archive-title">(${card.title}.)</h2>
-            <p class="category-archive-meta">${(card.meta || card.tags.join(" / "))}</p>
+            ${
+              card.meta || (card.tags && card.tags.length)
+                ? `<p class="category-archive-meta">${(card.meta || card.tags.join(" / "))}</p>`
+                : ""
+            }
           </a>
         </article>
       `;
@@ -556,13 +560,27 @@ function renderCaseStudyPage() {
     )
     .join("");
 
+  const introMarkup = study.intro
+    ? `<p class="case-study-intro">${study.intro}</p>`
+    : "";
+  const bodyMarkup = study.description
+    ? `
+        <section class="case-study-body" aria-labelledby="case-study-body-title">
+          <h2 id="case-study-body-title" class="sr-only">Project description</h2>
+          <div class="case-study-body-copy">
+            <p>${study.description.replace(/\n\n/g, "</p><p>")}</p>
+          </div>
+        </section>
+      `
+    : "";
+
   root.innerHTML = `
     <section class="case-study-page reveal">
       <div class="case-study-shell">
         <header class="case-study-headline">
           <p class="case-study-kicker">(${category?.title || "Case Study"}.)</p>
           <h1 class="case-study-title">${study.title}</h1>
-          <p class="case-study-intro">${study.intro}</p>
+          ${introMarkup}
         </header>
 
         <div class="case-study-header">
@@ -614,12 +632,7 @@ function renderCaseStudyPage() {
           </div>
         </div>
 
-        <section class="case-study-body" aria-labelledby="case-study-body-title">
-          <h2 id="case-study-body-title" class="sr-only">Project description</h2>
-          <div class="case-study-body-copy">
-            <p>${study.description.replace(/\n\n/g, "</p><p>")}</p>
-          </div>
-        </section>
+        ${bodyMarkup}
 
         <div class="case-study-lightbox" data-case-lightbox hidden>
           <button class="case-study-lightbox-close" type="button" data-case-close aria-label="Close gallery">Close</button>
