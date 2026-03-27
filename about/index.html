@@ -3,99 +3,91 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Elwood – About</title>
+    <title>Cheko's Space - About Me</title>
     <meta
       name="description"
-      content="Learn about Elwood’s creative journey – a visual storyteller blending photography and videography to capture emotion, simplicity, and human connection through timeless artistry."
-    >
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Shadows+Into+Light&display=swap"
-      rel="stylesheet"
+      content="Explore the world behind Cheko's Space through an interactive about page with motion, personal work, and image-led storytelling."
     >
     <link rel="stylesheet" href="/styles.css">
   </head>
-  <body>
+  <body data-page="about">
     <div class="page-shell">
       <header class="site-header">
-        <div class="site-header-inner">
-          <a class="brand" href="/"><span class="brand-dot"></span><span>Elwood</span></a>
-          <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Toggle menu">Menu</button>
-          <nav class="nav-links" data-nav>
-            <a href="/" data-nav-link>Home</a>
-            <a href="/services/" data-nav-link>Services</a>
-            <a href="/about/" data-nav-link>About</a>
-            <a href="/contact/" data-nav-link>Contact</a>
-          </nav>
-        </div>
+        <nav class="site-header-inner" data-menu-shell aria-label="Primary">
+          <div class="menu-top">
+            <div class="menu-bar">
+              <a class="brand" href="/" aria-label="Cheko's Space home">
+                <span class="brand-dot" aria-hidden="true"></span>
+                <span>Cheko's Space</span>
+              </a>
+              <div class="site-actions">
+                <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch light mode">
+                  <span class="theme-toggle-track" aria-hidden="true">
+                    <span class="theme-toggle-thumb"></span>
+                  </span>
+                  <span class="theme-toggle-label">Light</span>
+                </button>
+                <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-label="Open menu">
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-items-wrap">
+            <div class="nav-links" data-nav>
+              <a href="/" data-nav-link>Home</a>
+              <a href="/works/" data-nav-link>Works</a>
+              <a href="/about/" data-nav-link>About Me</a>
+              <a href="/contact/" data-nav-link>Contact</a>
+            </div>
+          </div>
+          <div class="menu-background" aria-hidden="true"></div>
+          <div class="menu-close-layer" data-menu-close aria-hidden="true"></div>
+        </nav>
       </header>
 
-      <main>
-        <section class="page-hero">
-          <div class="section-inner page-hero-grid reveal">
-            <div>
-              <p class="eyebrow">My Story</p>
-              <h1 class="section-title">About</h1>
-            </div>
-            <p class="lead">
-              What began as a fascination with light and motion grew into a pursuit of visual
-              storytelling rooted in simplicity, emotion, and human connection.
+      <main class="about-me-page" data-about-page>
+        <section class="about-me-hero">
+          <div class="about-me-shell">
+            <p class="about-me-kicker">(About Me.)</p>
+            <h1 class="about-me-title">
+              <span data-about-typed></span><span class="about-me-caret" aria-hidden="true"></span>
+            </h1>
+            <p class="about-me-lead" data-about-rest>
+              I build visual worlds through image-making, 3D practice, and atmosphere-driven storytelling.
+              This page is a living board of fragments, references, experiments, and memories that shape how I work.
             </p>
           </div>
         </section>
 
-        <section class="section section-lg">
-          <div class="section-inner about-story">
-            <div class="portrait reveal">
-              <img
-                src="https://framerusercontent.com/images/2hbRu3FwKQ6swZaKz6Q4EaEeWAE.jpg?width=1920&height=2887"
-                alt="Portrait of Elwood"
-              >
-            </div>
-            <div class="panel reveal">
-              <p class="eyebrow">The Journey</p>
-              <h2 class="section-title">Timeless imagery shaped by curiosity and intention.</h2>
-              <p class="body-copy">
-                I explore photography and film to understand people, places, and emotion. Whether
-                behind the lens or shaping creative direction, I aim to create work that feels
-                honest, intentional, and deeply atmospheric.
-              </p>
-              <p class="body-copy">
-                My creative path continues to evolve with every story I tell, guided by curiosity,
-                simplicity, and a love for imagery that feels lasting rather than fleeting.
-              </p>
-              <div class="button-row">
-                <a class="button" href="/contact/">Get In Touch</a>
-                <span class="button-secondary" data-contact-location></span>
+        <section class="about-me-board-section">
+          <div class="about-me-shell about-me-shell--wide">
+            <div class="about-me-board-top">
+              <div class="about-me-board-intro">
+                <p class="about-me-board-label">Scroll to enter the archive</p>
+                <p class="about-me-board-copy">
+                  Photos fall into place as you move through the page. Drag them around in chaos mode, or tidy everything into a clean grid when you want a more ordered view.
+                </p>
+              </div>
+              <div class="about-me-mode-switch" role="group" aria-label="Board mode">
+                <button class="about-me-mode-button is-active" type="button" data-about-chaos aria-pressed="true">Chaos</button>
+                <button class="about-me-mode-button" type="button" data-about-clean aria-pressed="false">Clean Up</button>
               </div>
             </div>
+
+            <div class="about-me-board" data-about-board aria-label="Interactive photo canvas"></div>
           </div>
         </section>
 
-        <section class="section section-lg">
-          <div class="section-inner">
-            <div class="grid-header reveal">
-              <div>
-                <p class="eyebrow">Principles</p>
-                <h2 class="section-title">The mindset behind every frame, shaped by curiosity and intention.</h2>
-              </div>
-            </div>
-            <div class="principles-grid" data-principles-grid></div>
-          </div>
-        </section>
-
-        <section class="section section-lg">
-          <div class="section-inner split-grid">
-            <div class="panel reveal">
-              <p class="eyebrow">Shared Perspective</p>
-              <h2 class="section-title">Open for collaborations, working worldwide.</h2>
-              <p class="body-copy">
-                Over the years, I’ve explored stories through photography and film, from quiet
-                portraits to cinematic moments that continue to shape how I see emotion and form.
-              </p>
-            </div>
-            <div class="stats-grid" data-stats-grid></div>
+        <section class="about-me-outro">
+          <div class="about-me-shell">
+            <p class="about-me-outro-kicker">Still curious?</p>
+            <h2 class="about-me-outro-title">I’m always collecting new images, new references, and new worlds to build.</h2>
+            <p class="about-me-outro-copy">
+              Replace this with your final personal note later. For now, think of it as a quiet closing thought about process, curiosity, and the kind of work you want to grow into.
+            </p>
+            <a class="button" href="/contact/">Get in touch</a>
           </div>
         </section>
       </main>
@@ -114,7 +106,8 @@
                 <div class="footer-nav-block">
                   <p class="footer-kicker">Links</p>
                   <div class="footer-links">
-                    <a href="/about/">About</a>
+                    <a href="/about/">About Me</a>
+                    <a href="/contact/">Contact</a>
                   </div>
                 </div>
                 <div class="footer-meta">
@@ -126,6 +119,7 @@
         </div>
       </footer>
     </div>
+
     <script type="module" src="/script.js"></script>
   </body>
 </html>

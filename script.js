@@ -15,6 +15,7 @@ const themeStorageKey = "chekos-space-theme";
 const navConfig = [
   { href: "/", label: "Home" },
   { href: "/works/", label: "Works" },
+  { href: "/about/", label: "About Me" },
   { href: "/contact/", label: "Contact" },
 ];
 
@@ -31,6 +32,59 @@ const homeGalleryItems = [
     description: project.intro,
     path: project.path,
   })),
+];
+
+const aboutMoodPhotos = [
+  {
+    src: "https://cdn.prod.website-files.com/68f5e7e733480946aa936748/6974289622893ca412fddeb9_DSC_1952.avif",
+    alt: "Portrait study",
+    aspect: "portrait",
+  },
+  {
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/cat/hf_20260327_084358_74f397ae-6c1b-4b63-a3e1-0dce5186ffe9.png",
+    alt: "Kitty render",
+    aspect: "portrait",
+  },
+  {
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/roboti/1.png",
+    alt: "Robot render",
+    aspect: "portrait",
+  },
+  {
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/trash%20can/1.jpg",
+    alt: "Trash can asset",
+    aspect: "portrait",
+  },
+  {
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/table/6.png",
+    alt: "Desk asset",
+    aspect: "landscape",
+  },
+  {
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/weapons/01_Cover%20image.jpg",
+    alt: "Weapons study",
+    aspect: "landscape",
+  },
+  {
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/objects/8.png",
+    alt: "Object study",
+    aspect: "portrait",
+  },
+  {
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/roboti/5.png",
+    alt: "Robot detail",
+    aspect: "portrait",
+  },
+  {
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/table/8.png",
+    alt: "Desk detail",
+    aspect: "landscape",
+  },
+  {
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/objects/13.png",
+    alt: "Material practice",
+    aspect: "portrait",
+  },
 ];
 
 function normalizeHref(href) {
@@ -124,8 +178,10 @@ function syncSiteChrome() {
     const links = isContactOnly
       ? [
           { href: "/", label: "Home" },
+          { href: "/about/", label: "About Me" },
         ]
       : [
+          { href: "/about/", label: "About Me" },
           { href: "/contact/", label: "Contact" },
         ];
 
@@ -135,6 +191,15 @@ function syncSiteChrome() {
         ${links.map(({ href, label }) => `<a href="${href}">${label}</a>`).join("")}
       </div>
     `;
+  });
+
+  document.querySelectorAll('.footer-nav-block .footer-links').forEach((node) => {
+    const aboutLink = node.querySelector('a[href="/about/"]');
+    if (aboutLink) {
+      aboutLink.textContent = "About Me";
+      return;
+    }
+    node.insertAdjacentHTML("afterbegin", '<a href="/about/">About Me</a>');
   });
 }
 
@@ -967,6 +1032,176 @@ function setupAboutPlayer() {
   applyTrack(spotifyPreviewTracks[index]);
 }
 
+function setupAboutMePage() {
+  const page = document.querySelector("[data-about-page]");
+  const typedNode = document.querySelector("[data-about-typed]");
+  const restNode = document.querySelector("[data-about-rest]");
+  const board = document.querySelector("[data-about-board]");
+  const chaosButton = document.querySelector("[data-about-chaos]");
+  const cleanButton = document.querySelector("[data-about-clean]");
+  if (!page || !typedNode || !board || !chaosButton || !cleanButton) return;
+
+  const typedText = "Hi, I'm Cheko";
+  let typingIndex = 0;
+  let isClean = false;
+  let boardActive = false;
+  let dragState = null;
+
+  const buildPhotos = () => {
+    board.innerHTML = aboutMoodPhotos
+      .map(
+        (photo, index) => `
+          <figure
+            class="about-me-photo about-me-photo--${photo.aspect}"
+            data-about-photo
+            data-index="${index}"
+            style="--delay:${index * 80}ms"
+          >
+            <img src="${photo.src}" alt="${photo.alt}" loading="lazy">
+          </figure>
+        `
+      )
+      .join("");
+  };
+
+  const setMode = (mode) => {
+    isClean = mode === "clean";
+    board.classList.toggle("is-clean", isClean);
+    chaosButton.classList.toggle("is-active", !isClean);
+    cleanButton.classList.toggle("is-active", isClean);
+    chaosButton.setAttribute("aria-pressed", String(!isClean));
+    cleanButton.setAttribute("aria-pressed", String(isClean));
+    if (isClean) {
+      board.style.height = "auto";
+      return;
+    }
+    positionChaos(false);
+  };
+
+  const positionChaos = (randomize = true) => {
+    const photos = Array.from(board.querySelectorAll("[data-about-photo]"));
+    const boardWidth = board.clientWidth;
+    const boardHeight = Math.max(window.innerHeight * 1.9, 1500);
+    board.style.height = `${boardHeight}px`;
+
+    photos.forEach((photo, index) => {
+      const width = photo.dataset.width
+        ? Number(photo.dataset.width)
+        : Math.min(340, Math.max(180, boardWidth * (photo.classList.contains("about-me-photo--landscape") ? 0.24 : 0.18)));
+      const heightEstimate = photo.classList.contains("about-me-photo--landscape") ? width * 0.72 : width * 1.26;
+      const x = randomize || !photo.dataset.x
+        ? Math.max(0, Math.min(boardWidth - width, (Math.random() * (boardWidth - width))))
+        : Number(photo.dataset.x);
+      const y = randomize || !photo.dataset.y
+        ? 120 + index * 120 + Math.random() * Math.max(160, boardHeight / 2.1)
+        : Number(photo.dataset.y);
+      const r = randomize || !photo.dataset.r
+        ? -12 + Math.random() * 24
+        : Number(photo.dataset.r);
+
+      photo.dataset.width = String(width);
+      photo.dataset.height = String(heightEstimate);
+      photo.dataset.x = String(x);
+      photo.dataset.y = String(y);
+      photo.dataset.r = String(r);
+      photo.style.setProperty("--photo-width", `${width}px`);
+      photo.style.setProperty("--x", `${x}px`);
+      photo.style.setProperty("--y", `${y}px`);
+      photo.style.setProperty("--r", `${r}deg`);
+    });
+  };
+
+  const activateBoard = () => {
+    if (boardActive) return;
+    boardActive = true;
+    board.classList.add("is-active");
+  };
+
+  const typeIntro = () => {
+    if (typingIndex > typedText.length) return;
+    typedNode.textContent = typedText.slice(0, typingIndex);
+    typingIndex += 1;
+    if (typingIndex <= typedText.length) {
+      window.setTimeout(typeIntro, typingIndex < typedText.length ? 82 : 180);
+      return;
+    }
+    restNode?.classList.add("is-visible");
+  };
+
+  const pointerMove = (event) => {
+    if (!dragState || isClean) return;
+    const { photo, boardRect, offsetX, offsetY, width, height } = dragState;
+    const x = Math.max(0, Math.min(boardRect.width - width, event.clientX - boardRect.left - offsetX));
+    const y = Math.max(0, Math.min(boardRect.height - height, event.clientY - boardRect.top - offsetY));
+    photo.dataset.x = String(x);
+    photo.dataset.y = String(y);
+    photo.style.setProperty("--x", `${x}px`);
+    photo.style.setProperty("--y", `${y}px`);
+  };
+
+  const endDrag = () => {
+    if (!dragState) return;
+    dragState.photo.classList.remove("is-dragging");
+    dragState = null;
+  };
+
+  buildPhotos();
+  positionChaos(true);
+  typeIntro();
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        activateBoard();
+        observer.disconnect();
+      });
+    },
+    { threshold: 0.16 }
+  );
+
+  observer.observe(board);
+
+  board.querySelectorAll("[data-about-photo]").forEach((photo) => {
+    photo.addEventListener("pointerdown", (event) => {
+      if (isClean) return;
+      const boardRect = board.getBoundingClientRect();
+      const photoRect = photo.getBoundingClientRect();
+      photo.classList.add("is-dragging");
+      photo.style.zIndex = "8";
+      dragState = {
+        photo,
+        boardRect,
+        offsetX: event.clientX - photoRect.left,
+        offsetY: event.clientY - photoRect.top,
+        width: photoRect.width,
+        height: photoRect.height,
+      };
+      photo.setPointerCapture(event.pointerId);
+    });
+
+    photo.addEventListener("pointerup", () => {
+      photo.style.zIndex = "";
+      endDrag();
+    });
+
+    photo.addEventListener("pointercancel", () => {
+      photo.style.zIndex = "";
+      endDrag();
+    });
+  });
+
+  window.addEventListener("pointermove", pointerMove, { passive: true });
+  window.addEventListener("pointerup", endDrag, { passive: true });
+  window.addEventListener("resize", () => {
+    if (!isClean) positionChaos(false);
+  });
+
+  chaosButton.addEventListener("click", () => setMode("chaos"));
+  cleanButton.addEventListener("click", () => setMode("clean"));
+  setMode("chaos");
+}
+
 ensureFonts();
 setupThemeToggle();
 syncSiteChrome();
@@ -987,3 +1222,4 @@ setupLenis();
 setupCursor();
 setupHeroSurface();
 setupAboutPlayer();
+setupAboutMePage();
