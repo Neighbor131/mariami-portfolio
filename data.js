@@ -1030,6 +1030,8 @@ export const caseStudies = [
     intro: "",
     description: "",
     path: "/works/motion-media/motion-media-03/",
+    presentation: "embed-frame",
+    embedUrl: "https://drive.google.com/file/d/1Oiazs1el97uLmPgRT3nGgiM590vGPzfC/preview",
     heroImage: "/project-media/meama-cover.png",
     heroImagePosition: "50% 50%",
     gallery: [
