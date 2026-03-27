@@ -1464,7 +1464,7 @@ body[data-theme="light"] .about-section::before {
   gap: 12px;
   justify-items: end;
   max-width: min(58vw, 430px);
-  padding: 12px;
+  padding: 32px 12px 12px;
   border-radius: 20px;
   background: rgba(8, 8, 10, 0.4);
   backdrop-filter: blur(16px);
@@ -1494,7 +1494,7 @@ body[data-theme="light"] .about-section::before {
 
 .case-study-gallery.is-landscape .case-study-hero-media img,
 .case-study-gallery.is-landscape .case-study-hero-media video {
-  width: 100%;
+  width: auto;
   max-width: min(100%, 1780px);
   height: auto;
 }
