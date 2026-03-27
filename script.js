@@ -193,17 +193,14 @@ function setupHeaderGlass() {
 
     if (shell) {
       shell.style.backdropFilter = "blur(16px)";
-      shell.style.webkitBackdropFilter = "blur(16px)";
     }
 
     if (bar) {
       bar.style.backdropFilter = "blur(10px)";
-      bar.style.webkitBackdropFilter = "blur(10px)";
     }
 
     if (background) {
       background.style.backdropFilter = "blur(14px)";
-      background.style.webkitBackdropFilter = "blur(14px)";
     }
   };
 
