@@ -525,9 +525,9 @@ export const caseStudies = [
   {
     slug: "roboti-04",
     categorySlug: "3d-works",
-    title: "Hard Surface Modeling Practice – Game Asset Weapons and object",
+    title: "Modeling Practice – Game Asset Weapons and object",
     intro:
-      "A small collection of game-ready metal props, modeled as fast hard-surface studies in Houdini.",
+      "A small collection of game-ready metal props, modeled as fast studies in Houdini.",
     description:
       "Here you see me modeling a broad axe, a pickaxe, and a vintage light switch, all of which have one thing in common: they are assets and share a metal material. I modeled all three of them using Houdini. These models were quite easy and took only a few hours.\nSince they didn't have much importance for the game project I was working on, I didn't focus as much on the textures and just made sure they were visible.",
     path: "/works/3d-works/hard-surface-modeling-practice-game-asset-weapons-and-object/",
