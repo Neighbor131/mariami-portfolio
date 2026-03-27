@@ -33,7 +33,7 @@ const homeGalleryItems = [
     path: "/works/2d-paintings/",
   },
   {
-    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Branding/Damsvi/5.png",
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Branding/Orta%20brdzola/1.png",
     title: "Branding",
     description: "Explore my designs for branding and packaging.",
     path: "/works/branding/",
