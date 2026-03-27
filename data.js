@@ -925,14 +925,21 @@ export const caseStudies = [
   {
     slug: "digital-works-02",
     categorySlug: "digital-works",
-    title: "Digital Study 02",
-    intro: "",
-    description: "",
+    title: "Berserk Typography",
+    intro:
+      "Georgian words are a constant source of ideas for my typography. I try to understand their character and create visual features based on it",
+    description:
+      "A person who is berserk is often associated with being crazy. We also have a word for it called 'shmagi'\n\nAs I worked, my spiky letters began to take shape, and when I arranged the word vertically, I saw precisely the kind of madman I was looking for.\nIt also inspired my art",
     path: "/works/digital-works/digital-works-02/",
     heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png",
     heroImagePosition: "50% 50%",
     gallery: [
-      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png", alt: "Digital Study 02 preview" },
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/605044182431685.652dd8b1c2f98.gif", alt: "Berserk Typography image 1" },
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/28f623182431685.652dd8b050ee2.webp", alt: "Berserk Typography image 2" },
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/d45508182431685.652dd8b1c4abb.webp", alt: "Berserk Typography image 3" },
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/f600fe182431685.652dd8b1c3c2a.webp", alt: "Berserk Typography image 4" },
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/ddf30f182431685.652dd8b1c5916.webp", alt: "Berserk Typography image 5" },
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/362f6a182431685.652dd8b1c68a3.webp", alt: "Berserk Typography image 6" },
     ],
   },
   {
@@ -1185,7 +1192,7 @@ export const workCategories = [
         tags: [],
       },
       {
-        title: "Digital Study 02",
+        title: "Berserk Typography",
         image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png",
         imagePosition: "50% 50%",
         href: "/works/digital-works/digital-works-02/",
