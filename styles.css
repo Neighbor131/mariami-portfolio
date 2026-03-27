@@ -1674,6 +1674,13 @@ body[data-theme="light"] .about-me-mode-button.is-active {
   max-width: 56rem;
 }
 
+.case-study-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 18px 20px;
+}
+
 .case-study-header {
   display: block;
 }
@@ -1699,6 +1706,12 @@ body[data-theme="light"] .about-me-mode-button.is-active {
   line-height: 0.92;
   letter-spacing: -0.08em;
   font-weight: 400;
+  flex: 1 1 420px;
+}
+
+.case-study-external-button {
+  align-self: center;
+  white-space: nowrap;
 }
 
 .case-study-intro {

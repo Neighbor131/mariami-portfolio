@@ -986,7 +986,11 @@ export const caseStudies = [
     presentation: "embed-frame",
     embedUrl:
       "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fmake%2FlTHlg3d9X7kPmAcsQYqJBU%2FInteractive-Fantasy-World-Map%3Fp%3Df%26t%3DuMBZELCNcOEMJA1A-0%26fullscreen%3D1",
-    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png",
+    externalUrl:
+      "https://www.figma.com/make/lTHlg3d9X7kPmAcsQYqJBU/Interactive-Fantasy-World-Map?p=f&t=uMBZELCNcOEMJA1A-0&fullscreen=1",
+    externalLabel: "Open website",
+    heroImage:
+      "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Screenshot%202026-03-28%20at%2003.27.47.png",
     heroImagePosition: "50% 50%",
     gallery: [
       {

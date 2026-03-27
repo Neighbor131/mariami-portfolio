@@ -630,6 +630,18 @@ function renderCaseStudyPage() {
   const introMarkup = study.intro
     ? `<p class="case-study-intro">${study.intro}</p>`
     : "";
+  const externalCtaMarkup = study.externalUrl
+    ? `
+        <a
+          class="button case-study-external-button"
+          href="${study.externalUrl}"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          ${study.externalLabel || "Open external project"}
+        </a>
+      `
+    : "";
   const bodyMarkup = study.description
     ? `
         <section class="case-study-body" aria-labelledby="case-study-body-title">
@@ -718,7 +730,10 @@ function renderCaseStudyPage() {
       <div class="case-study-shell">
         <header class="case-study-headline">
           <p class="case-study-kicker">(${category?.title || "Case Study"}.)</p>
-          <h1 class="case-study-title">${study.title}</h1>
+          <div class="case-study-title-row">
+            <h1 class="case-study-title">${study.title}</h1>
+            ${externalCtaMarkup}
+          </div>
           ${introMarkup}
         </header>
 
