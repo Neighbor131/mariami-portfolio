@@ -605,6 +605,90 @@ export const caseStudies = [
       },
     ],
   },
+  {
+    slug: "untitled-01",
+    categorySlug: "2d-paintings",
+    title: "Untitled 01",
+    intro: "A painted study from the 2D archive, focused on atmosphere, gesture, and surface.",
+    description:
+      "Placeholder text for this painting case study. Replace this with the full story, medium, process, and any details you want to share about the work.",
+    path: "/works/2d-paintings/untitled-01/",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg", alt: "Untitled 01 painting" },
+    ],
+  },
+  {
+    slug: "untitled-02",
+    categorySlug: "2d-paintings",
+    title: "Untitled 02",
+    intro: "A painted study from the 2D archive, held in a quieter and more graphic composition.",
+    description:
+      "Placeholder text for this painting case study. Replace this with the full story, medium, process, and any details you want to share about the work.",
+    path: "/works/2d-paintings/untitled-02/",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg", alt: "Untitled 02 painting" },
+    ],
+  },
+  {
+    slug: "untitled-03",
+    categorySlug: "2d-paintings",
+    title: "Untitled 03",
+    intro: "A painted study from the 2D archive, exploring mood, layering, and color balance.",
+    description:
+      "Placeholder text for this painting case study. Replace this with the full story, medium, process, and any details you want to share about the work.",
+    path: "/works/2d-paintings/untitled-03/",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg", alt: "Untitled 03 painting" },
+    ],
+  },
+  {
+    slug: "untitled-04",
+    categorySlug: "2d-paintings",
+    title: "Untitled 04",
+    intro: "A painted study from the 2D archive, framed around texture, rhythm, and negative space.",
+    description:
+      "Placeholder text for this painting case study. Replace this with the full story, medium, process, and any details you want to share about the work.",
+    path: "/works/2d-paintings/untitled-04/",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg", alt: "Untitled 04 painting" },
+    ],
+  },
+  {
+    slug: "untitled-05",
+    categorySlug: "2d-paintings",
+    title: "Untitled 05",
+    intro: "A painted study from the 2D archive, treated as a still and deliberate visual note.",
+    description:
+      "Placeholder text for this painting case study. Replace this with the full story, medium, process, and any details you want to share about the work.",
+    path: "/works/2d-paintings/untitled-05/",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg", alt: "Untitled 05 painting" },
+    ],
+  },
+  {
+    slug: "untitled-06",
+    categorySlug: "2d-paintings",
+    title: "Untitled 06",
+    intro: "A painted study from the 2D archive, built as part of a cohesive six-piece collection.",
+    description:
+      "Placeholder text for this painting case study. Replace this with the full story, medium, process, and any details you want to share about the work.",
+    path: "/works/2d-paintings/untitled-06/",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+    heroImagePosition: "50% 50%",
+    gallery: [
+      { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg", alt: "Untitled 06 painting" },
+    ],
+  },
 ];
 
 export function findCaseStudy(slug) {
@@ -667,6 +751,64 @@ export const workCategories = [
         href: "/works/3d-works/the-story-of-kitty/",
         meta: "Blender / Character / Rigged",
         tags: ["Blender", "Character", "Rigged"],
+      },
+    ],
+  },
+  {
+    slug: "2d-paintings",
+    title: "2D Paintings",
+    label: "Welcome",
+    intro:
+      "Explore my collection of 2D paintings.",
+    marquee: ["2D Paintings", "+", "2D Paintings", "+", "2D Paintings", "+"],
+    cards: [
+      {
+        title: "Untitled 01",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+        imagePosition: "50% 50%",
+        href: "/works/2d-paintings/untitled-01/",
+        meta: "2D Painting / Placeholder / Archive",
+        tags: ["2D Painting", "Placeholder", "Archive"],
+      },
+      {
+        title: "Untitled 02",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+        imagePosition: "50% 50%",
+        href: "/works/2d-paintings/untitled-02/",
+        meta: "2D Painting / Placeholder / Archive",
+        tags: ["2D Painting", "Placeholder", "Archive"],
+      },
+      {
+        title: "Untitled 03",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+        imagePosition: "50% 50%",
+        href: "/works/2d-paintings/untitled-03/",
+        meta: "2D Painting / Placeholder / Archive",
+        tags: ["2D Painting", "Placeholder", "Archive"],
+      },
+      {
+        title: "Untitled 04",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+        imagePosition: "50% 50%",
+        href: "/works/2d-paintings/untitled-04/",
+        meta: "2D Painting / Placeholder / Archive",
+        tags: ["2D Painting", "Placeholder", "Archive"],
+      },
+      {
+        title: "Untitled 05",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+        imagePosition: "50% 50%",
+        href: "/works/2d-paintings/untitled-05/",
+        meta: "2D Painting / Placeholder / Archive",
+        tags: ["2D Painting", "Placeholder", "Archive"],
+      },
+      {
+        title: "Untitled 06",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+        imagePosition: "50% 50%",
+        href: "/works/2d-paintings/untitled-06/",
+        meta: "2D Painting / Placeholder / Archive",
+        tags: ["2D Painting", "Placeholder", "Archive"],
       },
     ],
   },

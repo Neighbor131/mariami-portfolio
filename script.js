@@ -26,7 +26,13 @@ const homeGalleryItems = [
     description: "A selection of my 3D work—exploring form, depth, and visual storytelling",
     path: "/works/3d-works/",
   },
-  ...projects.slice(0, 6).map((project) => ({
+  {
+    src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Untitled/1_Untitled.jpg",
+    title: "2D Paintings",
+    description: "Explore my collection of 2d paintings.",
+    path: "/works/2d-paintings/",
+  },
+  ...projects.slice(0, 5).map((project) => ({
     src: project.cover,
     title: project.title,
     description: project.intro,
@@ -503,6 +509,7 @@ function renderCaseStudyPage() {
 
   const study = findCaseStudy(slug);
   if (!study) return;
+  const category = findWorkCategory(study.categorySlug);
   const hasVideoMedia = study.gallery.some((item) => isVideoSource(item.src));
   const initialIndex = Math.max(
     0,
@@ -535,7 +542,9 @@ function renderCaseStudyPage() {
     )
     .join("");
 
-  const otherStudies = caseStudies.filter((item) => item.slug !== study.slug).slice(0, 3);
+  const otherStudies = caseStudies
+    .filter((item) => item.categorySlug === study.categorySlug && item.slug !== study.slug)
+    .slice(0, 3);
   const relatedMarkup = otherStudies
     .map(
       (item, index) => `
@@ -551,7 +560,7 @@ function renderCaseStudyPage() {
     <section class="case-study-page reveal">
       <div class="case-study-shell">
         <header class="case-study-headline">
-          <p class="case-study-kicker">(3D Works.)</p>
+          <p class="case-study-kicker">(${category?.title || "Case Study"}.)</p>
           <h1 class="case-study-title">${study.title}</h1>
           <p class="case-study-intro">${study.intro}</p>
         </header>
