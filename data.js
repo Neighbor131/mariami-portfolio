@@ -822,16 +822,19 @@ export const caseStudies = [
   {
     slug: "ux-ui-02",
     categorySlug: "ux-ui",
-    title: "UX/UI Project 02",
+    title: "Sharp Grotesk",
     intro: "",
     description: "",
     path: "/works/ux-ui/ux-ui-02/",
-    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+    presentation: "figma-frame",
+    figmaEmbedUrl:
+      "https://embed.figma.com/proto/Gu9mLXDGa8kw4fIUVWtOXs/Untitled?node-id=25-521&p=f&scaling=scale-down-width&content-scaling=fixed&page-id=0%3A1&embed-host=share",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/grotesk/grotesk%20cover.png",
     heroImagePosition: "50% 50%",
     gallery: [
       {
-        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
-        alt: "UX/UI project 02 preview",
+        src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/grotesk/grotesk%20cover.png",
+        alt: "Sharp Grotesk UX/UI project preview",
       },
     ],
   },
@@ -1057,8 +1060,8 @@ export const workCategories = [
         tags: [],
       },
       {
-        title: "UX/UI Project 02",
-        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
+        title: "Sharp Grotesk",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/grotesk/grotesk%20cover.png",
         imagePosition: "50% 50%",
         href: "/works/ux-ui/ux-ui-02/",
         meta: "",
