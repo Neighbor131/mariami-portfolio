@@ -1003,87 +1003,10 @@ function setupAboutPlayer() {
 function setupAboutMePage() {
   const page = document.querySelector("[data-about-page]");
   const typedNode = document.querySelector("[data-about-typed]");
-  const restNode = document.querySelector("[data-about-rest]");
-  const board = document.querySelector("[data-about-board]");
-  const chaosButton = document.querySelector("[data-about-chaos]");
-  const cleanButton = document.querySelector("[data-about-clean]");
-  if (!page || !typedNode || !board || !chaosButton || !cleanButton) return;
+  if (!page || !typedNode) return;
 
   const typedText = "Hi, I'm Cheko";
   let typingIndex = 0;
-  let isClean = false;
-  let boardActive = false;
-  let dragState = null;
-
-  const buildPhotos = () => {
-    board.innerHTML = aboutMoodPhotos
-      .map(
-        (photo, index) => `
-          <figure
-            class="about-me-photo about-me-photo--${photo.aspect}"
-            data-about-photo
-            data-index="${index}"
-            style="--delay:${index * 80}ms"
-          >
-            <img src="${photo.src}" alt="${photo.alt}" loading="lazy" draggable="false">
-          </figure>
-        `
-      )
-      .join("");
-  };
-
-  const setMode = (mode) => {
-    isClean = mode === "clean";
-    board.classList.toggle("is-clean", isClean);
-    chaosButton.classList.toggle("is-active", !isClean);
-    cleanButton.classList.toggle("is-active", isClean);
-    chaosButton.setAttribute("aria-pressed", String(!isClean));
-    cleanButton.setAttribute("aria-pressed", String(isClean));
-    if (isClean) {
-      board.style.height = "auto";
-      return;
-    }
-    positionChaos(false);
-  };
-
-  const positionChaos = (randomize = true) => {
-    const photos = Array.from(board.querySelectorAll("[data-about-photo]"));
-    const boardWidth = board.clientWidth;
-    const boardHeight = Math.max(window.innerHeight * 1.9, 1500);
-    board.style.height = `${boardHeight}px`;
-
-    photos.forEach((photo, index) => {
-      const width = photo.dataset.width
-        ? Number(photo.dataset.width)
-        : Math.min(340, Math.max(180, boardWidth * (photo.classList.contains("about-me-photo--landscape") ? 0.24 : 0.18)));
-      const heightEstimate = photo.classList.contains("about-me-photo--landscape") ? width * 0.72 : width * 1.26;
-      const x = randomize || !photo.dataset.x
-        ? Math.max(0, Math.min(boardWidth - width, (Math.random() * (boardWidth - width))))
-        : Number(photo.dataset.x);
-      const y = randomize || !photo.dataset.y
-        ? 120 + index * 120 + Math.random() * Math.max(160, boardHeight / 2.1)
-        : Number(photo.dataset.y);
-      const r = randomize || !photo.dataset.r
-        ? -12 + Math.random() * 24
-        : Number(photo.dataset.r);
-
-      photo.dataset.width = String(width);
-      photo.dataset.height = String(heightEstimate);
-      photo.dataset.x = String(x);
-      photo.dataset.y = String(y);
-      photo.dataset.r = String(r);
-      photo.style.setProperty("--photo-width", `${width}px`);
-      photo.style.setProperty("--x", `${x}px`);
-      photo.style.setProperty("--y", `${y}px`);
-      photo.style.setProperty("--r", `${r}deg`);
-    });
-  };
-
-  const activateBoard = () => {
-    if (boardActive) return;
-    boardActive = true;
-    board.classList.add("is-active");
-  };
 
   const typeIntro = () => {
     if (typingIndex > typedText.length) return;
@@ -1091,80 +1014,9 @@ function setupAboutMePage() {
     typingIndex += 1;
     if (typingIndex <= typedText.length) {
       window.setTimeout(typeIntro, typingIndex < typedText.length ? 82 : 180);
-      return;
     }
-    restNode?.classList.add("is-visible");
   };
-
-  const pointerMove = (event) => {
-    if (!dragState || isClean) return;
-    const { photo, boardRect, offsetX, offsetY, width, height } = dragState;
-    const x = Math.max(0, Math.min(boardRect.width - width, event.clientX - boardRect.left - offsetX));
-    const y = Math.max(0, Math.min(boardRect.height - height, event.clientY - boardRect.top - offsetY));
-    photo.dataset.x = String(x);
-    photo.dataset.y = String(y);
-    photo.style.setProperty("--x", `${x}px`);
-    photo.style.setProperty("--y", `${y}px`);
-  };
-
-  const endDrag = () => {
-    if (!dragState) return;
-    dragState.photo.classList.remove("is-dragging");
-    dragState.photo.style.transition = "";
-    dragState.photo.style.zIndex = "";
-    dragState = null;
-  };
-
-  buildPhotos();
-  positionChaos(true);
   typeIntro();
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        activateBoard();
-        observer.disconnect();
-      });
-    },
-    { threshold: 0.16 }
-  );
-
-  observer.observe(board);
-
-  board.querySelectorAll("[data-about-photo]").forEach((photo) => {
-    photo.addEventListener("pointerdown", (event) => {
-      if (isClean) return;
-      event.preventDefault();
-      const boardRect = board.getBoundingClientRect();
-      const photoRect = photo.getBoundingClientRect();
-      photo.classList.add("is-dragging");
-      photo.style.transition = "none";
-      photo.style.zIndex = "8";
-      dragState = {
-        photo,
-        boardRect,
-        offsetX: event.clientX - photoRect.left,
-        offsetY: event.clientY - photoRect.top,
-        width: photoRect.width,
-        height: photoRect.height,
-      };
-      photo.setPointerCapture(event.pointerId);
-    });
-
-    photo.addEventListener("pointerup", endDrag);
-    photo.addEventListener("pointercancel", endDrag);
-  });
-
-  window.addEventListener("pointermove", pointerMove, { passive: true });
-  window.addEventListener("pointerup", endDrag, { passive: true });
-  window.addEventListener("resize", () => {
-    if (!isClean) positionChaos(false);
-  });
-
-  chaosButton.addEventListener("click", () => setMode("chaos"));
-  cleanButton.addEventListener("click", () => setMode("clean"));
-  setMode("chaos");
 }
 
 ensureFonts();

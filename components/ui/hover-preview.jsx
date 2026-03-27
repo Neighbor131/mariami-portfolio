@@ -351,39 +351,55 @@ function HoverLink({ previewKey, children, onHoverStart, onHoverMove, onHoverEnd
 function SharedText({ onHoverStart, onHoverMove, onHoverEnd, split }) {
   if (split === "first") {
     return (
-      <p>
-        I’m Mariam, known as Cheko, a third-year Visual Communications student at{" "}
-        <HoverLink
-          previewKey="gipa"
-          onHoverStart={onHoverStart}
-          onHoverMove={onHoverMove}
-          onHoverEnd={onHoverEnd}
-        >
-          GIPA (Georgian University of Public Affairs)
-        </HoverLink>
-        . My focus is to apply my skills thoughtfully to communicate clear, meaningful ideas
-        through visual storytelling, with the intention of offering something genuine to the
-        audience. My creative practice includes digital and traditional painting, graphic design,
-        3D modeling, and branding. I am committed to engaging with a fast-paced contemporary world
-        while actively contributing to and supporting my surroundings.
-      </p>
+      <>
+        <p>
+          I’m Mariam, known as Cheko, a third-year Visual Communications student at{" "}
+          <HoverLink
+            previewKey="gipa"
+            onHoverStart={onHoverStart}
+            onHoverMove={onHoverMove}
+            onHoverEnd={onHoverEnd}
+          >
+            GIPA (Georgian University of Public Affairs)
+          </HoverLink>
+          . My focus is to apply my skills thoughtfully to communicate clear, meaningful ideas
+          through visual storytelling, with the intention of offering something genuine to the
+          audience. My creative practice includes digital and traditional painting, graphic design,
+          3D modeling, and branding. I am committed to engaging with a fast-paced contemporary world
+          while actively contributing to and supporting my surroundings.
+        </p>
+        <p>
+          I’ve had an exchange semester at{" "}
+          <HoverLink
+            previewKey="metu"
+            onHoverStart={onHoverStart}
+            onHoverMove={onHoverMove}
+            onHoverEnd={onHoverEnd}
+          >
+            METU University
+          </HoverLink>
+          , where I learned more about visual storytelling, animation, and modeling. One of the
+          most valuable experiences was meeting new people and experiencing a new culture.
+        </p>
+      </>
     );
   }
 
   return (
-    <p>
-      I’ve had an exchange semester at{" "}
-      <HoverLink
-        previewKey="metu"
-        onHoverStart={onHoverStart}
-        onHoverMove={onHoverMove}
-        onHoverEnd={onHoverEnd}
-      >
-        METU University
-      </HoverLink>
-      , where I learned more about visual storytelling, animation, and modeling. One of the most
-      valuable experiences was meeting new people and experiencing a new culture.
-    </p>
+    <>
+      <p>
+        As for my work experience, my first job was in sales at a bookstore, and the second was as
+        an administrator at a coworking space. However, my most favorable working experiences were
+        those closest to my field. I have done some freelancing, creating simple 3D assets for
+        games and posts for social media.
+      </p>
+      <p>
+        Outside of my academic work, I find relaxation through music and literature. My personal
+        interests include working out, playing chess, creating music, reading, and loving my cat. I
+        enjoy spending time with my friends and family, learning from their views. As an artist, it
+        is important to collect meaningful stories and moments to bring emotions into your work.
+      </p>
+    </>
   );
 }
 
