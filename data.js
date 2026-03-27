@@ -761,7 +761,7 @@ export const caseStudies = [
     description:
       "To address the issues of children not wanting to drink milk, I introduced Milo, a creative milk packaging solution. Milo not only offers essential nutrition but also shares interesting stories featuring its characters",
     path: "/works/branding/milo/",
-    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Branding/Milo/1.png",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Branding/Milo/5.png",
     heroImagePosition: "50% 50%",
     gallery: [
       { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/Branding/Milo/1.png", alt: "Milo image 1" },
