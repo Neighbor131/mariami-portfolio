@@ -21,47 +21,47 @@ const collageBlueprint = [
   {
     id: "a",
     src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/3.jpg",
-    width: 240,
-    x: 0.08,
-    y: 0.02,
+    width: 232,
+    x: 0.05,
+    y: 0.04,
     rotation: -7,
-    speed: 1,
+    speed: 1.02,
   },
   {
     id: "b",
     src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Budapest.jpg",
     width: 220,
-    x: 0.5,
+    x: 0.52,
     y: 0.08,
     rotation: 5,
-    speed: 0.85,
+    speed: 0.86,
   },
   {
     id: "c",
     src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/1.jpg",
     width: 210,
-    x: 0.18,
-    y: 0.4,
+    x: 0.14,
+    y: 0.38,
     rotation: 3,
-    speed: 0.7,
+    speed: 0.72,
   },
   {
     id: "d",
     src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/gipa%20crop.jpeg",
-    width: 185,
-    x: 0.58,
+    width: 180,
+    x: 0.6,
     y: 0.5,
-    rotation: -5,
-    speed: 1.12,
+    rotation: -6,
+    speed: 1.1,
   },
   {
     id: "e",
     src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/metu-crop.png",
-    width: 200,
-    x: 0.02,
+    width: 196,
+    x: 0.04,
     y: 0.68,
-    rotation: 6,
-    speed: 0.92,
+    rotation: 7,
+    speed: 0.94,
   },
 ];
 
@@ -72,16 +72,24 @@ const styles = `
     position: relative;
     width: min(calc(100% - 40px), 1280px);
     margin: 0 auto;
-    padding: clamp(8px, 1vw, 18px) 0 clamp(64px, 6vw, 88px);
+    padding: clamp(8px, 1vw, 18px) 0 clamp(64px, 6vw, 92px);
     font-family: 'DM Sans', sans-serif;
+    display: grid;
+    gap: clamp(56px, 7vw, 110px);
   }
 
-  .cheko-hover-preview__layout {
+  .cheko-hover-preview__section {
     display: grid;
-    grid-template-columns: minmax(320px, 544px) minmax(320px, 1fr);
-    justify-content: space-between;
+    gap: clamp(28px, 5vw, 96px);
     align-items: start;
-    gap: clamp(28px, 5vw, 110px);
+  }
+
+  .cheko-hover-preview__section--static {
+    grid-template-columns: minmax(220px, 0.86fr) minmax(320px, 544px);
+  }
+
+  .cheko-hover-preview__section--collage {
+    grid-template-columns: minmax(320px, 544px) minmax(320px, 1fr);
   }
 
   .cheko-hover-preview__text {
@@ -101,15 +109,58 @@ const styles = `
     transform: translate3d(0, 0, 0);
   }
 
+  .cheko-hover-preview__section--static .cheko-hover-preview__text {
+    margin-left: auto;
+  }
+
+  .cheko-hover-preview__section--collage .cheko-hover-preview__text {
+    margin-right: auto;
+  }
+
   .cheko-hover-preview__text p {
     margin: 0;
   }
 
-  .cheko-hover-preview__text p + p {
-    margin-top: 1.15em;
+  .cheko-hover-preview__media-stack {
+    position: relative;
+    display: grid;
+    gap: clamp(18px, 2vw, 28px);
+    padding-top: clamp(12px, 2vw, 28px);
+    opacity: 0;
+    transform: translate3d(-28px, 42px, 0) rotate(-4deg);
+    transition: opacity 0.85s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .cheko-hover-preview__media {
+  .cheko-hover-preview.is-visible .cheko-hover-preview__media-stack {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(-2deg);
+  }
+
+  .cheko-hover-preview__media-frame {
+    width: min(100%, 392px);
+    margin-right: auto;
+    overflow: hidden;
+    box-shadow:
+      0 28px 60px rgba(0, 0, 0, 0.24),
+      0 0 0 1px rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .cheko-hover-preview__media-frame.is-secondary {
+    width: min(94%, 360px);
+    margin-left: clamp(18px, 4vw, 64px);
+    transform: rotate(2.6deg);
+  }
+
+  .cheko-hover-preview__media-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    will-change: transform;
+  }
+
+  .cheko-hover-preview__collage {
     position: relative;
     min-height: clamp(640px, 72vw, 860px);
     opacity: 0;
@@ -117,7 +168,7 @@ const styles = `
     transition: opacity 0.85s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .cheko-hover-preview.is-visible .cheko-hover-preview__media {
+  .cheko-hover-preview.is-visible .cheko-hover-preview__collage {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
@@ -250,18 +301,21 @@ const styles = `
   }
 
   @media (max-width: 900px) {
-    .cheko-hover-preview__layout {
+    .cheko-hover-preview__section--static,
+    .cheko-hover-preview__section--collage {
       grid-template-columns: 1fr;
       gap: 36px;
     }
 
-    .cheko-hover-preview__media {
-      min-height: 620px;
-      order: 2;
+    .cheko-hover-preview__section--static .cheko-hover-preview__text,
+    .cheko-hover-preview__section--collage .cheko-hover-preview__text {
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
     }
 
-    .cheko-hover-preview__text {
-      width: 100%;
+    .cheko-hover-preview__collage {
+      min-height: 620px;
     }
   }
 
@@ -271,7 +325,7 @@ const styles = `
       padding-bottom: 40px;
     }
 
-    .cheko-hover-preview__media {
+    .cheko-hover-preview__collage {
       min-height: 520px;
     }
 
@@ -294,6 +348,45 @@ function HoverLink({ previewKey, children, onHoverStart, onHoverMove, onHoverEnd
   );
 }
 
+function SharedText({ onHoverStart, onHoverMove, onHoverEnd, split }) {
+  if (split === "first") {
+    return (
+      <p>
+        I’m Mariam, known as Cheko, a third-year Visual Communications student at{" "}
+        <HoverLink
+          previewKey="gipa"
+          onHoverStart={onHoverStart}
+          onHoverMove={onHoverMove}
+          onHoverEnd={onHoverEnd}
+        >
+          GIPA (Georgian University of Public Affairs)
+        </HoverLink>
+        . My focus is to apply my skills thoughtfully to communicate clear, meaningful ideas
+        through visual storytelling, with the intention of offering something genuine to the
+        audience. My creative practice includes digital and traditional painting, graphic design,
+        3D modeling, and branding. I am committed to engaging with a fast-paced contemporary world
+        while actively contributing to and supporting my surroundings.
+      </p>
+    );
+  }
+
+  return (
+    <p>
+      I’ve had an exchange semester at{" "}
+      <HoverLink
+        previewKey="metu"
+        onHoverStart={onHoverStart}
+        onHoverMove={onHoverMove}
+        onHoverEnd={onHoverEnd}
+      >
+        METU University
+      </HoverLink>
+      , where I learned more about visual storytelling, animation, and modeling. One of the most
+      valuable experiences was meeting new people and experiencing a new culture.
+    </p>
+  );
+}
+
 export function HoverPreview() {
   const [activePreview, setActivePreview] = useState(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -306,16 +399,17 @@ export function HoverPreview() {
   const sectionRef = useRef(null);
   const canvasRef = useRef(null);
   const dragStateRef = useRef(null);
-  const didMoveRef = useRef(false);
 
-  const derivedItems = useMemo(() => {
-    return collageBlueprint.map((item, index) => ({
-      ...item,
-      zIndex: index + 1,
-      x: Math.max(0, canvasSize.width * item.x),
-      y: Math.max(0, canvasSize.height * item.y),
-    }));
-  }, [canvasSize.height, canvasSize.width]);
+  const derivedItems = useMemo(
+    () =>
+      collageBlueprint.map((item, index) => ({
+        ...item,
+        zIndex: index + 1,
+        x: Math.max(0, canvasSize.width * item.x),
+        y: Math.max(0, canvasSize.height * item.y),
+      })),
+    [canvasSize.height, canvasSize.width]
+  );
 
   useEffect(() => {
     [...Object.values(previewData).map((item) => item.image), ...collageBlueprint.map((item) => item.src)].forEach(
@@ -358,14 +452,12 @@ export function HoverPreview() {
     updateCanvasSize();
     const observer = new ResizeObserver(updateCanvasSize);
     observer.observe(canvasNode);
-
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
     setItems((current) => {
       if (!current.length) return derivedItems;
-
       return derivedItems.map((nextItem) => {
         const existing = current.find((item) => item.id === nextItem.id);
         if (!existing || !existing.hasMoved) return nextItem;
@@ -389,7 +481,6 @@ export function HoverPreview() {
     updateParallax();
     window.addEventListener("scroll", updateParallax, { passive: true });
     window.addEventListener("resize", updateParallax);
-
     return () => {
       window.removeEventListener("scroll", updateParallax);
       window.removeEventListener("resize", updateParallax);
@@ -402,7 +493,6 @@ export function HoverPreview() {
       const canvasNode = canvasRef.current;
       if (!dragState || !canvasNode) return;
 
-      didMoveRef.current = true;
       const rect = canvasNode.getBoundingClientRect();
       const activeBlueprint = collageBlueprint.find((item) => item.id === dragState.id);
       const cardWidth = activeBlueprint?.width || 220;
@@ -414,13 +504,7 @@ export function HoverPreview() {
       setItems((current) =>
         current.map((item) =>
           item.id === dragState.id
-            ? {
-                ...item,
-                x: nextX,
-                y: nextY,
-                zIndex: dragState.zIndex,
-                hasMoved: true,
-              }
+            ? { ...item, x: nextX, y: nextY, zIndex: dragState.zIndex, hasMoved: true }
             : item
         )
       );
@@ -488,7 +572,6 @@ export function HoverPreview() {
       if (!item || !canvasNode) return;
 
       const rect = canvasNode.getBoundingClientRect();
-      didMoveRef.current = false;
       const nextZIndex = Math.max(...items.map((entry) => entry.zIndex), 0) + 1;
       dragStateRef.current = {
         id,
@@ -512,41 +595,45 @@ export function HoverPreview() {
         className={`cheko-hover-preview${isInView ? " is-visible" : ""}`}
         aria-label="About me details"
       >
-        <div className="cheko-hover-preview__layout">
-          <div className="cheko-hover-preview__text">
-            <p>
-              I’m Mariam, known as Cheko, a third-year Visual Communications student at{" "}
-              <HoverLink
-                previewKey="gipa"
-                onHoverStart={handleHoverStart}
-                onHoverMove={handleHoverMove}
-                onHoverEnd={handleHoverEnd}
-              >
-                GIPA (Georgian University of Public Affairs)
-              </HoverLink>
-              . My focus is to apply my skills thoughtfully to communicate clear, meaningful ideas
-              through visual storytelling, with the intention of offering something genuine to the
-              audience. My creative practice includes digital and traditional painting, graphic
-              design, 3D modeling, and branding. I am committed to engaging with a fast-paced
-              contemporary world while actively contributing to and supporting my surroundings.
-            </p>
-
-            <p>
-              I’ve had an exchange semester at{" "}
-              <HoverLink
-                previewKey="metu"
-                onHoverStart={handleHoverStart}
-                onHoverMove={handleHoverMove}
-                onHoverEnd={handleHoverEnd}
-              >
-                METU University
-              </HoverLink>
-              , where I learned more about visual storytelling, animation, and modeling. One of the
-              most valuable experiences was meeting new people and experiencing a new culture.
-            </p>
+        <div className="cheko-hover-preview__section cheko-hover-preview__section--static">
+          <div className="cheko-hover-preview__media-stack" aria-hidden="true">
+            <div className="cheko-hover-preview__media-frame">
+              <img
+                src="https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/3.jpg"
+                alt=""
+                style={{ transform: `translate3d(0, ${imageOffset}px, 0) scale(1.02)` }}
+              />
+            </div>
+            <div className="cheko-hover-preview__media-frame is-secondary">
+              <img
+                src="https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Budapest.jpg"
+                alt=""
+                style={{ transform: `translate3d(0, ${imageOffset * 0.72}px, 0) scale(1.02)` }}
+              />
+            </div>
           </div>
 
-          <div className="cheko-hover-preview__media" aria-label="Draggable photo collage">
+          <div className="cheko-hover-preview__text">
+            <SharedText
+              split="first"
+              onHoverStart={handleHoverStart}
+              onHoverMove={handleHoverMove}
+              onHoverEnd={handleHoverEnd}
+            />
+          </div>
+        </div>
+
+        <div className="cheko-hover-preview__section cheko-hover-preview__section--collage">
+          <div className="cheko-hover-preview__text">
+            <SharedText
+              split="second"
+              onHoverStart={handleHoverStart}
+              onHoverMove={handleHoverMove}
+              onHoverEnd={handleHoverEnd}
+            />
+          </div>
+
+          <div className="cheko-hover-preview__collage" aria-label="Draggable photo collage">
             <div ref={canvasRef} className="cheko-hover-preview__canvas">
               {items.map((item) => (
                 <button
