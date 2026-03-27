@@ -1033,7 +1033,12 @@ export const caseStudies = [
     heroImage: "/project-media/meama-cover.png",
     heroImagePosition: "50% 50%",
     gallery: [
-      { src: "/project-media/meama-cover.png", alt: "Meama still frame" },
+      {
+        src: "/project-media/meama-web.mp4",
+        alt: "Meama motion study",
+        poster: "/project-media/meama-cover.png",
+        type: "video",
+      },
     ],
   },
 ];
