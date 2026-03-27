@@ -1013,14 +1013,14 @@ export const caseStudies = [
   {
     slug: "motion-media-03",
     categorySlug: "motion-media",
-    title: "Motion Study 03",
+    title: "Meama",
     intro: "",
     description: "",
     path: "/works/motion-media/motion-media-03/",
-    heroImage: "/project-media/glance.mp4.png",
+    heroImage: "/project-media/meama-cover.png",
     heroImagePosition: "50% 50%",
     gallery: [
-      { src: "/project-media/glance.mp4.png", alt: "Motion Study 03 preview" },
+      { src: "/project-media/meama-cover.png", alt: "Meama still frame" },
     ],
   },
 ];
@@ -1255,8 +1255,8 @@ export const workCategories = [
         tags: [],
       },
       {
-        title: "Motion Study 03",
-        image: "/project-media/glance.mp4.png",
+        title: "Meama",
+        image: "/project-media/meama-cover.png",
         imagePosition: "50% 50%",
         href: "/works/motion-media/motion-media-03/",
         meta: "",
