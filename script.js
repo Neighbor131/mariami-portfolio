@@ -525,7 +525,6 @@ function renderCaseStudyPage() {
   const study = findCaseStudy(slug);
   if (!study) return;
   const category = findWorkCategory(study.categorySlug);
-  const hasVideoMedia = study.gallery.some((item) => getMediaType(item) === "video");
   const initialIndex = Math.max(
     0,
     study.gallery.findIndex((item) => item.src === study.heroImage)
@@ -602,28 +601,7 @@ function renderCaseStudyPage() {
                 class="case-study-gallery-main"
                 aria-label="Media 1 of ${study.gallery.length}"
               >
-                <figure class="case-study-hero-media" data-case-hero-media>
-                  <img
-                    src="${study.heroImage}"
-                    alt="${study.title}"
-                    loading="eager"
-                    data-case-main-image
-                    style="object-position: ${study.heroImagePosition};"
-                  >
-                  ${
-                    hasVideoMedia
-                      ? `<video
-                          src=""
-                          muted
-                          loop
-                          playsinline
-                          preload="metadata"
-                          data-case-main-video
-                          hidden
-                        ></video>`
-                      : ""
-                  }
-                </figure>
+                <figure class="case-study-hero-media" data-case-hero-media></figure>
               </div>
               <div class="case-study-gallery-controls">
                 <div class="case-study-thumbs" aria-label="Project gallery">
@@ -659,13 +637,11 @@ function renderCaseStudyPage() {
 function setupCaseStudyGallery() {
   const galleryRoot = document.querySelector("[data-case-gallery]");
   const heroMedia = document.querySelector("[data-case-hero-media]");
-  const mainImage = document.querySelector("[data-case-main-image]");
-  const mainVideo = document.querySelector("[data-case-main-video]");
   const thumbs = Array.from(document.querySelectorAll("[data-case-thumb]"));
   const inlineCountNode = document.querySelector("[data-case-inline-count]");
   const inlinePrevButton = document.querySelector("[data-case-inline-prev]");
   const inlineNextButton = document.querySelector("[data-case-inline-next]");
-  if (!mainImage || !thumbs.length) return;
+  if (!heroMedia || !thumbs.length) return;
 
   const initialIndex = Math.max(
     0,
@@ -688,18 +664,69 @@ function setupCaseStudyGallery() {
     }
   };
 
-  const updateImageOrientation = () => {
-    if (!mainImage || mainImage.hidden) return;
-    const width = mainImage.naturalWidth || mainImage.width || 1;
-    const height = mainImage.naturalHeight || mainImage.height || 1;
+  const updateImageOrientation = (imageNode) => {
+    if (!imageNode) return;
+    const width = imageNode.naturalWidth || imageNode.width || 1;
+    const height = imageNode.naturalHeight || imageNode.height || 1;
     setOrientationState("image", width, height);
   };
 
-  const updateVideoOrientation = () => {
-    if (!mainVideo || mainVideo.hidden) return;
-    const width = mainVideo.videoWidth || mainVideo.clientWidth || 1;
-    const height = mainVideo.videoHeight || mainVideo.clientHeight || 1;
+  const updateVideoOrientation = (videoNode) => {
+    if (!videoNode) return;
+    const width = videoNode.videoWidth || videoNode.clientWidth || 1;
+    const height = videoNode.videoHeight || videoNode.clientHeight || 1;
     setOrientationState("video", width, height);
+  };
+
+  const renderActiveMedia = ({ type, src, alt, poster, objectPosition }, index) => {
+    const fallbackLabel = `Media ${index + 1} of ${thumbs.length}`;
+
+    if (type === "video") {
+      heroMedia.innerHTML = `
+        <video
+          src="${src}"
+          poster="${poster || ""}"
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          data-case-active-media
+          aria-label="${alt || fallbackLabel}"
+        ></video>
+      `;
+
+      const activeVideo = heroMedia.querySelector("video");
+      if (!activeVideo) return;
+      activeVideo.addEventListener("loadedmetadata", () => updateVideoOrientation(activeVideo), {
+        once: true,
+      });
+      const playAttempt = activeVideo.play();
+      if (playAttempt && typeof playAttempt.catch === "function") {
+        playAttempt.catch(() => {});
+      }
+      updateVideoOrientation(activeVideo);
+      return;
+    }
+
+    heroMedia.innerHTML = `
+      <img
+        src="${src}"
+        alt="${alt || fallbackLabel}"
+        loading="${index === 0 ? "eager" : "lazy"}"
+        data-case-active-media
+        style="${objectPosition ? `object-position: ${objectPosition};` : ""}"
+      >
+    `;
+
+    const activeImage = heroMedia.querySelector("img");
+    if (!activeImage) return;
+    if (activeImage.complete) {
+      updateImageOrientation(activeImage);
+    } else {
+      activeImage.addEventListener("load", () => updateImageOrientation(activeImage), {
+        once: true,
+      });
+    }
   };
 
   const syncActive = (index) => {
@@ -710,33 +737,9 @@ function setupCaseStudyGallery() {
     const alt = item.dataset.alt || "";
     const type = item.dataset.type || "image";
     const poster = item.dataset.poster || "";
+    const objectPosition = item.dataset.objectPosition || "";
 
-    if (mainImage) {
-      const isVideo = type === "video";
-      mainImage.hidden = isVideo;
-      if (mainVideo) mainVideo.hidden = !isVideo;
-
-      if (isVideo) {
-        if (!mainVideo) return;
-        mainVideo.src = src;
-        mainVideo.poster = poster;
-        mainVideo.setAttribute("aria-label", alt);
-        const playAttempt = mainVideo.play();
-        if (playAttempt && typeof playAttempt.catch === "function") {
-          playAttempt.catch(() => {});
-        }
-        updateVideoOrientation();
-      } else {
-        if (mainVideo) {
-          mainVideo.pause();
-          mainVideo.removeAttribute("src");
-          mainVideo.load();
-        }
-        mainImage.src = src || mainImage.src;
-        mainImage.alt = alt || mainImage.alt;
-        if (mainImage.complete) updateImageOrientation();
-      }
-    }
+    renderActiveMedia({ type, src, alt, poster, objectPosition }, index);
 
     thumbs.forEach((node, nodeIndex) => node.classList.toggle("is-active", nodeIndex === index));
 
@@ -767,9 +770,6 @@ function setupCaseStudyGallery() {
     if (event.key === "ArrowLeft") step(-1);
     if (event.key === "ArrowRight") step(1);
   });
-
-  mainImage?.addEventListener("load", updateImageOrientation);
-  mainVideo?.addEventListener("loadedmetadata", updateVideoOrientation);
 
   syncActive(initialIndex);
 }
