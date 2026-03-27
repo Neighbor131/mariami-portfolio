@@ -11,6 +11,10 @@ import {
 
 const path = window.location.pathname.replace(/\/+$/, "") || "/";
 const themeStorageKey = "chekos-space-theme";
+const faviconByTheme = {
+  dark: "/favicon-dark.svg",
+  light: "/favicon-light.svg",
+};
 
 const navConfig = [
   { href: "/", label: "Home" },
@@ -193,9 +197,27 @@ function ensureFonts() {
   }
 }
 
+function ensureFavicon(theme = "dark") {
+  const href = faviconByTheme[theme] || faviconByTheme.dark;
+  let icon = document.head.querySelector('link[data-site-favicon="true"]');
+
+  if (!icon) {
+    icon = document.createElement("link");
+    icon.rel = "icon";
+    icon.type = "image/svg+xml";
+    icon.dataset.siteFavicon = "true";
+    document.head.append(icon);
+  }
+
+  if (icon.getAttribute("href") !== href) {
+    icon.setAttribute("href", href);
+  }
+}
+
 function setTheme(theme) {
   document.body.dataset.theme = theme;
   localStorage.setItem(themeStorageKey, theme);
+  ensureFavicon(theme);
 
   const toggle = document.querySelector("[data-theme-toggle]");
   if (!toggle) return;
@@ -1057,6 +1079,7 @@ function setupAboutMePage() {
 }
 
 ensureFonts();
+ensureFavicon();
 setupThemeToggle();
 syncSiteChrome();
 setActiveNav();
