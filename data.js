@@ -506,9 +506,9 @@ export const caseStudies = [
   {
     slug: "roboti-03",
     categorySlug: "3d-works",
-    title: "Hard Surface Modeling Practice – Game Asset the Desk",
+    title: "Modeling Practice – Game Asset the Desk",
     intro:
-      "A laboratory desk asset focused on clean hard-surface modeling, retopology, and grounded material detail.",
+      "A laboratory desk asset for gameplay.",
     description:
       "Similar to my previous asset, the trash can, this one tends to be much simpler. I spent one day on modeling, the wireframe layout is structured, and I've spent a lot of time on retopology for every project I've worked on. The desk itself is for the Laboratory. The whole desk is made of Metal, so it's quite shiny. I've baked everything in the Marmoset toolbag.\n\nFor the textures, I included dark rust, some dirt, especially on the top, and leak stains. As you may know, we often place coffee or water mugs on surfaces, which leaves stains.",
     path: "/works/3d-works/hard-surface-modeling-practice-game-asset-the-desk/",
