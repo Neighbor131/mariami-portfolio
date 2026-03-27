@@ -487,9 +487,9 @@ export const caseStudies = [
   {
     slug: "roboti-02",
     categorySlug: "3d-works",
-    title: "Hard Surface Modeling Practice – Game Asset Trash Can",
+    title: "Modeling Practice – Game Asset Trash Can",
     intro:
-      "A beginner hard-surface game asset built for breakability, function, and era-specific detail.",
+      "Beginner game asset built for breakability and function.",
     description:
       "Ironically, this was one of the most time-consuming and learning-intensive projects for me as a beginner. I modeled it using Houdini and baked it in Marmoset Toolbag. For the model, I researched the types of trash cans that were popular in the 1950s. This asset was prepared to be used in a game. Every part, down to each small detail, is separate so it can break apart when shot in-game. The head is also rotatable, making it functional as well.\n\nFor the textures, I hand-made the rust and dirt in Substance Painter and also used various textures. I realized that details really do matter, so I thought about how it would look in real life. I added soot on the top and more dirt on the bottom, since it would be very dirty, and the inside also has stains from moldy food and drinks.",
     path: "/works/3d-works/hard-surface-modeling-practice-game-asset-trash-can/",
