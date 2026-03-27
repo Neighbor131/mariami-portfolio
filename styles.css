@@ -1754,6 +1754,19 @@ body[data-theme="light"] .about-me-mode-button.is-active {
   min-height: min(82svh, 1040px);
 }
 
+.case-study-figma-wrap {
+  width: 100%;
+  padding: 0 clamp(16px, 2.4vw, 30px);
+}
+
+.case-study-figma-frame {
+  display: block;
+  width: 100%;
+  height: min(88svh, 1400px);
+  border: 0;
+  background: rgba(12, 12, 14, 0.04);
+}
+
 .case-study-gallery-main {
   all: unset;
   display: grid;

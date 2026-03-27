@@ -807,6 +807,9 @@ export const caseStudies = [
     intro: "",
     description: "",
     path: "/works/ux-ui/omnia/",
+    presentation: "figma-frame",
+    figmaEmbedUrl:
+      "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2FY6z0qQqucy0RusL0WL7zYD%2Froundout%3Fnode-id%3D1361-2327%26t%3DYUtlf3p6FOsGknXi-11",
     heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/ux%20ui/omnia/omnia-1.png",
     heroImagePosition: "50% 50%",
     gallery: [

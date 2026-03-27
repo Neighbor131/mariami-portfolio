@@ -589,6 +589,41 @@ function renderCaseStudyPage() {
         </section>
       `
     : "";
+  const mediaMarkup =
+    study.presentation === "figma-frame" && study.figmaEmbedUrl
+      ? `
+          <div class="case-study-figma-wrap">
+            <iframe
+              class="case-study-figma-frame"
+              src="${study.figmaEmbedUrl}"
+              title="${study.title}"
+              loading="lazy"
+              allowfullscreen
+            ></iframe>
+          </div>
+        `
+      : `
+          <div class="case-study-gallery" data-case-gallery>
+            <div
+              class="case-study-gallery-main"
+              aria-label="Media 1 of ${study.gallery.length}"
+            >
+              <figure class="case-study-hero-media" data-case-hero-media></figure>
+            </div>
+            <div class="case-study-gallery-controls">
+              <div class="case-study-thumbs" aria-label="Project gallery">
+                ${galleryMarkup}
+              </div>
+              <div class="case-study-gallery-nav">
+                <p class="case-study-gallery-count" data-case-inline-count>1 / ${study.gallery.length}</p>
+                <div class="case-study-gallery-nav-buttons">
+                  <button class="case-study-gallery-arrow" type="button" data-case-inline-prev aria-label="Previous image">‹</button>
+                  <button class="case-study-gallery-arrow" type="button" data-case-inline-next aria-label="Next image">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
 
   root.innerHTML = `
     <section class="case-study-page reveal">
@@ -602,26 +637,7 @@ function renderCaseStudyPage() {
         <div class="case-study-header">
           <div class="case-study-header-copy"></div>
           <div class="case-study-stage">
-            <div class="case-study-gallery" data-case-gallery>
-              <div
-                class="case-study-gallery-main"
-                aria-label="Media 1 of ${study.gallery.length}"
-              >
-                <figure class="case-study-hero-media" data-case-hero-media></figure>
-              </div>
-              <div class="case-study-gallery-controls">
-                <div class="case-study-thumbs" aria-label="Project gallery">
-                  ${galleryMarkup}
-                </div>
-                <div class="case-study-gallery-nav">
-                  <p class="case-study-gallery-count" data-case-inline-count>1 / ${study.gallery.length}</p>
-                  <div class="case-study-gallery-nav-buttons">
-                    <button class="case-study-gallery-arrow" type="button" data-case-inline-prev aria-label="Previous image">‹</button>
-                    <button class="case-study-gallery-arrow" type="button" data-case-inline-next aria-label="Next image">›</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ${mediaMarkup}
           </div>
         </div>
 
