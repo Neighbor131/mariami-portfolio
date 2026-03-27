@@ -937,8 +937,7 @@ export const caseStudies = [
     description:
       "A person who is berserk is often associated with being crazy. We also have a word for it called 'shmagi'\n\nAs I worked, my spiky letters began to take shape, and when I arranged the word vertically, I saw precisely the kind of madman I was looking for.\nIt also inspired my art",
     path: "/works/digital-works/digital-works-02/",
-    heroImage:
-      "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Screenshot%202026-03-28%20at%2003.27.47.png",
+    heroImage: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png",
     heroImagePosition: "50% 50%",
     gallery: [
       { src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/605044182431685.652dd8b1c2f98.gif", alt: "Berserk Typography image 1" },
@@ -1314,8 +1313,7 @@ export const workCategories = [
       },
       {
         title: "Berserk Typography",
-        image:
-          "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Screenshot%202026-03-28%20at%2003.27.47.png",
+        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png",
         imagePosition: "50% 50%",
         href: "/works/digital-works/digital-works-02/",
         meta: "",
@@ -1331,7 +1329,8 @@ export const workCategories = [
       },
       {
         title: "BadDevi",
-        image: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/digital%20works/typography.png",
+        image:
+          "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/about%20me/Screenshot%202026-03-28%20at%2003.27.47.png",
         imagePosition: "50% 50%",
         href: "/works/digital-works/digital-works-04/",
         meta: "",
