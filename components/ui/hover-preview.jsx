@@ -88,6 +88,52 @@ const staticMediaBlueprint = [
   },
 ];
 
+const STATIC_LAYOUT_BASE = { width: 420, height: 720 };
+
+function scaleStaticItems(canvasSize) {
+  const isMobile = canvasSize.width <= 720;
+  return staticMediaBlueprint.map((item, index) => {
+    const widthLimit = isMobile
+      ? canvasSize.width * (item.secondary ? 0.68 : 0.78)
+      : item.width;
+    const width = Math.min(item.width, Math.max(176, widthLimit));
+    const maxX = Math.max(0, canvasSize.width - width);
+    const x = Math.max(
+      0,
+      Math.min(maxX, (item.x / STATIC_LAYOUT_BASE.width) * canvasSize.width)
+    );
+    const y = Math.max(
+      0,
+      (item.y / STATIC_LAYOUT_BASE.height) * canvasSize.height
+    );
+
+    return {
+      ...item,
+      width,
+      x,
+      y,
+      zIndex: index + 1,
+    };
+  });
+}
+
+function scaleCollageItems(canvasSize) {
+  const isMobile = canvasSize.width <= 720;
+  return collageBlueprint.map((item, index) => {
+    const widthLimit = isMobile ? canvasSize.width * 0.44 : item.width;
+    const width = Math.min(item.width, Math.max(132, widthLimit));
+    const maxX = Math.max(0, canvasSize.width - width);
+
+    return {
+      ...item,
+      width,
+      zIndex: index + 1,
+      x: Math.max(0, Math.min(maxX, canvasSize.width * item.x)),
+      y: Math.max(0, canvasSize.height * item.y),
+    };
+  });
+}
+
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
@@ -159,6 +205,8 @@ const styles = `
   .cheko-hover-preview__media-stack {
     position: relative;
     min-height: 720px;
+    overflow: hidden;
+    isolation: isolate;
     opacity: 0;
     transform: translate3d(-28px, 42px, 0) rotate(-4deg);
     transition: opacity 0.85s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
@@ -206,6 +254,8 @@ const styles = `
   .cheko-hover-preview__collage {
     position: relative;
     min-height: clamp(640px, 72vw, 860px);
+    overflow: hidden;
+    isolation: isolate;
     opacity: 0;
     transform: translate3d(28px, 42px, 0);
     transition: opacity 0.85s ease, transform 1s cubic-bezier(0.22, 1, 0.36, 1);
@@ -357,6 +407,16 @@ const styles = `
       width: 100%;
     }
 
+    .cheko-hover-preview__section--static .cheko-hover-preview__text,
+    .cheko-hover-preview__section--collage .cheko-hover-preview__text {
+      order: 1;
+    }
+
+    .cheko-hover-preview__media-stack,
+    .cheko-hover-preview__collage {
+      order: 2;
+    }
+
     .cheko-hover-preview__collage {
       min-height: 620px;
     }
@@ -370,14 +430,15 @@ const styles = `
     .cheko-hover-preview {
       width: min(calc(100% - 32px), 1280px);
       padding-bottom: 40px;
+      gap: 72px;
     }
 
     .cheko-hover-preview__collage {
-      min-height: 520px;
+      min-height: 440px;
     }
 
     .cheko-hover-preview__media-stack {
-      min-height: 620px;
+      min-height: 420px;
     }
 
     .cheko-hover-preview__card {
@@ -476,22 +537,13 @@ export function HoverPreview() {
   const dragStateRef = useRef(null);
 
   const derivedStaticItems = useMemo(
-    () =>
-      staticMediaBlueprint.map((item, index) => ({
-        ...item,
-        zIndex: index + 1,
-      })),
-    []
+    () => scaleStaticItems(staticCanvasSize),
+    [staticCanvasSize]
   );
 
   const derivedItems = useMemo(
     () =>
-      collageBlueprint.map((item, index) => ({
-        ...item,
-        zIndex: index + 1,
-        x: Math.max(0, canvasSize.width * item.x),
-        y: Math.max(0, canvasSize.height * item.y),
-      })),
+      scaleCollageItems(canvasSize),
     [canvasSize.height, canvasSize.width]
   );
 
@@ -635,8 +687,8 @@ export function HoverPreview() {
       if (!dragState || !canvasNode) return;
 
       const rect = canvasNode.getBoundingClientRect();
-      const activeBlueprint = staticMediaBlueprint.find((item) => item.id === dragState.id);
-      const cardWidth = activeBlueprint?.width || 320;
+      const activeItem = staticItems.find((item) => item.id === dragState.id);
+      const cardWidth = activeItem?.width || 320;
       const maxX = Math.max(0, rect.width - cardWidth);
       const maxY = Math.max(0, rect.height - 160);
       const nextX = Math.max(0, Math.min(maxX, event.clientX - rect.left - dragState.offsetX));
@@ -676,8 +728,8 @@ export function HoverPreview() {
       if (!dragState || !canvasNode) return;
 
       const rect = canvasNode.getBoundingClientRect();
-      const activeBlueprint = collageBlueprint.find((item) => item.id === dragState.id);
-      const cardWidth = activeBlueprint?.width || 220;
+      const activeItem = items.find((item) => item.id === dragState.id);
+      const cardWidth = activeItem?.width || 220;
       const maxX = Math.max(0, rect.width - cardWidth);
       const maxY = Math.max(0, rect.height - 160);
       const nextX = Math.max(0, Math.min(maxX, event.clientX - rect.left - dragState.offsetX));
