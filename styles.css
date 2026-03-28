@@ -2956,13 +2956,13 @@ body[data-theme="light"] .footer-social-link:hover {
   }
 
   .site-footer {
-    padding: 96px 20px 20px;
+    padding: 96px 14px 20px;
   }
 
   .footer-stage {
-    width: min(100%, 375px);
+    width: 100%;
     min-height: 431px;
-    padding: 40px 20px 20px;
+    padding: 40px 14px 20px;
   }
 
   .footer-grid {
