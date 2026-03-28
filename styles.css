@@ -2774,15 +2774,26 @@ body[data-theme="light"] .footer-social-link:hover {
 
   .about-aside {
     grid-column: 1 / -1;
-    width: min(100%, 320px);
-    justify-self: end;
+    width: 100%;
+    max-width: 340px;
+    justify-self: center;
     gap: 20px;
+  }
+
+  .about-visual {
+    aspect-ratio: auto;
+  }
+
+  .about-visual img {
+    height: auto;
+    object-fit: contain;
   }
 
   .about-player {
     position: static;
     width: 100%;
     margin-left: 0;
+    justify-self: center;
   }
 
   .about-main-text {
