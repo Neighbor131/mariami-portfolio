@@ -53,6 +53,11 @@ const footerSocialLinks = [
   },
 ];
 
+const footerNavLinks = [
+  { href: "/about/", label: "About Me" },
+  { href: "/contact/", label: "Contact" },
+];
+
 const homeGalleryItems = [
   {
     src: "https://acelimjeofnokdaxogal.supabase.co/storage/v1/object/public/photos/roboti/1.png",
@@ -255,32 +260,18 @@ function syncSiteChrome() {
   });
 
   document.querySelectorAll(".footer-bottom").forEach((node) => {
-    const isContactOnly = path === "/contact/";
-    const links = isContactOnly
-      ? [
-          { href: "/", label: "Home" },
-          { href: "/about/", label: "About Me" },
-        ]
-      : [
-          { href: "/about/", label: "About Me" },
-          { href: "/contact/", label: "Contact" },
-        ];
-
     node.innerHTML = `
       <p>Cheko's Space</p>
       <div class="footer-links">
-        ${links.map(({ href, label }) => `<a href="${href}">${label}</a>`).join("")}
+        ${footerNavLinks.map(({ href, label }) => `<a href="${href}">${label}</a>`).join("")}
       </div>
     `;
   });
 
   document.querySelectorAll('.footer-nav-block .footer-links').forEach((node) => {
-    const aboutLink = node.querySelector('a[href="/about/"]');
-    if (aboutLink) {
-      aboutLink.textContent = "About Me";
-    } else {
-      node.insertAdjacentHTML("afterbegin", '<a href="/about/">About Me</a>');
-    }
+    node.innerHTML = footerNavLinks
+      .map(({ href, label }) => `<a href="${href}">${label}</a>`)
+      .join("");
   });
 
   document.querySelectorAll(".footer-side").forEach((node) => {
