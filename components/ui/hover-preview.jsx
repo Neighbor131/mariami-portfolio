@@ -134,6 +134,27 @@ function scaleCollageItems(canvasSize) {
   });
 }
 
+function getDragBounds(rect, itemWidth, isMobile) {
+  if (isMobile) {
+    return {
+      minX: 0,
+      maxX: Math.max(0, rect.width - itemWidth),
+      minY: 0,
+      maxY: Math.max(0, rect.height - 160),
+    };
+  }
+
+  const horizontalBleed = Math.min(96, rect.width * 0.12);
+  const verticalBleed = Math.min(84, rect.height * 0.12);
+
+  return {
+    minX: -horizontalBleed,
+    maxX: Math.max(-horizontalBleed, rect.width - itemWidth + horizontalBleed),
+    minY: -verticalBleed,
+    maxY: Math.max(-verticalBleed, rect.height - 160 + verticalBleed),
+  };
+}
+
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
@@ -205,7 +226,7 @@ const styles = `
   .cheko-hover-preview__media-stack {
     position: relative;
     min-height: 720px;
-    overflow: hidden;
+    overflow: visible;
     isolation: isolate;
     opacity: 0;
     transform: translate3d(-28px, 42px, 0) rotate(-4deg);
@@ -254,7 +275,7 @@ const styles = `
   .cheko-hover-preview__collage {
     position: relative;
     min-height: clamp(640px, 72vw, 860px);
-    overflow: hidden;
+    overflow: visible;
     isolation: isolate;
     opacity: 0;
     transform: translate3d(28px, 42px, 0);
@@ -435,10 +456,12 @@ const styles = `
 
     .cheko-hover-preview__collage {
       min-height: 440px;
+      overflow: hidden;
     }
 
     .cheko-hover-preview__media-stack {
       min-height: 420px;
+      overflow: hidden;
     }
 
     .cheko-hover-preview__card {
@@ -689,10 +712,15 @@ export function HoverPreview() {
       const rect = canvasNode.getBoundingClientRect();
       const activeItem = staticItems.find((item) => item.id === dragState.id);
       const cardWidth = activeItem?.width || 320;
-      const maxX = Math.max(0, rect.width - cardWidth);
-      const maxY = Math.max(0, rect.height - 160);
-      const nextX = Math.max(0, Math.min(maxX, event.clientX - rect.left - dragState.offsetX));
-      const nextY = Math.max(0, Math.min(maxY, event.clientY - rect.top - dragState.offsetY));
+      const bounds = getDragBounds(rect, cardWidth, window.innerWidth <= 720);
+      const nextX = Math.max(
+        bounds.minX,
+        Math.min(bounds.maxX, event.clientX - rect.left - dragState.offsetX)
+      );
+      const nextY = Math.max(
+        bounds.minY,
+        Math.min(bounds.maxY, event.clientY - rect.top - dragState.offsetY)
+      );
 
       setStaticItems((current) =>
         current.map((item) =>
@@ -730,10 +758,15 @@ export function HoverPreview() {
       const rect = canvasNode.getBoundingClientRect();
       const activeItem = items.find((item) => item.id === dragState.id);
       const cardWidth = activeItem?.width || 220;
-      const maxX = Math.max(0, rect.width - cardWidth);
-      const maxY = Math.max(0, rect.height - 160);
-      const nextX = Math.max(0, Math.min(maxX, event.clientX - rect.left - dragState.offsetX));
-      const nextY = Math.max(0, Math.min(maxY, event.clientY - rect.top - dragState.offsetY));
+      const bounds = getDragBounds(rect, cardWidth, window.innerWidth <= 720);
+      const nextX = Math.max(
+        bounds.minX,
+        Math.min(bounds.maxX, event.clientX - rect.left - dragState.offsetX)
+      );
+      const nextY = Math.max(
+        bounds.minY,
+        Math.min(bounds.maxY, event.clientY - rect.top - dragState.offsetY)
+      );
 
       setItems((current) =>
         current.map((item) =>
